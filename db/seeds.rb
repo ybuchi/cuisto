@@ -11,7 +11,7 @@ Ingredient.create!(ingredient_name: "basmati rice", ingredient_type: "pasta, ric
 puts "Ingredients harvested!"
 
 puts "Creating Cuistos..."
-User.create!(first_name: "Bob", last_name: "Charonne", email: "b.charonne@wikiwiki.com", username: "bchar", password: "password", birthday: "1995-08-14", bio: "I love to cook!")
+User.create!(first_name: "Bob", last_name: "Charonne", email: "b.charonne@wikiwiki.com", username: "bchar", password_digest: "#{User.digest('password')}", birthday: "1995-08-14", bio: "I love to cook!")
 puts "Cuistos are ready to cook!"
 
 puts "Creating Pantries for food storage..."
