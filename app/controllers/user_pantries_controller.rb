@@ -1,0 +1,2 @@
+class UserPantriesController < ApplicationController
+end

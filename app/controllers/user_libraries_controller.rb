@@ -1,0 +1,2 @@
+class UserLibrariesController < ApplicationController
+end
