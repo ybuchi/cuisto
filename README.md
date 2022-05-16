@@ -1,11 +1,39 @@
-# Project Template: React/Rails API
+# Cuisto: The Best Cooking App for Home Chefs
 
-## Description
+
+## Project Overview
+
+### **What is Cuisto?**
+
+Cuisto is an app designed to facilitate the cooking process while simultaneously giving home chefs a more interactive and educational experience. The main features of the app are as follows:
+
+- _Tracking ingredients in your fridge / pantry_: when a user selects a recipe to cook, the app will automatically keep track of the ingredients that were used in making that recipe and deduct it from the user's pantry while notifying them of ingredients to add to their shopping list. 
+
+- _Build and save recipes that interact with your fridge/pantry_: a user can write their own recipes which, when saved, will be added to the user's library and will interact with the fridge and pantry. For example, if a user has enough ingredients for that recipe, it will show up as recommended recipe on the user's dashboard. 
+
+- _Simple, readable UI for a seamless cooking experience_: when a user selects a recipe, they can enable the "cooking mode" which will display each step of the recipe in a clear, readable way and provide tools such as timers and materials needed to cook it.
+
+- _Share recipes, cook with your friends!:_: at Cuisto, we believe that cooking is an essential part of everyday life. So why not make it a fun experience that you can share with friends and family? With Cuisto, a user can share recipes publicly, or simply with friends and family. They also have the option to create or join a cooking club where they can divide shopping and cooking tasks within their cooking group. 
+
+- _Discover, rate and review your favorite recipes:_ a user can browse for recipes create by other users and made public and save them in their library.
+
+## Technologies (Overview)
+This section gives a rundown of the major technologies used to build this application.
+
+1. React (front-end)
+2. Ruby-on-Rails (back-end API)
+3. PostgreSQL (database)
+
+## Technologies (Detailed)
+This section gives detailed information about techniques and technologies used to create the front-end and the back-end of the application.
+
+
+### 1. **Project Template & Deployment Setup**
 
 This project is scaffolded so that you can build a React frontend and Rails
 backend together, and easily deploy them to Heroku.
 
-## Requirements
+#### _Requirements_
 
 - Ruby 2.7.4
 - NodeJS (v16), and npm
@@ -124,9 +152,9 @@ You can view your deployed app with:
 heroku open
 ```
 
-## Environment Setup
+### 2. Environment Setup
 
-### Install the Latest Ruby Version
+#### _a. Install the Latest Ruby Version_
 
 Verify which version of Ruby you're running by entering this in the terminal:
 
@@ -154,7 +182,7 @@ gem install rails
 
 [supported runtimes]: https://devcenter.heroku.com/articles/ruby-support#supported-runtimes
 
-### Install NodeJS
+#### _b. Install NodeJS_
 
 Verify you are running a recent version of Node with:
 
@@ -177,12 +205,12 @@ You can also update your npm version with:
 npm i -g npm
 ```
 
-### Sign Up for a [Heroku Account][heroku signup]
+#### _c. Sign Up for a [Heroku Account][heroku signup]_
 
 You can sign up at for a free account at
 [https://signup.heroku.com/devcenter][heroku signup].
 
-### Download the [Heroku CLI][heroku cli] Application
+#### _d. Download the [Heroku CLI][heroku cli] Application_
 
 Download the Heroku CLI. For OSX users, you can use Homebrew:
 
@@ -212,14 +240,14 @@ logging in, close the browser window and return to the terminal. You can run
 [heroku signup]: https://signup.heroku.com/devcenter
 [heroku cli]: https://devcenter.heroku.com/articles/heroku-cli#download-and-install
 
-### Install Postgresql
+#### _e. Install Postgresql_
 
 Heroku requires that you use PostgreSQL for your database instead of SQLite.
 PostgreSQL (or just Postgres for short) is an advanced database management
 system with more features than SQLite. If you don't already have it installed,
 you'll need to set it up.
 
-#### PostgreSQL Installation for WSL
+#### _PostgreSQL Installation for WSL_
 
 To install Postgres for WSL, run the following commands from your Ubuntu terminal:
 
@@ -268,7 +296,7 @@ get stuck.
 
 [postgresql wsl]: https://docs.microsoft.com/en-us/windows/wsl/tutorials/wsl-database#install-postgresql
 
-#### Postgresql Installation for OSX
+##### _Postgresql Installation for OSX_
 
 To install Postgres for OSX, you can use Homebrew:
 
@@ -283,7 +311,7 @@ service:
 brew services start postgresql
 ```
 
-## Troubleshooting
+### 3. Troubleshooting
 
 If you ran into any errors along the way, here are some things you can try to
 troubleshoot:
@@ -325,3 +353,5 @@ For additional support, check out these guides on Heroku:
 [postgres downloads page]: https://postgresapp.com/downloads.html
 [heroku rails deploying guide]: https://devcenter.heroku.com/articles/getting-started-with-rails6
 [troubleshooting guide on heroku]: https://devcenter.heroku.com/articles/getting-started-with-rails6#troubleshooting
+
+### **2. Back-End Configuration and Models**
