@@ -11,7 +11,9 @@ Rails.application.routes.draw do
 
    # Custom routes for login/logout
    post "/login", to: "sessions#create"
-  #  delete "/logout", to: "sessions#destroy"
+   delete "/logout", to: "sessions#destroy"
+   # Custom route to stay logged in
+  get "/auth", to: "sessions#show"
 
   # Routing logic: fallback requests for React Router.
   # Leave this here to help deploy your app later!

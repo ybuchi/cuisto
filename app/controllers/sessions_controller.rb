@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-    skip_before_action :authorize, only: [:create, :show]
+    skip_before_action :authorize, only: [:create, :show, :destroy]
 
     def show
         current_user = User.find(session[:user_id])
@@ -19,4 +19,8 @@ class SessionsController < ApplicationController
             render json: {error: {login: "Invalid Username or Password"}}, status: :unauthorized
         end
     end
+    
+    def destroy
+        session.delete :user_id
+      end
 end

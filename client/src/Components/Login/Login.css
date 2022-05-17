@@ -1,0 +1,9 @@
+menu {
+    padding: 40px;
+}
+menu header {
+    text-align: center
+}
+#login-logo{
+    width: 200px;
+}
