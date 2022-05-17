@@ -5,12 +5,15 @@ import {
 } from "react-router-dom";
 import './index.css';
 import App from './App';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import NavBar from './Components/NavBar/NavBar';
 
 import reportWebVitals from './reportWebVitals';
 
 
 ReactDOM.render(
   <BrowserRouter>
+    <NavBar/>
     <App/>
   </BrowserRouter>,
   document.getElementById('root')
