@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { UserContext } from "../Contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import logo from "../Images/Logos/3.png"
 import Form from 'react-bootstrap/Form';
 import Button from "react-bootstrap/Button";
+import useLoginState from "../CustomHooks/useLoginState";
 
 function Login(){
-    
+    useLoginState();
     const [loginForm, setLoginForm] = useState({
         username: "",
         password: ""
     });
+
+    const { isLoggedIn, setIsLoggedIn } = useContext(UserContext)
 
     const navigate = useNavigate();
 
@@ -32,6 +36,7 @@ function Login(){
             if (res.ok){
                 res.json().then(loginResponse => {
                     console.log("Login Response", loginResponse)
+                    setIsLoggedIn(true)
                     navigate('/dashboard')
                 })
             }else{
