@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../Contexts/UserContext";
+import useLoginState from "../CustomHooks/useLoginState";
 import "./NavBar.css";
 import logo from "../Images/Logos/4.png";
 import Nav from 'react-bootstrap/Nav';
@@ -7,6 +10,36 @@ import Container from 'react-bootstrap/Container';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
 function NavBar(){
+    useLoginState();
+
+    const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
+    const navigate = useNavigate();
+
+    const navLinks = isLoggedIn ? <Nav className="justify-content-end flex-grow-1 pe-3">
+                                    <Nav.Link href="/">Home</Nav.Link>
+                                    <Nav.Link href="dashboard">Dashboard</Nav.Link>
+                                    <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+                                  </Nav> : <Nav className="justify-content-end flex-grow-1 pe-3">
+                                              <Nav.Link href="/">Home</Nav.Link>
+                                              <Nav.Link href="login" >Login</Nav.Link>
+                                           </Nav>
+    
+    function handleLogout(e){
+      e.preventDefault();
+      const configObj = {
+          method: "DELETE"
+      }
+
+      fetch("/logout", configObj)
+      .then(res => {
+          if (res.ok){
+              console.log("logged out");
+              setIsLoggedIn(false) ;
+              navigate("login");
+          }
+      })
+  }
+
     return(
         //Have a conditional statement to render a different NavBar based on whether a user is signed in. 
         <Navbar  bg="light" expand={"sm"} className="mb-3">
@@ -24,10 +57,7 @@ function NavBar(){
             </Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
-            <Nav className="justify-content-end flex-grow-1 pe-3">
-              <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="login">Login</Nav.Link>
-            </Nav>
+            {navLinks}
           </Offcanvas.Body>
         </Navbar.Offcanvas>
       </Container>

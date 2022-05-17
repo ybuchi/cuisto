@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-    skip_before_action :authorize, only: [:create, :show]
+    skip_before_action :authorize, only: [:create, :show, :destroy]
 
     def show
         current_user = User.find(session[:user_id])
