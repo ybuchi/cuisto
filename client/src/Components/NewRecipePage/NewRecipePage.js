@@ -48,16 +48,16 @@ function NewRecipePage(){
                 <h4>Ingredient {index + 1}</h4>
                 <Container>
                     <Row>
-                        <Col>
-                            <Form.Label>Ingredient Name: </Form.Label>
+                        <Col sm={8} lg={7}>
+                            <Form.Label>Ingredient Name:</Form.Label>
                             <Form.Control type="text"/>
                         </Col>
-                        <Col>
+                        <Col sm={4} lg={4}>
                             <Form.Label>Amount:</Form.Label>
                             <Form.Control type="number"/>
                         </Col>
-                        <Col>
-                            <Button onClick={handleRemoveIngredient} name={index}>Remove</Button>
+                        <Col sm={12} lg={1}>
+                            <Button variant="danger" onClick={handleRemoveIngredient} name={index}>Remove</Button>
                         </Col>
                     </Row>
                 </Container>
@@ -68,15 +68,14 @@ function NewRecipePage(){
     const mappedStepsInputs = stepsData.map((step, index) => {
         return(
             <Form.Group key={index}>
-
                 <Container >
                     <Row>
-                        <Col>
+                        <Col sm={12} md={11}>
                             <Form.Label>Step {index + 1}</Form.Label>
                             <Form.Control type="text"/>
                         </Col>
-                        <Col>
-                            <Button onClick={handleRemoveStep} name={index}>Remove</Button>
+                        <Col sm={12} md={1}>
+                            <Button variant="danger" onClick={handleRemoveStep} name={index}>Remove</Button>
                         </Col>
                     </Row>
                 </Container>
