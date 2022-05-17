@@ -6,45 +6,83 @@ import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 
 function NewRecipePage(){
-    const [ingredientInputNumber, setIngredientInputNumber] = useState(2);
-    const [stepInputNumber, setStepInputNumber ] = useState(1);
-    //We need a for loop for Number of Ingredients and Number of Steps
+    const [recipeMetadata, setRecipeMetadata] = useState({
+        recipe_name : "",
+        cuisine : "",
+        time_to_cook : null,
+        diet : ""
+    })
+    const [ingredientData, setIngredientData] = useState ([{
+        ingredient_name : "",
+        amount : null 
+    }])
+    const [stepsData, setStepsData] = useState([""])
 
-    function handleAddInput(e){
-        console.log(e.target.name)
-        const inputName = e.target.name
+    function handleAddIngredient(){
+        setIngredientData([...ingredientData, {
+            ingredient_name : "",
+            amount : null
+        }])
+    }
+    function handleAddRecipeStep(){
+        setStepsData([...stepsData, ""])
+    }
 
-        if (inputName === "ingredient-input"){
-            let newIngredientInputNumber = ingredientInputNumber + 1
-            setIngredientInputNumber(newIngredientInputNumber);
-        }else if (inputName === "step-input"){
-            let newStepInputNumber = stepInputNumber + 1
-            setStepInputNumber(newStepInputNumber);
-        }
+    function handleRemoveIngredient(e){
+        const ingredientIndex = e.target.name
+        const updatedIngredientData = ingredientData.filter((ingredient, index ) => { return index.toString() !== ingredientIndex})
+        setIngredientData(updatedIngredientData);
+        console.log(updatedIngredientData);
+    }
+    function handleRemoveStep(e){
+        const stepIndex = e.target.name
+        const updatedSteps = stepsData.filter((ingredient, index) => {return index.toString() !== stepIndex })
+        setStepsData(updatedSteps);
     }
 
 
-    function mapIngredientInputs(){
-        // let ingredientInputs = []
-        console.log(ingredientInputNumber)
-        let inputIndices = []
-        for (let i = 0; i < ingredientInputNumber; i++){
-            inputIndices.push(i)
-            console.log("This is i:", inputIndices);
-        }
-
-        return inputIndices
-    }
-
-    const mappedIngredientInputs = mapIngredientInputs().map(inputIndex => {
+    const mappedIngredientInputs = ingredientData.map((ingredientObject, index) => {
         return(
-            <Form.Group>
-                <Form.Label>Ingredient {inputIndex + 1} </Form.Label>
-                <Form.Control/>
+            
+            <Form.Group key={index}>
+                <h4>Ingredient {index + 1}</h4>
+                <Container>
+                    <Row>
+                        <Col>
+                            <Form.Label>Ingredient Name: </Form.Label>
+                            <Form.Control type="text"/>
+                        </Col>
+                        <Col>
+                            <Form.Label>Amount:</Form.Label>
+                            <Form.Control type="number"/>
+                        </Col>
+                        <Col>
+                            <Button onClick={handleRemoveIngredient} name={index}>Remove</Button>
+                        </Col>
+                    </Row>
+                </Container>
             </Form.Group>
         )
-    });
+    })
 
+    const mappedStepsInputs = stepsData.map((step, index) => {
+        return(
+            <Form.Group key={index}>
+
+                <Container >
+                    <Row>
+                        <Col>
+                            <Form.Label>Step {index + 1}</Form.Label>
+                            <Form.Control type="text"/>
+                        </Col>
+                        <Col>
+                            <Button onClick={handleRemoveStep} name={index}>Remove</Button>
+                        </Col>
+                    </Row>
+                </Container>
+            </Form.Group>
+        )
+    })
     return(
         <>
         <h1>Create a New Recipe</h1>
@@ -98,15 +136,15 @@ function NewRecipePage(){
                     <h3>Ingredients</h3>
                     <Col>
                         {mappedIngredientInputs}
-                        <Button onClick={handleAddInput} name="ingredient-input">Add Ingredient</Button>
+                        <Button  onClick={handleAddIngredient} name="ingredient-input">Add Another Ingredient</Button>
                     </Col>
                 </Row>
                 <hr/>
                 <Row>
                     <h3>Recipe Steps</h3>
                     <Col>
-                        
-                        <Button onClick={handleAddInput} name="step-input">Add Step</Button>
+                        {mappedStepsInputs}
+                        <Button onClick={handleAddRecipeStep} name="step-input">Add Another Step</Button>
                     </Col>
                 </Row>
                 <Button type="submit">Create Recipe</Button>
