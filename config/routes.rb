@@ -15,6 +15,7 @@ Rails.application.routes.draw do
    # Custom route to stay logged in
   get "/auth", to: "sessions#show"
 
+  post "/store-user-recipe", to: "users#store_recipe"
   # Routing logic: fallback requests for React Router.
   # Leave this here to help deploy your app later!
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }

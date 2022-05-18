@@ -81,6 +81,11 @@ function NewRecipePage(){
         newStepsDataArray[stepIndex] = e.target.value
         setStepsData(newStepsDataArray);
     }
+
+    function handleNewRecipeSubmission(){
+        console.log("Working on this soon!")
+    };
+
     const mappedIngredientInputs = ingredientData.map((ingredientObject, index) => {
         return(
             
@@ -134,7 +139,7 @@ function NewRecipePage(){
     return(
         <>
         <h1>Create a New Recipe</h1>
-        <Form>
+        <Form onSubmit={handleNewRecipeSubmission}>
             <Container>
                 <Row>
                     <h3>Recipe Metadata</h3>

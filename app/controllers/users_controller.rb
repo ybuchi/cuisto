@@ -10,6 +10,14 @@ class UsersController < ApplicationController
     def show
         render json: @user
     end
+
+    def store_recipe
+        #Create new Recipe and UserRecipe instances of the recipe
+        newRecipe = Recipe.create!(recipe_params)
+        newUserRecipe = UserLibrary.create!(user_id: session[:user_id], recipe_id: newRecipe.id)
+        render json: newUserRecipe.recipe
+    end
+
     private
 
     def find_user
@@ -19,5 +27,8 @@ class UsersController < ApplicationController
     def user_params
         params.permit(:username, :password, :first_name, :last_name, :birthday, :new_username, :new_password)
     #can a user assign their own default club id?
+    end
+    def recipe_params
+        params.permit(:recipe_name, :cuisine, :time_to_cook_min, :diet, :description, :image, :steps)
     end
 end
