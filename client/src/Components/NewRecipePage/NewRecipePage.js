@@ -57,6 +57,19 @@ function NewRecipePage(){
     function handleRecipeMetadataChange(e){
         setRecipeMetadata({...recipeMetadata, [e.target.name] : e.target.value})
     }
+    function handleIngredientDataChange(e){
+        const ingredientIndex = e.target.name.replace(/\D/g,'')
+        const inputName = e.target.name.replace(/[0-9]/g, '').slice(0, -1)
+
+        const newObject = {...ingredientData[ingredientIndex], [inputName] : e.target.value}
+        console.log(newObject);
+        
+        const updatedIngredientsArray = [...ingredientData]
+        updatedIngredientsArray[ingredientIndex] = newObject 
+        console.log(updatedIngredientsArray);
+
+        setIngredientData(updatedIngredientsArray);
+    }
 
     const mappedIngredientInputs = ingredientData.map((ingredientObject, index) => {
         return(
@@ -67,11 +80,17 @@ function NewRecipePage(){
                     <Row>
                         <Col sm={8} lg={7}>
                             <Form.Label>Ingredient Name:</Form.Label>
-                            <Form.Control type="text"/>
+                            <Form.Control type="text"
+                                          name={`ingredient_name-${index}`}
+                                          value={ingredientData[index].ingredient_name}
+                                          onChange={handleIngredientDataChange}/>
                         </Col>
                         <Col sm={4} lg={4}>
                             <Form.Label>Amount:</Form.Label>
-                            <Form.Control type="number"/>
+                            <Form.Control type="number"
+                                          name={`amount-${index}`}
+                                          value={ingredientData[index].amount}
+                                          onChange={handleIngredientDataChange}/>
                         </Col>
                         <Col sm={12} lg={1}>
                             <Button variant="danger" onClick={handleRemoveIngredient} name={index}>Remove</Button>
