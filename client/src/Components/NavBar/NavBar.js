@@ -17,11 +17,11 @@ function NavBar(){
     const navigate = useNavigate();
 
     const navLinks = isLoggedIn ? <Nav className="justify-content-end flex-grow-1 pe-3">
-                                    <Nav.Link href="/">Home</Nav.Link>
                                     <Nav.Link href="dashboard">Dashboard</Nav.Link>
-                                    <Nav.Link href="dashboard">Recipy Library</Nav.Link>
-                                    <Nav.Link href="dashboard">Pantries</Nav.Link>
-                                    <Nav.Link href="dashboard">Clubs</Nav.Link>
+                                    <Nav.Link href="recipe-library">Recipy Library</Nav.Link>
+                                    <Nav.Link href="pantries">Pantries</Nav.Link>
+                                    <Nav.Link href="clubs">Clubs</Nav.Link>
+                                    <Nav.Link href="profile">Profile</Nav.Link>
                                     <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
                                   </Nav> : <Nav className="justify-content-end flex-grow-1 pe-3">
                                               <Nav.Link href="/">Home</Nav.Link>

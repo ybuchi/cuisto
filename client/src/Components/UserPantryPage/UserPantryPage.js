@@ -1,9 +1,9 @@
 import React from "react";
 
-function UserPantry(){
+function UserPantryPage(){
     return(
         <h1>UserPantry</h1>
     )
 }
 
-export default UserPantry;
+export default UserPantryPage;
