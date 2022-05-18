@@ -6,40 +6,57 @@ import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 
 function NewRecipePage(){
+
+   //This state takes care of the recipe metadata  
     const [recipeMetadata, setRecipeMetadata] = useState({
         recipe_name : "",
         cuisine : "",
-        time_to_cook : null,
-        diet : ""
+        time_to_cook_min : "",
+        diet : "",
+        description: "",
+        image: ""
     })
+
+    //This state takes care of the ingredients
     const [ingredientData, setIngredientData] = useState ([{
         ingredient_name : "",
-        amount : null 
+        amount : "" 
     }])
+
+    //This state takes care of the recipe steps which will be sent along with the recipe metadata
     const [stepsData, setStepsData] = useState([""])
 
+    //Adds an ingredient input
     function handleAddIngredient(){
         setIngredientData([...ingredientData, {
             ingredient_name : "",
             amount : null
         }])
     }
+    
+    //Adds a recipe step input
     function handleAddRecipeStep(){
         setStepsData([...stepsData, ""])
     }
 
+    //Removes an ingredient input
     function handleRemoveIngredient(e){
         const ingredientIndex = e.target.name
         const updatedIngredientData = ingredientData.filter((ingredient, index ) => { return index.toString() !== ingredientIndex})
         setIngredientData(updatedIngredientData);
         console.log(updatedIngredientData);
     }
+
+    //Removes recipe step input
     function handleRemoveStep(e){
         const stepIndex = e.target.name
         const updatedSteps = stepsData.filter((ingredient, index) => {return index.toString() !== stepIndex })
         setStepsData(updatedSteps);
     }
 
+    function handleRecipeMetadataChange(e){
+        setRecipeMetadata({...recipeMetadata, [e.target.name] : e.target.value})
+    }
 
     const mappedIngredientInputs = ingredientData.map((ingredientObject, index) => {
         return(
@@ -92,25 +109,37 @@ function NewRecipePage(){
                     <Col sm={8} md={5}>
                         <Form.Group>
                             <Form.Label>Recipe Name</Form.Label>
-                            <Form.Control type="text"/>
+                            <Form.Control type="text"
+                                          name="recipe_name"
+                                          value={recipeMetadata.recipe_name}
+                                          onChange={handleRecipeMetadataChange}/>
                         </Form.Group>
                     </Col>
                     <Col sm={4} md={3}>
                         <Form.Group>
                             <Form.Label>Cuisine</Form.Label>
-                            <Form.Control type="text"/>
+                            <Form.Control type="text"
+                                          name="cuisine"
+                                          value={recipeMetadata.cuisine}
+                                          onChange={handleRecipeMetadataChange}/>
                         </Form.Group>
                     </Col>
                     <Col sm={4} md={2}>
                         <Form.Group>
                             <Form.Label>Time to Cook</Form.Label>
-                            <Form.Control type="number"/>
+                            <Form.Control type="number"
+                                          name="time_to_cook_min"
+                                          value={recipeMetadata.time_to_cook_min}
+                                          onChange={handleRecipeMetadataChange}/>
                         </Form.Group>
                     </Col>
                     <Col sm={8} md={2}>
                         <Form.Group>
                             <Form.Label>Diet</Form.Label>
-                            <Form.Control type="text"/>
+                            <Form.Control type="text"
+                                          name="diet"
+                                          value={recipeMetadata.diet}
+                                          onChange={handleRecipeMetadataChange}/>
                         </Form.Group>
                     </Col>
                 </Row>
@@ -118,7 +147,10 @@ function NewRecipePage(){
                     <Col>
                         <Form.Group>
                             <Form.Label>Short Description</Form.Label>
-                            <Form.Control type="text"/>
+                            <Form.Control type="text"
+                                          name="description"
+                                          value={recipeMetadata.description}
+                                          onChange={handleRecipeMetadataChange}/>
                         </Form.Group>
                     </Col>
                 </Row>
@@ -126,7 +158,10 @@ function NewRecipePage(){
                     <Col>
                         <Form.Group>
                             <Form.Label>Image</Form.Label>
-                            <Form.Control type="file"/>
+                            <Form.Control type="file"
+                                          name="image"
+                                          value={recipeMetadata.image}
+                                          onChange={handleRecipeMetadataChange}/>
                         </Form.Group>
                     </Col>
                 </Row>
