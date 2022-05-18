@@ -82,8 +82,25 @@ function NewRecipePage(){
         setStepsData(newStepsDataArray);
     }
 
-    function handleNewRecipeSubmission(){
-        console.log("Working on this soon!")
+    function handleNewRecipeSubmission(e){
+        e.preventDefault();
+        //We currently have 3 states. Two are for recipe metadata. One is for ingredients.
+        //We need to "join" the two states with recipe metadata before we send the POST request to a (custom) route.
+        const finalRecipeMetadata = {...recipeMetadata, steps : stepsData}
+        const recipeConfigObj ={
+            method : "POST",
+            headers : {
+                "Content-Type" : "application/json",
+                "Accepts" : "application/json"
+            },
+            body: JSON.stringify(finalRecipeMetadata)
+        }
+
+        //Make the POST request to the create the Recipe and relate it to the User
+        fetch("/store-user-recipe", recipeConfigObj)
+        .then(res => res.json())
+        .then(recipeData => console.log("Recipe data posted!", recipeData ))
+        .catch(error => console.log(error.message))
     };
 
     const mappedIngredientInputs = ingredientData.map((ingredientObject, index) => {
