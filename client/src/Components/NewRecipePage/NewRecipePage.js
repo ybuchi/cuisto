@@ -57,6 +57,8 @@ function NewRecipePage(){
     function handleRecipeMetadataChange(e){
         setRecipeMetadata({...recipeMetadata, [e.target.name] : e.target.value})
     }
+
+    //Handles change in state of ingredients. These need to be handled differently since we can add/remove inputs at will
     function handleIngredientDataChange(e){
         const ingredientIndex = e.target.name.replace(/\D/g,'')
         const inputName = e.target.name.replace(/[0-9]/g, '').slice(0, -1)
@@ -71,6 +73,14 @@ function NewRecipePage(){
         setIngredientData(updatedIngredientsArray);
     }
 
+    //Handles change in state of Recipe Steps. Also needs to be handled differently for the same reasons as the functino above.
+    function handleStepsChange(e){
+        const stepIndex = e.target.name.replace(/\D/g,'')
+        console.log(stepIndex);
+        const newStepsDataArray = [...stepsData]
+        newStepsDataArray[stepIndex] = e.target.value
+        setStepsData(newStepsDataArray);
+    }
     const mappedIngredientInputs = ingredientData.map((ingredientObject, index) => {
         return(
             
@@ -108,7 +118,10 @@ function NewRecipePage(){
                     <Row>
                         <Col sm={12} md={11}>
                             <Form.Label>Step {index + 1}</Form.Label>
-                            <Form.Control type="text"/>
+                            <Form.Control type="text"
+                                          name={`step-${index}`}
+                                          value={stepsData[index]}
+                                          onChange={handleStepsChange}/>
                         </Col>
                         <Col sm={12} md={1}>
                             <Button variant="danger" onClick={handleRemoveStep} name={index}>Remove</Button>
