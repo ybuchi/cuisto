@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-    before_action :finde_user, only: [:show]
-    skip_before_action :authorize, only: [:index]
+    before_action :find_user, only: [:show]
+    skip_before_action :authorize, only: [:index, :create, :show]
     
     def index
         users = User.all
@@ -9,6 +9,13 @@ class UsersController < ApplicationController
     
     def show
         render json: @user
+    end
+
+    def create
+        user = User.create!(user_params)
+        # login after creation
+        session[:user_id] =  user.id
+        render json: user, status: :created
     end
 
     def store_recipe
@@ -30,7 +37,7 @@ class UsersController < ApplicationController
     end
 
     def user_params
-        params.permit(:username, :password, :first_name, :last_name, :birthday, :new_username, :new_password, :created_at)
+        params.permit(:username, :password, :password_confirmation, :first_name, :last_name, :birthday, :new_username, :new_password, :created_at, :email)
     #can a user assign their own default club id?
     end
     def recipe_params
