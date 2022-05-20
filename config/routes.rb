@@ -16,7 +16,10 @@ Rails.application.routes.draw do
   get "/auth", to: "sessions#show"
 
   post "/store-user-recipe", to: "users#store_recipe"
+  post "/new-pantry", to: "users#create_new_pantry"
+
   get "/user-library", to: "users#show_recipe_library"
+  get "/user-pantries", to: "users#show_user_pantries"
   # Routing logic: fallback requests for React Router.
   # Leave this here to help deploy your app later!
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }

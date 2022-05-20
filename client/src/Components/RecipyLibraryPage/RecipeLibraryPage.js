@@ -9,8 +9,19 @@ function RecipeLibraryPage(){
     const [userLibrary, setUserLibrary] = useFetchUserLibrary()
     console.log(userLibrary)
 
-    const mappedRecipeCards = userLibrary.map(recipeObject => <RecipeCard key={recipeObject.id}
-        recipeObject={recipeObject}/>)
+    const mappedRecipeCards = userLibrary.map(recipeObject => {
+        return(<RecipeCard key={recipeObject.id}>
+                    <header>
+                        <h2>{recipeObject.recipe_name}</h2>
+                    </header>
+                    <section>
+                        <p>Cuisine: {recipeObject.cuisine}</p>
+                        <p>Diet: {recipeObject.diet}</p>
+                        <p>Cooking Time (min): {recipeObject.time_to_cook_min}</p>
+                        <p>{recipeObject.description}</p>
+                    </section>
+                </RecipeCard>)
+    })
     return(
         <>
         <header>

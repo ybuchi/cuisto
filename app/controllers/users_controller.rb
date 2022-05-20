@@ -24,10 +24,20 @@ class UsersController < ApplicationController
         newUserRecipe = UserLibrary.create!(user_id: session[:user_id], recipe_id: newRecipe.id)
         render json: newUserRecipe.recipe
     end
-
+    
+    def create_new_pantry
+        newPantry = Pantry.create!(pantry_params)
+        newUserPantry = UserPantry.create!(user_id: session[:user_id], pantry_id: newPantry.id)
+        render json: newUserPantry.pantry
+    end
     def show_recipe_library
         current_user = User.find_by(id: session[:user_id])
         render json: current_user.recipes
+    end
+
+    def show_user_pantries
+        current_user = User.find_by(id: session[:user_id])
+        render json: current_user.pantries
     end
 
     private
@@ -42,5 +52,8 @@ class UsersController < ApplicationController
     end
     def recipe_params
         params.permit(:recipe_name, :cuisine, :time_to_cook_min, :diet, :description, :image, :steps)
+    end
+    def pantry_params
+        params.permit(:pantry_name, :pantry_description, :image, :created_at, :updated_at)
     end
 end
