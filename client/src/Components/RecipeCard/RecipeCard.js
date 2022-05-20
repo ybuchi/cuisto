@@ -14,6 +14,7 @@ function RecipeCard({recipeObject}){
                 <p>Cuisine: {recipeObject.cuisine}</p>
                 <p>Diet: {recipeObject.diet}</p>
                 <p>Cooking Time (min): {recipeObject.time_to_cook_min}</p>
+                <p>{recipeObject.description}</p>
             </section>
         </article>
         </Col>

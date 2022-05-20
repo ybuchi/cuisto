@@ -87,6 +87,7 @@ function NewRecipePage(){
         //We currently have 3 states. Two are for recipe metadata. One is for ingredients.
         //We need to "join" the two states with recipe metadata before we send the POST request to a (custom) route.
         const finalRecipeMetadata = {...recipeMetadata, steps : stepsData}
+        console.log(finalRecipeMetadata);
         const recipeConfigObj ={
             method : "POST",
             headers : {

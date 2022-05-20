@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_18_195238) do
+ActiveRecord::Schema.define(version: 2022_05_20_014816) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 2022_05_18_195238) do
   create_table "recipes", force: :cascade do |t|
     t.string "recipe_name"
     t.string "cuisine"
-    t.text "steps", default: [], array: true
+    t.string "steps", default: [], array: true
     t.string "diet"
     t.integer "time_to_cook_min"
     t.integer "author"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 2022_05_18_195238) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "description"
     t.string "image"
+    t.index ["steps"], name: "index_recipes_on_steps", using: :gin
   end
 
   create_table "user_libraries", force: :cascade do |t|

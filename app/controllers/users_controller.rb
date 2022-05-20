@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     end
 
     def user_params
-        params.permit(:username, :password, :first_name, :last_name, :birthday, :new_username, :new_password)
+        params.permit(:username, :password, :first_name, :last_name, :birthday, :new_username, :new_password, :created_at)
     #can a user assign their own default club id?
     end
     def recipe_params

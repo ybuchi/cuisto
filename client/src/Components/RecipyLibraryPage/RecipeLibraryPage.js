@@ -7,6 +7,7 @@ import Row from "react-bootstrap/Row";
 
 function RecipeLibraryPage(){
     const [userLibrary, setUserLibrary] = useFetchUserLibrary()
+    console.log(userLibrary)
 
     const mappedRecipeCards = userLibrary.map(recipeObject => <RecipeCard key={recipeObject.id}
         recipeObject={recipeObject}/>)
