@@ -10,7 +10,7 @@ function RecipeLibraryPage(){
     console.log(userLibrary)
 
     const mappedRecipeCards = userLibrary.map(recipeObject => {
-        return(<RecipeCard key={recipeObject.id}>
+        return(<RecipeCard key={recipeObject.id} recipeObject={recipeObject}>
                     <header>
                         <h2>{recipeObject.recipe_name}</h2>
                     </header>

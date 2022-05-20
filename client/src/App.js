@@ -10,6 +10,7 @@ import RecipeLibraryPage from './Components/RecipyLibraryPage/RecipeLibraryPage'
 import UserPantryPage from './Components/UserPantryPage/UserPantryPage';
 import ClubsPage from './Components/ClubsPage/ClubsPage';
 import ProfilePage from './Components/ProfilePage/ProfilePage';
+import RecipePage from './Components/RecipePage/RecipePage';
 
 function App() {
   return (
@@ -22,9 +23,10 @@ function App() {
           <Route path="dashboard" element={<UserDashboard/>}/>
           <Route path="new-recipe" element={<NewRecipePage/>}/>
           <Route path="recipe-library" element={<RecipeLibraryPage/>}/>
+          <Route path="/recipe-library/:recipe_id" element={<RecipePage />}/>
           <Route path="pantries" element={<UserPantryPage/>}/>
           <Route path="clubs" element={<ClubsPage/>}/>
-          <Route path="profile" element={<ProfilePage/>}/>
+          <Route path="profile" element={<ProfilePage />}/>
         </Routes>
       </UserProvider>
     </div>
