@@ -3,6 +3,8 @@ class ApplicationController < ActionController::API
   include ActionController::Cookies
 
   rescue_from ActiveRecord::RecordNotFound,with: :render_not_found
+  rescue_from ActiveRecord::RecordInvalid,with: :render_invalid
+
 
 
   private
@@ -16,7 +18,13 @@ class ApplicationController < ActionController::API
      error: "#{controller_name.classify} not found"
      },
      status: :not_found
-    end
+  end
+  def  render_invalid(error_obj)
+    render json:{
+     errors: error_obj.record.errors.full_messages
+     },
+     status: :unprocessable_entity
+  end
 
 
 end

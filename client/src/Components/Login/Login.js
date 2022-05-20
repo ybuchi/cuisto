@@ -13,6 +13,14 @@ function Login(){
         username: "",
         password: ""
     });
+    const [newAccountForm, setNewAccountForm] = useState({
+        first_name: "",
+        last_name: "",
+        username: "",
+        password: "",
+        password_confirmation: "",
+        email: ""
+    })
 
     const { isLoggedIn, setIsLoggedIn } = useContext(UserContext)
 
@@ -44,13 +52,46 @@ function Login(){
                 console.log("Oops, something went wrong")
             }
         })
+        setLoginForm({username:"",password:""});
     }
     // Handle Login Controlled Form
     function handleLoginFormChange(e){
         console.log(e.target.name);
         setLoginForm({...loginForm, [e.target.name] : e.target.value})
     }   
+    // Handle New Account Controlled Form
+    function handleNewAccountFormChange(e){
+        setNewAccountForm({...newAccountForm, [e.target.name] : e.target.value })
+    }
+    function handleNewAccountSubmission(e){
+        e.preventDefault()
+        const configObj = {
+            method : "POST", 
+            headers: {
+                "Content-Type" : "application/json",
+                "Accepts" : "application/json"
+            }, 
+            body: JSON.stringify(newAccountForm)
+        }
 
+        fetch('/users', configObj)
+        .then(res => {
+            if(res.ok){
+                res.json().then(response=> console.log(response))
+                setNewAccountForm({
+                    first_name: "",
+                    last_name: "",
+                    username: "",
+                    password: "",
+                    password_confirmation: "",
+                    email: ""
+                });
+            }})
+        //STRETCH GOAL: Get the user to confirm email.
+
+
+        
+    }
     return(
         <>
         <menu>
@@ -76,28 +117,50 @@ function Login(){
                 <h3> Don't have an account? </h3>
                 <h1>Create an Account</h1>
             </header>
-            <Form>
+            <Form onSubmit={handleNewAccountSubmission}>
                 <Form.Group>
                     <Form.Label>First Name</Form.Label>
-                    <Form.Control type="text"></Form.Control>
+                    <Form.Control type="text"
+                                  name="first_name"
+                                  value={newAccountForm.first_name}
+                                  onChange={handleNewAccountFormChange}></Form.Control>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Last Name</Form.Label>
-                    <Form.Control type="text"></Form.Control>
+                    <Form.Control type="text"
+                                  name="last_name"
+                                  value={newAccountForm.last_name}
+                                  onChange={handleNewAccountFormChange}></Form.Control>
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control type="text"
+                                  name="username"
+                                  value={newAccountForm.username}
+                                  onChange={handleNewAccountFormChange}></Form.Control>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Email</Form.Label>
-                    <Form.Control type="email"></Form.Control>
+                    <Form.Control type="email"
+                                  name="email"
+                                  value={newAccountForm.email}
+                                  onChange={handleNewAccountFormChange}></Form.Control>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password"></Form.Control>
+                    <Form.Control type="password"
+                                  name="password"
+                                  value={newAccountForm.password}
+                                  onChange={handleNewAccountFormChange}></Form.Control>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Confirm Password</Form.Label>
-                    <Form.Control type="password"></Form.Control>
+                    <Form.Control type="password"
+                                  name="password_confirmation"
+                                  value={newAccountForm.password_confirmation}
+                                  onChange={handleNewAccountFormChange}></Form.Control>
                 </Form.Group>
-                <Button> Create Account </Button>
+                <Button type="submit"> Create Account </Button>
             </Form>
         </menu>
         </>

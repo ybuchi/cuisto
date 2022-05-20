@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_16_192017) do
+ActiveRecord::Schema.define(version: 2022_05_20_014816) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,7 +18,6 @@ ActiveRecord::Schema.define(version: 2022_05_16_192017) do
   create_table "ingredients", force: :cascade do |t|
     t.string "ingredient_name"
     t.string "ingredient_type"
-    t.string "metric"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -26,9 +25,9 @@ ActiveRecord::Schema.define(version: 2022_05_16_192017) do
   create_table "pantries", force: :cascade do |t|
     t.string "pantry_name"
     t.string "pantry_description"
-    t.boolean "is_shared"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "image"
   end
 
   create_table "pantry_ingredients", force: :cascade do |t|
@@ -36,6 +35,7 @@ ActiveRecord::Schema.define(version: 2022_05_16_192017) do
     t.integer "pantry_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "amount"
   end
 
   create_table "recipe_ingredients", force: :cascade do |t|
@@ -44,12 +44,13 @@ ActiveRecord::Schema.define(version: 2022_05_16_192017) do
     t.float "amount"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "metric"
   end
 
   create_table "recipes", force: :cascade do |t|
     t.string "recipe_name"
     t.string "cuisine"
-    t.string "steps"
+    t.string "steps", default: [], array: true
     t.string "diet"
     t.integer "time_to_cook_min"
     t.integer "author"
@@ -57,6 +58,9 @@ ActiveRecord::Schema.define(version: 2022_05_16_192017) do
     t.float "rating"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "description"
+    t.string "image"
+    t.index ["steps"], name: "index_recipes_on_steps", using: :gin
   end
 
   create_table "user_libraries", force: :cascade do |t|

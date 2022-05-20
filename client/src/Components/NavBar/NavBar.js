@@ -4,6 +4,7 @@ import { UserContext } from "../Contexts/UserContext";
 import useLoginState from "../CustomHooks/useLoginState";
 import "./NavBar.css";
 import logo from "../Images/Logos/4.png";
+import logo2 from "../Images/Logos/6.png";
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
@@ -16,8 +17,11 @@ function NavBar(){
     const navigate = useNavigate();
 
     const navLinks = isLoggedIn ? <Nav className="justify-content-end flex-grow-1 pe-3">
-                                    <Nav.Link href="/">Home</Nav.Link>
-                                    <Nav.Link href="dashboard">Dashboard</Nav.Link>
+                                    <Nav.Link href="/dashboard">Dashboard</Nav.Link>
+                                    <Nav.Link href="/recipe-library">Recipy Library</Nav.Link>
+                                    <Nav.Link href="/pantries">Pantries</Nav.Link>
+                                    <Nav.Link href="/clubs">Clubs</Nav.Link>
+                                    <Nav.Link href="/profile">Profile</Nav.Link>
                                     <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
                                   </Nav> : <Nav className="justify-content-end flex-grow-1 pe-3">
                                               <Nav.Link href="/">Home</Nav.Link>
@@ -53,7 +57,7 @@ function NavBar(){
         >
           <Offcanvas.Header closeButton>
             <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${"sm"}`}>
-              Offcanvas
+              <img id="nav-logo" src={logo2} alt="logo"/><span>MENU</span>
             </Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
