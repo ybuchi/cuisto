@@ -38,26 +38,39 @@ function PantryPage(){
                 ingredient_type : newIngredientForm.ingredient_type
             })
         }
-        const configObjUserIngredient={
-            method : "POST",
-            headers :{
-                "Content-Type" : "application/json",
-                "Accepts" : "application/json"
-            },
-            body: JSON.stringify({
-                amount : newIngredientForm.amount
-            })
-        }
+        
 
         fetch('/ingredients', configObjIngredient)
         .then(res => res.json())
-        .then(newIngredient => console.log("New Ingredient created successfully!" ,newIngredient))
+        .then(newIngredient => {
+            //use the newIngredient posted to create a PantryIngredient
+            const configObjUserIngredient={
+                method : "POST",
+                headers :{
+                    "Content-Type" : "application/json",
+                    "Accepts" : "application/json"
+                },
+                body: JSON.stringify({
+                    ingredient_id: newIngredient.id,
+                    pantry_id: pantry_id,
+                    amount : newIngredientForm.amount
+                })
+            }
+
+            fetch('/pantry_ingredients', configObjUserIngredient)
+            .then(res => res.json())
+            .then(newUserIngredient => console.log("New User Ingredient: ", newUserIngredient))
+        })
         
     }
 
     const mappedIngredients = pantryIngredients.map(ingredientObject => {
-        return ingredientObject.id ? <RecipeCard key={ingredientObject.id} ingredientObject={ingredientObject}/> : <h3>Loading...</h3>
-    })
+        return(
+        <RecipeCard key={ingredientObject.id} ingredientObject={ingredientObject}>
+            <h1>{ingredientObject.ingredient_name}</h1>
+        </RecipeCard>)
+    }
+)
     return(
         <>
         <article>
@@ -103,7 +116,7 @@ function PantryPage(){
                                   value={newIngredientForm.amount}
                                   onChange={handleNewIngredientFormChange}/>
                 </Form.Group>
-                <Button type="submit">Create New Pantry</Button>
+                <Button type="submit">Add Ingredient</Button>
                 <Button variant="secondary" onClick={()=>setShow(false)}>Cancel</Button>
             </Form>
         </Modal.Body>
