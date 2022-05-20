@@ -35,13 +35,13 @@ function UserPantryPage(){
         .then(res=>res.json())
         .then(() => {
             setShow(false)
-
+            setUserPantries([...userPantries, newPantryForm])
         })
     }
 
     const mappedPantries = userPantries.map(pantryObject=>{
         return(
-            <RecipeCard key={pantryObject.id}>
+            <RecipeCard key={pantryObject.id} pantryObject={pantryObject}>
                     <header>
                         <h2>{pantryObject.pantry_name}</h2>
                     </header>

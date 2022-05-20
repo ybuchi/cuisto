@@ -11,6 +11,7 @@ import UserPantryPage from './Components/UserPantryPage/UserPantryPage';
 import ClubsPage from './Components/ClubsPage/ClubsPage';
 import ProfilePage from './Components/ProfilePage/ProfilePage';
 import RecipePage from './Components/RecipePage/RecipePage';
+import PantryPage from './Components/PantryPage/PantryPage';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="recipe-library" element={<RecipeLibraryPage/>}/>
           <Route path="/recipe-library/:recipe_id" element={<RecipePage />}/>
           <Route path="pantries" element={<UserPantryPage/>}/>
+          <Route path="/pantries/:pantry_id" element={<PantryPage/>}/>
           <Route path="clubs" element={<ClubsPage/>}/>
           <Route path="profile" element={<ProfilePage />}/>
         </Routes>

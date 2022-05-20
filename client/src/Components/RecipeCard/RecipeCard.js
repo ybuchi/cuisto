@@ -9,8 +9,12 @@ function RecipeCard(props){
     const navigate = useNavigate()
 
     function goToRecipePage(){
+        if (props.recipeObject){
+            navigate(`${props.recipeObject.id}`)
+        }else if(props.pantryObject){
+            navigate(`${props.pantryObject.id}`)
+        }
         console.log("This is props", props.recipeObject)
-        navigate(`${props.recipeObject.id}`)
     }
     return(
         <Col>
