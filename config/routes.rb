@@ -18,11 +18,13 @@ Rails.application.routes.draw do
   post "/store-user-recipe", to: "users#store_recipe"
   post "/new-pantry", to: "users#create_new_pantry"
   post "/new-recipe", to: "users#create_new_recipe"
+  post "/pantries/:id/ingredients", to: "pantries#create_new_pantry_ingredient"
 
   get "/user-library", to: "users#show_recipe_library"
   get "/user-pantries", to: "users#show_user_pantries"
   get "/pantries/:id/ingredients", to: "pantries#show_pantry_ingredients"
   get "/recipes/:id/ingredients", to: "recipes#show_recipe_ingredients"
+  
 
   
   # Routing logic: fallback requests for React Router.

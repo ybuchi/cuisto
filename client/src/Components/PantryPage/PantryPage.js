@@ -19,7 +19,8 @@ function PantryPage(){
     const [newIngredientForm, setNewIngredientForm] = useState({
         ingredient_name: "",
         ingredient_type: "",
-        amount: ""
+        amount: "",
+        metric: ""
     });
 
     function handleNewIngredientFormChange(e){
@@ -34,40 +35,16 @@ function PantryPage(){
                 "Content-Type" : "application/json",
                 "Accepts" : "application/json"
             },
-            body: JSON.stringify({
-                ingredient_name : newIngredientForm.ingredient_name,
-                ingredient_type : newIngredientForm.ingredient_type
-            })
+            body: JSON.stringify(newIngredientForm)
         }
         
 
-        fetch('/ingredients', configObjIngredient)
+        fetch(`/pantries/${pantry_id}/ingredients`, configObjIngredient)
         .then(res => res.json())
         .then(newIngredient => {
-            console.log("NewInggreeedient:", newIngredient)
-            //use the newIngredient posted to create a PantryIngredient
+            console.log(newIngredient)
             setPantryIngredients([...pantryIngredients, newIngredient])
-            const configObjUserIngredient={
-                method : "POST",
-                headers :{
-                    "Content-Type" : "application/json",
-                    "Accepts" : "application/json"
-                },
-                body: JSON.stringify({
-                    ingredient_id: newIngredient.id,
-                    pantry_id: pantry_id,
-                    amount : newIngredientForm.amount
-                })
-            }
-
-            fetch('/pantry_ingredients', configObjUserIngredient)
-            .then(res => res.json())
-            .then(newUserIngredient => {
-                console.log("New User Ingredient: ", newUserIngredient);
-
-                setShow(false);
-
-            })
+            setShow(false);
         })
         
     }
