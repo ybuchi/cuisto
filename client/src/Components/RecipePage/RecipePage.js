@@ -5,6 +5,7 @@ import useFetchRecipeIngredients from "../CustomHooks/useFetchRecipeIngredients"
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import Button from "react-bootstrap/Button";
 
 function RecipePage(){
     let { recipe_id } = useParams()
@@ -51,6 +52,9 @@ function RecipePage(){
                 <Row>
                     <h3>Steps:</h3>
                 </Row>
+                
+                {/* This button will start the cooking session */}
+                <Button>Enter Cooking Session</Button>
             </Container>
         </article>
 
