@@ -9,6 +9,8 @@ function useFetchRecipeIngredients(recipeId){
         .then(recipeIngredients => setRecipeIngredients(recipeIngredients))
     },[recipeId])
 
+    console.log(recipeIngredients);
+
     return [recipeIngredients, setRecipeIngredients]
 }
 export default useFetchRecipeIngredients;
