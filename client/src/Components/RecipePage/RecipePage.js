@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import useFetchRecipeData from "../CustomHooks/useFetchRecipeData";
+import useFetchRecipeIngredients from "../CustomHooks/useFetchRecipeIngredients";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
@@ -8,6 +9,7 @@ import Row from "react-bootstrap/Row";
 function RecipePage(){
     let { recipe_id } = useParams()
     const [recipeData, setRecipeData] = useFetchRecipeData(recipe_id);
+    const [recipeIngredients, setRecipeIngredients] = useFetchRecipeIngredients(recipe_id);
     
     return(
         <article>
@@ -27,6 +29,11 @@ function RecipePage(){
                     <Col>
                         <h4><strong>Cooking Time:</strong> {recipeData.time_to_cook_min} min</h4>
                     </Col>
+                </Row>
+                <Row>
+                    <h3>Ingredients</h3>
+                    <Col>{recipeIngredients[0].ingredient_name}</Col>
+                    <Col>{recipeIngredients[0].amount}</Col>
                 </Row>
             </Container>
         </article>

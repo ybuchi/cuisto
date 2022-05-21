@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get "/user-library", to: "users#show_recipe_library"
   get "/user-pantries", to: "users#show_user_pantries"
   get "/pantries/:id/ingredients", to: "pantries#show_pantry_ingredients"
+  get "/recipes/:id/ingredients", to: "recipes#show_recipe_ingredients"
 
   
   # Routing logic: fallback requests for React Router.
