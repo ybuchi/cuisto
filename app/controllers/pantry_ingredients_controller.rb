@@ -1,5 +1,6 @@
 class PantryIngredientsController < ApplicationController
-
+    before_action :find_pantry, only: [:show]
+    
     def index
         all_pantry_ingredients = PantryIngredient.all
         render json: all_pantry_ingredients

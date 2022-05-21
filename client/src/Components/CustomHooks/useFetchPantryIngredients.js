@@ -6,7 +6,7 @@ function useFetchPantryIngredients(pantryId){
     useEffect(()=>{
         fetch(`/pantries/${pantryId}/ingredients`)
         .then(res => res.json())
-        .then(pantryData => console.log(pantryData))
+        .then(pantryData => setPantryIngredients(pantryData))
     },[pantryId])
 
     return [pantryIngredients, setPantryIngredients]
