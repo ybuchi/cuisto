@@ -14,6 +14,7 @@ function PantryPage(){
     let { pantry_id } = useParams()
     const [pantryData] = useFetchPantryData(pantry_id)
     const [pantryIngredients, setPantryIngredients] = useFetchPantryIngredients(pantry_id)
+    console.log(pantryIngredients)
     const [show, setShow] = useState(false);
     const [newIngredientForm, setNewIngredientForm] = useState({
         ingredient_name: "",
@@ -43,7 +44,9 @@ function PantryPage(){
         fetch('/ingredients', configObjIngredient)
         .then(res => res.json())
         .then(newIngredient => {
+            console.log("NewInggreeedient:", newIngredient)
             //use the newIngredient posted to create a PantryIngredient
+            setPantryIngredients([...pantryIngredients, newIngredient])
             const configObjUserIngredient={
                 method : "POST",
                 headers :{
@@ -59,7 +62,12 @@ function PantryPage(){
 
             fetch('/pantry_ingredients', configObjUserIngredient)
             .then(res => res.json())
-            .then(newUserIngredient => console.log("New User Ingredient: ", newUserIngredient))
+            .then(newUserIngredient => {
+                console.log("New User Ingredient: ", newUserIngredient);
+
+                setShow(false);
+
+            })
         })
         
     }
