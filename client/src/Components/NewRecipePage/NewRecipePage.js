@@ -20,6 +20,7 @@ function NewRecipePage(){
     //This state takes care of the ingredients
     const [ingredientData, setIngredientData] = useState ([{
         ingredient_name : "",
+        ingredient_type : "",
         amount : "" 
     }])
 
@@ -30,6 +31,7 @@ function NewRecipePage(){
     function handleAddIngredient(){
         setIngredientData([...ingredientData, {
             ingredient_name : "",
+            ingredient_type : "",
             amount : null
         }])
     }
@@ -64,11 +66,9 @@ function NewRecipePage(){
         const inputName = e.target.name.replace(/[0-9]/g, '').slice(0, -1)
 
         const newObject = {...ingredientData[ingredientIndex], [inputName] : e.target.value}
-        console.log(newObject);
         
         const updatedIngredientsArray = [...ingredientData]
         updatedIngredientsArray[ingredientIndex] = newObject 
-        console.log(updatedIngredientsArray);
 
         setIngredientData(updatedIngredientsArray);
     }
@@ -86,7 +86,7 @@ function NewRecipePage(){
         e.preventDefault();
         //We currently have 3 states. Two are for recipe metadata. One is for ingredients.
         //We need to "join" the two states with recipe metadata before we send the POST request to a (custom) route.
-        const finalRecipeMetadata = {...recipeMetadata, steps : stepsData}
+        const finalRecipeMetadata = {...recipeMetadata, steps : stepsData, recipe_ingredients_array: ingredientData}
         console.log(finalRecipeMetadata);
         const recipeConfigObj ={
             method : "POST",
@@ -97,12 +97,15 @@ function NewRecipePage(){
             body: JSON.stringify(finalRecipeMetadata)
         }
 
-        //Make the POST request to the create the Recipe and relate it to the User
-        fetch("/store-user-recipe", recipeConfigObj)
-        .then(res => res.json())
-        .then(recipeData => console.log("Recipe data posted!", recipeData ))
-        .catch(error => console.log(error.message))
-    };
+        fetch('/new-recipe', recipeConfigObj)
+        .then(res => {
+            if (res.ok){
+                res.json().then(response => console.log(response))
+            }else{
+                console.log(res.status)
+            }
+        })
+    }
 
     const mappedIngredientInputs = ingredientData.map((ingredientObject, index) => {
         return(
@@ -111,21 +114,28 @@ function NewRecipePage(){
                 <h4>Ingredient {index + 1}</h4>
                 <Container>
                     <Row>
-                        <Col sm={8} lg={7}>
+                        <Col sm={12} lg={3}>
                             <Form.Label>Ingredient Name:</Form.Label>
                             <Form.Control type="text"
                                           name={`ingredient_name-${index}`}
                                           value={ingredientData[index].ingredient_name}
                                           onChange={handleIngredientDataChange}/>
                         </Col>
-                        <Col sm={4} lg={4}>
+                        <Col sm={6} lg={3}>
+                            <Form.Label>Type: </Form.Label>
+                            <Form.Control type="text"
+                                          name={`ingredient_type-${index}`}
+                                          value={ingredientData[index].ingredient_type}
+                                          onChange={handleIngredientDataChange}/>
+                        </Col>
+                        <Col sm={6} lg={3}>
                             <Form.Label>Amount:</Form.Label>
                             <Form.Control type="number"
                                           name={`amount-${index}`}
                                           value={ingredientData[index].amount}
                                           onChange={handleIngredientDataChange}/>
                         </Col>
-                        <Col sm={12} lg={1}>
+                        <Col sm={12} lg={3}>
                             <Button variant="danger" onClick={handleRemoveIngredient} name={index}>Remove</Button>
                         </Col>
                     </Row>
