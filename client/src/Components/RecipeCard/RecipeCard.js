@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { useNavigate, Outlet } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./RecipeCard.css";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import RecipePage from "../RecipePage/RecipePage";
 import Modal from "react-bootstrap/Modal";
+import useFetchPantryIngredients from "../CustomHooks/useFetchPantryIngredients";
 
 function RecipeCard(props){
     const navigate = useNavigate()
-
+    const [pantryIngredients, setPantryIngredients] = useFetchPantryIngredients(props.pantry_id)
     const [show, setShow] = useState(false)
 
     function goToRecipePage(){
@@ -38,6 +39,16 @@ function RecipeCard(props){
             </Col>
             <Modal show={show} fullscreen={true} onHide={()=>setShow(false)}>
                 <Modal.Header closeButton>{ ingredientsInModal ? ingredientsInModal.ingredient_name : <p>Loading...</p>}</Modal.Header>
+                <Modal.Body>
+                    <ul>
+                        <li>
+                            <p><strong>Ingredient Name: </strong>{ingredientsInModal.ingredient_name}</p>
+                        </li>
+                        <li>
+                            <p><strong>Type: </strong>{ingredientsInModal.ingredient_type}</p>
+                        </li>
+                    </ul>
+                </Modal.Body>
             </Modal>
         </>
     )

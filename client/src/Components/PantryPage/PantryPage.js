@@ -50,9 +50,12 @@ function PantryPage(){
     }
 
     const mappedIngredients = pantryIngredients.map(ingredientObject => {
+        const ingredientAttributes = ingredientObject.pantry_ingredients[0]
         return(
-        <RecipeCard key={ingredientObject.id} ingredientObject={ingredientObject}>
-            <h1>{ingredientObject.ingredient_name}</h1>
+        <RecipeCard key={ingredientObject.id} ingredientObject={ingredientObject} pantry_id={pantry_id}>
+            <h3>{ingredientObject.ingredient_name}</h3>
+            <p>{ingredientObject.ingredient_type}</p>
+            <p>{ingredientAttributes.amount}<span>{ingredientAttributes.metric}</span></p>
         </RecipeCard>)
     }
 )
@@ -99,6 +102,13 @@ function PantryPage(){
                     <Form.Control type="number"
                                   name="amount"
                                   value={newIngredientForm.amount}
+                                  onChange={handleNewIngredientFormChange}/>
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Metric:</Form.Label>
+                    <Form.Control type="text"
+                                  name="metric"
+                                  value={newIngredientForm.metric}
                                   onChange={handleNewIngredientFormChange}/>
                 </Form.Group>
                 <Button type="submit">Add Ingredient</Button>
