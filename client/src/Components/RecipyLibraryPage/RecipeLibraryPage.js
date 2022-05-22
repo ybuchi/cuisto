@@ -13,21 +13,18 @@ function RecipeLibraryPage(){
     const mappedRecipeCards = userLibrary.map(recipeObject => {
         return(<RecipeCard key={recipeObject.id} recipeObject={recipeObject}>
             <Row>
-
-            
                 <Col md={3}>
                     <header>
                         <h3>{recipeObject.recipe_name}</h3>
                     </header>
                 </Col>
-                
-        
                 <Col md={3}>
                     <p>Cuisine:</p>
                     <p>{recipeObject.cuisine}</p>
                 </Col>
                 <Col md={3}>
-                    <p>Diet: {recipeObject.diet}</p>
+                    <p>Diet:</p>
+                    <p>{recipeObject.diet}</p>
                 </Col>
                 <Col md={3}>
                     <p>Cooking Time (min):</p>

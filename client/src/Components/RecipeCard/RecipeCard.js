@@ -1,17 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./RecipeCard.css";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
-import RecipePage from "../RecipePage/RecipePage";
 import Modal from "react-bootstrap/Modal";
-import useFetchPantryIngredients from "../CustomHooks/useFetchPantryIngredients";
+import Button from "react-bootstrap/Button";
 
 function RecipeCard(props){
     const navigate = useNavigate()
-    const [pantryIngredients, setPantryIngredients] = useFetchPantryIngredients(props.pantry_id)
     const [show, setShow] = useState(false)
-
     function goToRecipePage(){
         if (props.recipeObject){
             navigate(`${props.recipeObject.id}`)
@@ -29,6 +24,29 @@ function RecipeCard(props){
             return false
         }
     }
+
+    function handleRemoveIngredient(){
+        const pantryIngredientObj = props.ingredientObject.pantry_ingredients[0]
+        console.log("Ingredient to Delete", pantryIngredientObj)
+        const configObj = {
+            method : "DELETE"
+        }
+
+        fetch(`/pantry_ingredients/${pantryIngredientObj.id}`, configObj)
+        .then(res => {
+            if (res.ok){
+                console.log("Ingredient successfully deleted!")
+                const setPantryIngredients = props.setPantryIngredients
+                const pantryIngredients = props.pantryIngredients
+                
+                setPantryIngredients(pantryIngredients.filter(ingredientObj=>ingredientObj.pantry_ingredients[0].id !== pantryIngredientObj.id))
+                console.log(pantryIngredients)
+                setShow(false)
+            }
+        })
+
+    }
+
     const ingredientsInModal = renderIngredientsInModal();
     return(
         <>
@@ -46,6 +64,7 @@ function RecipeCard(props){
                             <p><strong>Type: </strong>{ingredientsInModal.ingredient_type}</p>
                         </li>
                     </ul>
+                    <Button variant="danger" onClick={handleRemoveIngredient}>Remove Ingredient</Button>
                 </Modal.Body>
             </Modal>
         </>

@@ -50,9 +50,9 @@ function PantryPage(){
     }
 
     const mappedIngredients = pantryIngredients.map(ingredientObject => {
-        const ingredientAttributes = ingredientObject.pantry_ingredients[0]
+        const ingredientAttributes = ingredientObject.pantry_ingredients[0] ? ingredientObject.pantry_ingredients[0] : "Loading..."
         return(
-        <RecipeCard key={ingredientObject.id} ingredientObject={ingredientObject} pantry_id={pantry_id}>
+        <RecipeCard key={ingredientObject.id} ingredientObject={ingredientObject} pantry_id={pantry_id} setPantryIngredients={setPantryIngredients} pantryIngredients={pantryIngredients}>
             <h3>{ingredientObject.ingredient_name}</h3>
             <p>{ingredientObject.ingredient_type}</p>
             <p>{ingredientAttributes.amount}<span>{ingredientAttributes.metric}</span></p>

@@ -1,5 +1,5 @@
 class PantryIngredientsController < ApplicationController
-    before_action :find_pantry, only: [:show]
+    before_action :find_pantry, only: [:show, :destroy]
     
     def index
         all_pantry_ingredients = PantryIngredient.all
@@ -12,6 +12,11 @@ class PantryIngredientsController < ApplicationController
     def create
         newPantryIngredient = PantryIngredient.create!(pantry_ingredient_params)
         render json: newPantryIngredient
+    end
+
+    def destroy
+        @pantryIngredient.destroy
+        head :no_content
     end
 
     private
