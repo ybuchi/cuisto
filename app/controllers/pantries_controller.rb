@@ -13,7 +13,6 @@ class PantriesController < ApplicationController
         puts "Ingredient Created!"
         newPantryIngredient = PantryIngredient.create!(ingredient_id: newIngredient.id, pantry_id: params[:id] , amount: params[:amount], metric: params[:metric])
         puts "New Ingredient added itself to the Pantry!"
-
         render json: @pantry.ingredients, status: :accepted
     end
 

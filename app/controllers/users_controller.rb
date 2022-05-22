@@ -40,7 +40,6 @@ class UsersController < ApplicationController
             #Change this so that we first verify if ingredients exists
             newIngredient = Ingredient.create!(ingredient_name: ing_obj[:ingredient_name], ingredient_type: ing_obj[:ingredient_type])
             puts "Ingredient #{ing_obj[:ingredient_name]} created!"
-            byebug
             newRecipeIngredient = RecipeIngredient.create!(ingredient_id: newIngredient.id, recipe_id: newRecipe.id, amount: ing_obj[:amount].to_f, metric: ing_obj[:metric])
             puts "New Recipe Ingredient created!"
         end

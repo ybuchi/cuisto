@@ -10,8 +10,9 @@ import Button from "react-bootstrap/Button";
 function RecipePage(){
     let { recipe_id } = useParams()
     const [recipeData, setRecipeData] = useFetchRecipeData(recipe_id);
+    
     const [recipeIngredients, setRecipeIngredients] = useFetchRecipeIngredients(recipe_id);
-
+    console.log(recipeIngredients)
     function retrieveUniqueIngredientTypes(){
         let uniqueTypesArray = []
         for (let i = 0; i < recipeIngredients.length; i++){
@@ -44,7 +45,7 @@ function RecipePage(){
                                         <p>{ingrObject.ingredient_name}</p>
                                     </Col>
                                     <Col>
-                                        <p>{ingredientInfo.amount === null ? "not set" : ingredientInfo.amount}</p>
+                                        <p>{ingredientInfo.amount === null ? "not set" : ingredientInfo.amount} <span>{ingredientInfo.metric}</span></p>
                                     </Col>
 
                                 </Row>

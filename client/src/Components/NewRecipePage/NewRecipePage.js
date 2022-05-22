@@ -21,7 +21,8 @@ function NewRecipePage(){
     const [ingredientData, setIngredientData] = useState ([{
         ingredient_name : "",
         ingredient_type : "",
-        amount : 0.00 
+        amount : 0.00, 
+        metric : ""
     }])
 
     //This state takes care of the recipe steps which will be sent along with the recipe metadata
@@ -32,7 +33,8 @@ function NewRecipePage(){
         setIngredientData([...ingredientData, {
             ingredient_name : "",
             ingredient_type : "",
-            amount : 0.00
+            amount : 0.00,
+            metric : ""
         }])
     }
     
@@ -135,6 +137,13 @@ function NewRecipePage(){
                                           min="0"
                                           name={`amount-${index}`}
                                           value={ingredientData[index].amount}
+                                          onChange={handleIngredientDataChange}/>
+                        </Col>
+                        <Col sm={6} lg={3}>
+                            <Form.Label>Metric:</Form.Label>
+                            <Form.Control type="text"
+                                          name={`metric-${index}`}
+                                          value={ingredientData[index].metric}
                                           onChange={handleIngredientDataChange}/>
                         </Col>
                         <Col sm={12} lg={3}>
