@@ -12,15 +12,62 @@ function RecipePage(){
     const [recipeData, setRecipeData] = useFetchRecipeData(recipe_id);
     const [recipeIngredients, setRecipeIngredients] = useFetchRecipeIngredients(recipe_id);
 
-    const mappedRecipeIngredients = recipeIngredients.map((ingredientObject, index) => {
-        return(
-            <Col key={index}>
-                <p>{ingredientObject.ingredient_name}</p>
-                <p>{ingredientObject.ingredient_type}</p>
-            </Col>
-        )
-    })
-        
+    function retrieveUniqueIngredientTypes(){
+        let uniqueTypesArray = []
+        for (let i = 0; i < recipeIngredients.length; i++){
+            // Look through recipeIngredient ingredient types
+            if(!uniqueTypesArray.includes(recipeIngredients[i].ingredient_type)){
+                uniqueTypesArray.push(recipeIngredients[i].ingredient_type)
+            }
+            console.log("uniqueTypesArray", uniqueTypesArray)
+
+            //Return the ingredient types to create separate lists for each
+            
+        }
+        return uniqueTypesArray
+    }
+    
+    const uniqueTypesArray = retrieveUniqueIngredientTypes();
+    
+    const mappedRecipeIngredients = () => {
+        if(uniqueTypesArray){
+            console.log(uniqueTypesArray);
+            const mappedList = uniqueTypesArray.map((ingrType,index)=>{
+                const filteredIngredients = recipeIngredients.filter(ingrObject => ingrObject.ingredient_type === ingrType)
+                const mappedIngredients = filteredIngredients.map((ingrObject, index)=>{
+                    const ingredientInfo = ingrObject.recipe_ingredients[0]
+                    return(
+                        <li key={index}>
+                            <Container>
+                                <Row>
+                                    <Col>
+                                        <p>{ingrObject.ingredient_name}</p>
+                                    </Col>
+                                    <Col>
+                                        <p>{ingredientInfo.amount === null ? "not set" : ingredientInfo.amount}</p>
+                                    </Col>
+
+                                </Row>
+                            </Container>
+
+                            
+                        </li>
+                    )
+                })
+                return(
+                    <Container key={index}>
+                        <h3>{ingrType}</h3>
+                        <ul>
+                            {mappedIngredients}
+                        </ul>
+                    </Container>
+                )
+            })
+            return mappedList
+        }else{
+            return "Loading"
+        }
+    }
         
 
     
@@ -46,7 +93,7 @@ function RecipePage(){
                 <hr/>
                 <Row>
                     <h3>Ingredients:</h3>
-                    {mappedRecipeIngredients}
+                    {mappedRecipeIngredients()}
                 </Row>
                 <hr/>
                 <Row>

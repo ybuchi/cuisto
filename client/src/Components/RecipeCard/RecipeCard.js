@@ -32,11 +32,9 @@ function RecipeCard(props){
     const ingredientsInModal = renderIngredientsInModal();
     return(
         <>
-            <Col>
             <article className="recipe-card" onClick={goToRecipePage}>
                 {props.children}
             </article>
-            </Col>
             <Modal show={show} fullscreen={true} onHide={()=>setShow(false)}>
                 <Modal.Header closeButton>{ ingredientsInModal ? ingredientsInModal.ingredient_name : <p>Loading...</p>}</Modal.Header>
                 <Modal.Body>

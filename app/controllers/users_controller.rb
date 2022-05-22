@@ -31,15 +31,6 @@ class UsersController < ApplicationController
         render json: newUserPantry.pantry
     end
 
-    def create_new_pantry_ingredient
-        newIngredient = Ingredient.create!(ingredient_name: params[:ingredient_name], ingredient_type: params[:ingredient_type])
-        puts "Ingredient Created!"
-        newPantryIngredient = PantryIngredient.create!(ingredient_id: newIngredient.id, pantry_id: params[:pantry_id], amount: params[:amount], metric: params[:metric])
-        puts "New Ingredient added itself to the Pantry!"
-
-        render json: newIngredient, status: :accepted
-    end
-
     def create_new_recipe
         #First, create a new recipe and link it to user
         newRecipe = Recipe.create!(recipe_name: params[:recipe_name], cuisine: params[:cuisine], steps: params[:steps], diet: params[:diet], time_to_cook_min: params[:time_to_cook_min], author: session[:user_id], description: params[:description], image: params[:image])
@@ -49,7 +40,8 @@ class UsersController < ApplicationController
             #Change this so that we first verify if ingredients exists
             newIngredient = Ingredient.create!(ingredient_name: ing_obj[:ingredient_name], ingredient_type: ing_obj[:ingredient_type])
             puts "Ingredient #{ing_obj[:ingredient_name]} created!"
-            newRecipeIngredient = RecipeIngredient.create!(ingredient_id: newIngredient.id, recipe_id: newRecipe.id, amount: params[:amount], metric: params[:metric])
+            byebug
+            newRecipeIngredient = RecipeIngredient.create!(ingredient_id: newIngredient.id, recipe_id: newRecipe.id, amount: ing_obj[:amount].to_f, metric: ing_obj[:metric])
             puts "New Recipe Ingredient created!"
         end
 
