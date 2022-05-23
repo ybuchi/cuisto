@@ -102,7 +102,24 @@ function NewRecipePage(){
         fetch('/new-recipe', recipeConfigObj)
         .then(res => {
             if (res.ok){
-                res.json().then(response => console.log(response))
+                res.json().then(response => {
+                    setRecipeMetadata({
+                        recipe_name : "",
+                        cuisine : "",
+                        time_to_cook_min : "",
+                        diet : "",
+                        description: "",
+                        image: ""
+                    })
+                    setIngredientData([{
+                        ingredient_name : "",
+                        ingredient_type : "",
+                        amount : 0.00, 
+                        metric : ""
+                    }])
+                    setStepsData([""])
+                    console.log(response)
+                })
             }else{
                 console.log(res.status)
             }

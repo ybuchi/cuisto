@@ -4,6 +4,9 @@
 #ingredients-container{
     text-align: left;
 }
+#recipe-steps-list{
+  text-align: left;
+}
 .title-label{
     margin-top: 20px;
     margin-bottom: 20px;

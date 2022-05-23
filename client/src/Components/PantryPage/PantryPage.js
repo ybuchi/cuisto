@@ -42,18 +42,17 @@ function PantryPage(){
 
         fetch(`/pantries/${pantry_id}/ingredients`, configObjIngredient)
         .then(res => res.json())
-        .then(newIngredient => {
-            console.log(newIngredient)
-            setPantryIngredients([...pantryIngredients, newIngredient])
+        .then(newPantryIngredients => {
+            setPantryIngredients(newPantryIngredients)
             setShow(false);
         })
         
     }
 
-    const mappedIngredients = pantryIngredients.map(ingredientObject => {
-        const ingredientAttributes = ingredientObject.pantry_ingredients[0] ? ingredientObject.pantry_ingredients[0] : "Loading..."
+    const mappedIngredients = pantryIngredients ? pantryIngredients.map((ingredientObject, index) => {
+        const ingredientAttributes = ingredientObject.pantry_ingredients ? ingredientObject.pantry_ingredients[0] : "Loading..."
         return(
-        <Col md={3} key={ingredientObject.id}>
+        <Col md={3} key={index}>
             <RecipeCard ingredientObject={ingredientObject} pantry_id={pantry_id} setPantryIngredients={setPantryIngredients} pantryIngredients={pantryIngredients}>
                 <h3>{ingredientObject.ingredient_name}</h3>
                 <p>{ingredientObject.ingredient_type}</p>
@@ -61,13 +60,15 @@ function PantryPage(){
             </RecipeCard>
         </Col>)
     }
-)
+) : "Loading..."
+
+
     return(
         <>
         <article>
             <header>
-                <h1>{pantryData.pantry_name}</h1>
-                <h3>{pantryData.pantry_description}</h3>
+                <h1>{pantryData ? pantryData.pantry_name :  "Loading..."}</h1>
+                <h3>{pantryData ? pantryData.pantry_description : "Loading..." }</h3>
                 <Button variant="secondary" onClick={()=>setShow(true)}><strong>+</strong> Add an Ingredient</Button>
             </header>
             <hr/>

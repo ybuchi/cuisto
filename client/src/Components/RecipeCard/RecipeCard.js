@@ -27,8 +27,8 @@ function RecipeCard(props){
     const [updateIngredientForm, setUpdateIngredientForm] = useState({
         ingredient_name : ingredientsInModal ? ingredientsInModal.ingredient_name : "",
         ingredient_type : ingredientsInModal ? ingredientsInModal.ingredient_type : "",
-        amount : ingredientsInModal ? ingredientsInModal.pantry_ingredients[0].amount : 0.00,
-        metric : ingredientsInModal ? ingredientsInModal.pantry_ingredients[0].metric : 0.00
+        amount : ingredientsInModal.pantry_ingredients ? ingredientsInModal.pantry_ingredients[0].amount : 0.00,
+        metric : ingredientsInModal.pantry_ingredients ? ingredientsInModal.pantry_ingredients[0].metric : 0.00
     })
 
     function goToRecipePage(){
@@ -55,12 +55,10 @@ function RecipeCard(props){
         fetch(`/pantry_ingredients/${pantryIngredientObj.id}`, configObj)
         .then(res => {
             if (res.ok){
-                console.log("Ingredient successfully deleted!")
                 const setPantryIngredients = props.setPantryIngredients
                 const pantryIngredients = props.pantryIngredients
                 
                 setPantryIngredients(pantryIngredients.filter(ingredientObj=>ingredientObj.pantry_ingredients[0].id !== pantryIngredientObj.id))
-                console.log(pantryIngredients)
                 setShow(false)
             }
         })
@@ -179,7 +177,7 @@ function RecipeCard(props){
                         <Row>
                             <Col>
                                     <p style={{fontSize: "25px"}}>Amount:</p>
-                                    <p style={{fontSize: "40px"}}><strong>{ingredientsInModal ? ingredientsInModal.pantry_ingredients[0].amount : ""} {ingredientsInModal ? ingredientsInModal.pantry_ingredients[0].metric : ""}</strong></p>
+                                    <p style={{fontSize: "40px"}}><strong>{ingredientsInModal.pantry_ingredients ? ingredientsInModal.pantry_ingredients[0].amount : ""} {ingredientsInModal.pantry_ingredients ? ingredientsInModal.pantry_ingredients[0].metric : ""}</strong></p>
 
                             </Col>
                         </Row>

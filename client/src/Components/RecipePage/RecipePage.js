@@ -42,7 +42,6 @@ function RecipePage(){
 
     //Handles what happens when a user clicks on "Delete Recipe"
     function handleDeleteRecipe(){
-        console.log("firing!")
         setShowDeleteModal(true)
     }
     function handleRemoveRecipeFromLibrary(e){
@@ -58,8 +57,13 @@ function RecipePage(){
         })
         
     }
+
+    function enterCookingSession(){
+        navigate(`/recipe-library/cooking-session/${recipe_id}`)
+    }
     
     const uniqueTypesArray = retrieveUniqueIngredientTypes();
+    const mappedRecipeSteps = recipeData.steps ? recipeData.steps.map((step, index) => {return <li key={index}>{step}</li>}) : "Loading..."
     
     const mappedRecipeIngredients = () => {
         if(uniqueTypesArray){
@@ -70,8 +74,7 @@ function RecipePage(){
                     const ingredientInfo = ingrObject.recipe_ingredients[0]
                     return(
                         <li key={index}>
-                                <p>{ingrObject.ingredient_name}: <strong>{ingredientInfo.amount === null ? "not set" : ingredientInfo.amount} <span>{ingredientInfo.metric}</span></strong></p>
-
+                            <p>{ingrObject.ingredient_name}: <strong>{ingredientInfo.amount === null ? "not set" : ingredientInfo.amount} <span>{ingredientInfo.metric}</span></strong></p>
                         </li>
                     )
                 })
@@ -119,11 +122,15 @@ function RecipePage(){
                 </Row>
                 <hr/>
                 <Row>
-                    <h3 className="title-label">Steps:</h3>
+                    <h3 className="title-label" style={{textAlign: "left"}}>Steps:</h3>
+                    <ol id="recipe-steps-list">
+                        {mappedRecipeSteps}
+                    </ol>
+                    
                 </Row>
                 
                 {/* This button will start the cooking session */}
-                <Button>Enter Cooking Session</Button>
+                <Button onClick={enterCookingSession}>Enter Cooking Session</Button>
                 <Button variant="warning" onClick={handleDeleteRecipe}>Remove Recipe from Library</Button>
                 {/* STRETCHGOAL: If the user is the author of the recipe, give them the option to delete the recipe permanently */}
             </Container>
