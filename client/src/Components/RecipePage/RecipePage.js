@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./RecipePage.css"
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import useFetchRecipeData from "../CustomHooks/useFetchRecipeData";
 import useFetchRecipeIngredients from "../CustomHooks/useFetchRecipeIngredients";
 import Container from "react-bootstrap/Container";
@@ -11,6 +11,7 @@ import Modal from "react-bootstrap/Modal";
 
 function RecipePage(){
     let { recipe_id } = useParams()
+    const navigate = useNavigate()
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showSnackBar, setShowSnackBar] = useState("")
     const [recipeData, setRecipeData] = useFetchRecipeData(recipe_id);
@@ -21,6 +22,7 @@ function RecipePage(){
     function revealSnackBar(){
         setShowSnackBar("show")
         setTimeout(()=>setShowSnackBar(""), 3000)
+        setTimeout(()=> navigate('/recipe-library'), 4000)
     }
 
     function retrieveUniqueIngredientTypes(){
@@ -139,7 +141,7 @@ function RecipePage(){
                 <Button variant="secondary" onClick={()=>setShowDeleteModal(false)}>Cancel</Button>
             </Modal.Footer>
         </Modal>
-        <div className={`snackbar ${showSnackBar}`}>Recipe removed from your Library!</div>
+        <div className={`snackbar ${showSnackBar}`}>Recipe removed from your Library! Redirecting you shortly...</div>
         </>
     )
 }
