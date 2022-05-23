@@ -1,4 +1,5 @@
 import React from "react";
+import "./RecipePage.css"
 import { useParams } from "react-router-dom";
 import useFetchRecipeData from "../CustomHooks/useFetchRecipeData";
 import useFetchRecipeIngredients from "../CustomHooks/useFetchRecipeIngredients";
@@ -39,29 +40,18 @@ function RecipePage(){
                     const ingredientInfo = ingrObject.recipe_ingredients[0]
                     return(
                         <li key={index}>
-                            <Container>
-                                <Row>
-                                    <Col>
-                                        <p>{ingrObject.ingredient_name}</p>
-                                    </Col>
-                                    <Col>
-                                        <p>{ingredientInfo.amount === null ? "not set" : ingredientInfo.amount} <span>{ingredientInfo.metric}</span></p>
-                                    </Col>
+                                <p>{ingrObject.ingredient_name} <strong>{ingredientInfo.amount === null ? "not set" : ingredientInfo.amount} <span>{ingredientInfo.metric}</span></strong></p>
 
-                                </Row>
-                            </Container>
-
-                            
                         </li>
                     )
                 })
                 return(
-                    <Container key={index}>
-                        <h3>{ingrType}</h3>
-                        <ul>
+                    <Col className="list-container" key={index}>
+                        <h4 style={{fontStyle: "italic"}}>{ingrType}</h4>
+                        <ul className="ingredient-list">
                             {mappedIngredients}
                         </ul>
-                    </Container>
+                    </Col>
                 )
             })
             return mappedList
@@ -77,7 +67,7 @@ function RecipePage(){
             <Container>
                 <Row>
                     <Col>
-                        <h1>{recipeData.recipe_name}</h1>
+                        <h1 className="title-label">{recipeData.recipe_name}</h1>
                     </Col>
                 </Row>
                 <Row>
@@ -92,13 +82,13 @@ function RecipePage(){
                     </Col>
                 </Row>
                 <hr/>
-                <Row>
-                    <h3>Ingredients:</h3>
+                <Row id="ingredients-container">
+                    <h3 className="title-label">Ingredients:</h3>
                     {mappedRecipeIngredients()}
                 </Row>
                 <hr/>
                 <Row>
-                    <h3>Steps:</h3>
+                    <h3 className="title-label">Steps:</h3>
                 </Row>
                 
                 {/* This button will start the cooking session */}

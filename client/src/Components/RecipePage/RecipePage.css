@@ -1,0 +1,10 @@
+.ingredient-list{
+    list-style: none;
+}
+#ingredients-container{
+    text-align: left;
+}
+.title-label{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
