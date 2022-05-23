@@ -25,8 +25,6 @@ Rails.application.routes.draw do
   get "/pantries/:id/ingredients", to: "pantries#show_pantry_ingredients"
   get "/recipes/:id/ingredients", to: "recipes#show_recipe_ingredients"
   
-
-  
   # Routing logic: fallback requests for React Router.
   # Leave this here to help deploy your app later!
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
