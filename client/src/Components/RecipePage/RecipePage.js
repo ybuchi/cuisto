@@ -124,7 +124,8 @@ function RecipePage(){
                 
                 {/* This button will start the cooking session */}
                 <Button>Enter Cooking Session</Button>
-                <Button variant="danger" onClick={handleDeleteRecipe}>Delete Recipe</Button>
+                <Button variant="warning" onClick={handleDeleteRecipe}>Remove Recipe from Library</Button>
+                {/* STRETCHGOAL: If the user is the author of the recipe, give them the option to delete the recipe permanently */}
             </Container>
         </article>
 
