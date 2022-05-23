@@ -4,3 +4,6 @@
     padding: 20px;
     border-radius: 5px;
 }
+.dashboard-item:hover{
+    cursor: pointer;
+}

@@ -3,7 +3,10 @@ import { useNavigate } from "react-router-dom";
 import "./RecipeCard.css";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form"
+import Form from "react-bootstrap/Form";
+import Container from "react-bootstrap/Container";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 
 function RecipeCard(props){
     const navigate = useNavigate()
@@ -111,58 +114,78 @@ function RecipeCard(props){
 
 
             <Modal show={show} fullscreen={true} onHide={()=>setShow(false)}>
-                <Modal.Header closeButton>{ ingredientsInModal ? ingredientsInModal.ingredient_name : <p>Loading...</p>}</Modal.Header>
+                <Modal.Header closeButton>
+                    <h3>{ ingredientsInModal ? ingredientsInModal.ingredient_name : <p>Loading...</p>}</h3>
+                </Modal.Header>
                 { editMode ? <Modal.Body>
                         <Form onSubmit={handleUpdatedIngredientSubmission}>
-                            <Form.Group>
-                                <Form.Label>Ingredient Name:</Form.Label>
-                                <Form.Control type="text" 
-                                              disabled
-                                              value={updateIngredientForm.ingredient_name}
-                                              name="ingredient_name"
-                                              onChange={handleUpdateFormChange}
-                                              />
-                            </Form.Group>
-                            <Form.Group>
-                                <Form.Label>Type:</Form.Label>
-                                <Form.Control type="text" 
-                                              disabled
-                                              name="ingredient_type"
-                                              value={updateIngredientForm.ingredient_type}
-                                              onChange={handleUpdateFormChange}
-                                              />
-                            </Form.Group>
-                            <Form.Group>
-                                <Form.Label>Amount:</Form.Label>
-                                <Form.Control type="number" step="0.01"
-                                              name="amount" 
-                                              value={updateIngredientForm.amount}
-                                              onChange={handleUpdateFormChange}/>
-                            </Form.Group>
-                            <Form.Group>
-                                <Form.Label>Metric:</Form.Label>
-                                <Form.Control type="text" step="0.01"
-                                              name="metric"
-                                              value={updateIngredientForm.metric}
-                                              onChange={handleUpdateFormChange}/>
-                            </Form.Group>
-                            <Button type="submit">Save Changes</Button>
-                            <Button variant="secondary" onClick={()=> setEditMode(false)}>Cancel</Button>
+                            <Container>
+                                <Row>
+                                    <Col>
+                                        <Form.Group>
+                                            <Form.Label>Ingredient Name:</Form.Label>
+                                            <Form.Control type="text" 
+                                                        disabled
+                                                        value={updateIngredientForm.ingredient_name}
+                                                        name="ingredient_name"
+                                                        onChange={handleUpdateFormChange}
+                                                        />
+                                        </Form.Group>
+                                    </Col>
+                                    <Col>
+                                        <Form.Group>
+                                            <Form.Label>Type:</Form.Label>
+                                            <Form.Control type="text" 
+                                                        disabled
+                                                        name="ingredient_type"
+                                                        value={updateIngredientForm.ingredient_type}
+                                                        onChange={handleUpdateFormChange}
+                                                        />
+                                        </Form.Group>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <Form.Group>
+                                            <Form.Label>Amount:</Form.Label>
+                                            <Form.Control type="number" step="0.01"
+                                                        name="amount" 
+                                                        value={updateIngredientForm.amount}
+                                                        onChange={handleUpdateFormChange}/>
+                                        </Form.Group>
+                                    </Col>
+                                    <Col>
+                                        <Form.Group>
+                                            <Form.Label>Metric:</Form.Label>
+                                            <Form.Control type="text" step="0.01"
+                                                        name="metric"
+                                                        value={updateIngredientForm.metric}
+                                                        onChange={handleUpdateFormChange}/>
+                                        </Form.Group>
+                                    </Col>   
+                                </Row>
+                                <Button type="submit">Save Changes</Button>
+                                <Button variant="secondary" onClick={()=> setEditMode(false)}>Cancel</Button>
+                            </Container>
                         </Form>
                     </Modal.Body> : <Modal.Body>
-                    <ul>
-                        <li>
-                            <p><strong>Ingredient Name: </strong>{ingredientsInModal ? ingredientsInModal.ingredient_name : ""}</p>
-                        </li>
-                        <li>
-                            <p><strong>Type: </strong>{ingredientsInModal ? ingredientsInModal.ingredient_type : ""}</p>
-                        </li>
-                        <li>
-                            <p><strong>Amount: </strong>{ingredientsInModal ? ingredientsInModal.pantry_ingredients[0].amount : ""} {ingredientsInModal ? ingredientsInModal.pantry_ingredients[0].metric : ""}</p>
-                        </li>
-                    </ul>
-                    <Button variant="danger" onClick={handleRemoveIngredient}>Remove Ingredient</Button>
-                    <Button variant="info" onClick={handleUpdateIngredient}>Update Ingredient</Button>
+                    <Container style={{textAlign: "center"}}>
+                        <Row>
+                            <Col>
+                                    <p style={{fontSize: "35px"}}><strong>{ingredientsInModal ? ingredientsInModal.ingredient_name : ""}</strong></p>
+                                    <p style={{fontSize: "25px"}}>{ingredientsInModal ? ingredientsInModal.ingredient_type : ""}</p>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                    <p style={{fontSize: "25px"}}>Amount:</p>
+                                    <p style={{fontSize: "40px"}}><strong>{ingredientsInModal ? ingredientsInModal.pantry_ingredients[0].amount : ""} {ingredientsInModal ? ingredientsInModal.pantry_ingredients[0].metric : ""}</strong></p>
+
+                            </Col>
+                        </Row>
+                        <Button variant="info" onClick={handleUpdateIngredient}>Update Amount/Metric</Button>
+                        <Button variant="danger" onClick={handleRemoveIngredient}>Remove from Pantry</Button>
+                    </Container>
                 </Modal.Body>}
             </Modal>
         </>

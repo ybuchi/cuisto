@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./RecipePage.css"
 import { useParams } from "react-router-dom";
 import useFetchRecipeData from "../CustomHooks/useFetchRecipeData";
@@ -7,13 +7,22 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 
 function RecipePage(){
     let { recipe_id } = useParams()
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [showSnackBar, setShowSnackBar] = useState("")
     const [recipeData, setRecipeData] = useFetchRecipeData(recipe_id);
     
     const [recipeIngredients, setRecipeIngredients] = useFetchRecipeIngredients(recipe_id);
-    console.log(recipeIngredients)
+    console.log("Recipe Data", recipeData);
+
+    function revealSnackBar(){
+        setShowSnackBar("show")
+        setTimeout(()=>setShowSnackBar(""), 3000)
+    }
+
     function retrieveUniqueIngredientTypes(){
         let uniqueTypesArray = []
         for (let i = 0; i < recipeIngredients.length; i++){
@@ -28,6 +37,25 @@ function RecipePage(){
         }
         return uniqueTypesArray
     }
+
+    //Handles what happens when a user clicks on "Delete Recipe"
+    function handleDeleteRecipe(){
+        console.log("firing!")
+        setShowDeleteModal(true)
+    }
+    function handleRemoveRecipeFromLibrary(e){
+        const configObj={
+            method: "DELETE"
+        }
+        fetch(`/recipe/${recipe_id}`, configObj)
+        .then(res => {
+            if(res.ok){
+                revealSnackBar()
+                setShowDeleteModal(false)
+            }
+        })
+        
+    }
     
     const uniqueTypesArray = retrieveUniqueIngredientTypes();
     
@@ -40,7 +68,7 @@ function RecipePage(){
                     const ingredientInfo = ingrObject.recipe_ingredients[0]
                     return(
                         <li key={index}>
-                                <p>{ingrObject.ingredient_name} <strong>{ingredientInfo.amount === null ? "not set" : ingredientInfo.amount} <span>{ingredientInfo.metric}</span></strong></p>
+                                <p>{ingrObject.ingredient_name}: <strong>{ingredientInfo.amount === null ? "not set" : ingredientInfo.amount} <span>{ingredientInfo.metric}</span></strong></p>
 
                         </li>
                     )
@@ -63,6 +91,7 @@ function RecipePage(){
 
     
     return(
+        <>
         <article>
             <Container>
                 <Row>
@@ -72,13 +101,13 @@ function RecipePage(){
                 </Row>
                 <Row>
                     <Col>
-                        <h4> <strong>Cuisine:</strong> {recipeData.cuisine}</h4>
+                        <h5> <strong>Cuisine:</strong> {recipeData.cuisine}</h5>
                     </Col>
                     <Col>
-                        <h4><strong>Diet:</strong> {recipeData.diet}</h4>
+                        <h5><strong>Diet:</strong> {recipeData.diet}</h5>
                     </Col>
                     <Col>
-                        <h4><strong>Cooking Time:</strong> {recipeData.time_to_cook_min} min</h4>
+                        <h5><strong>Cooking Time:</strong> {recipeData.time_to_cook_min} min</h5>
                     </Col>
                 </Row>
                 <hr/>
@@ -93,9 +122,25 @@ function RecipePage(){
                 
                 {/* This button will start the cooking session */}
                 <Button>Enter Cooking Session</Button>
+                <Button variant="danger" onClick={handleDeleteRecipe}>Delete Recipe</Button>
             </Container>
         </article>
 
+        {/* Modal for deleting a recipe */}
+        <Modal show={showDeleteModal} onHide={()=>setShowDeleteModal(false)} backdrop="static" keyboard={false}>
+            <Modal.Header closeButton>
+                <Modal.Title>Delete {recipeData.recipe_name}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <p>Are you sure you want to remove <strong>{recipeData.recipe_name}</strong> from your recipe library?</p>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="success" onClick={handleRemoveRecipeFromLibrary}>Confirm</Button>
+                <Button variant="secondary" onClick={()=>setShowDeleteModal(false)}>Cancel</Button>
+            </Modal.Footer>
+        </Modal>
+        <div className={`snackbar ${showSnackBar}`}>Recipe removed from your Library!</div>
+        </>
     )
 }
 

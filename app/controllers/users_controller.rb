@@ -24,6 +24,12 @@ class UsersController < ApplicationController
         newUserRecipe = UserLibrary.create!(user_id: session[:user_id], recipe_id: newRecipe.id)
         render json: newUserRecipe.recipe
     end
+
+    def remove_recipe_from_library
+        userRecipeToRemove = UserLibrary.find_by(user_id: session[:user_id], recipe_id: params[:id])
+        userRecipeToRemove.destroy
+        head :no_content
+    end
     
     def create_new_pantry
         newPantry = Pantry.create!(pantry_params)

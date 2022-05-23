@@ -9,6 +9,7 @@ import Form from 'react-bootstrap/Form';
 import RecipeCard from "../RecipeCard/RecipeCard";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 function PantryPage(){
     let { pantry_id } = useParams()
@@ -52,11 +53,13 @@ function PantryPage(){
     const mappedIngredients = pantryIngredients.map(ingredientObject => {
         const ingredientAttributes = ingredientObject.pantry_ingredients[0] ? ingredientObject.pantry_ingredients[0] : "Loading..."
         return(
-        <RecipeCard key={ingredientObject.id} ingredientObject={ingredientObject} pantry_id={pantry_id} setPantryIngredients={setPantryIngredients} pantryIngredients={pantryIngredients}>
-            <h3>{ingredientObject.ingredient_name}</h3>
-            <p>{ingredientObject.ingredient_type}</p>
-            <p>{ingredientAttributes.amount}<span>{ingredientAttributes.metric}</span></p>
-        </RecipeCard>)
+        <Col md={3} key={ingredientObject.id}>
+            <RecipeCard ingredientObject={ingredientObject} pantry_id={pantry_id} setPantryIngredients={setPantryIngredients} pantryIngredients={pantryIngredients}>
+                <h3>{ingredientObject.ingredient_name}</h3>
+                <p>{ingredientObject.ingredient_type}</p>
+                <p style={{fontSize: "30px"}}>{ingredientAttributes.amount}<span> {ingredientAttributes.metric}</span></p>
+            </RecipeCard>
+        </Col>)
     }
 )
     return(

@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import "./UserDashboard.css"
 import { UserContext } from "../Contexts/UserContext";
 import Container from "react-bootstrap/Container";
@@ -7,6 +8,7 @@ import Row from "react-bootstrap/Row";
 
 function UserDashboard(){
     const { user } = useContext(UserContext);
+    const navigate = useNavigate();
 
     return(
         <>
@@ -17,20 +19,11 @@ function UserDashboard(){
 
         <hr/>
 
-        <section id="recommended-recipes">
-            <header>
-                <h3>Recommended Recipes</h3>
-                {/* Insert recommended recipes as cards here */}
-            </header>
-        </section>
-
-        <hr/>
-
         <section id="dashboard-menu">
         <Container>
             <Row>
                 <Col sm={12} md={6}>
-                    <article id="pantry-article" className="dashboard-item">
+                    <article id="pantry-article" className="dashboard-item" onClick={()=>navigate("/pantries")}>
                         <header>
                             <h3>Pantries</h3>
                         </header>
@@ -38,7 +31,7 @@ function UserDashboard(){
                     </article>
                 </Col>
                 <Col sm={12} md={6}>
-                    <article id="recipe-library-article" className="dashboard-item">
+                    <article id="recipe-library-article" className="dashboard-item" onClick={()=>navigate("/recipe-library")}>
                         <header>
                             <h3>Recipy Library</h3>
                         </header>
@@ -48,7 +41,7 @@ function UserDashboard(){
             </Row>
            <Row>
                <Col sm={12} md={6}>
-                    <article id="new-recipe-article" className="dashboard-item">
+                    <article id="new-recipe-article" className="dashboard-item" onClick={()=>navigate("/new-recipe")}>
                             <header>
                                 <h3>Create Your Recipe</h3>
                             </header>
@@ -66,8 +59,14 @@ function UserDashboard(){
            </Row>
         </Container>
         </section>
-        
+        <hr/>
 
+            <section id="recommended-recipes">
+                <header>
+                    <h3>Recommended Recipes</h3>
+                    {/* Insert recommended recipes as cards here */}
+                </header>
+            </section>
         
         </>
     )
