@@ -1,0 +1,13 @@
+.carouse-bg{
+    visibility: hidden;
+    width: 400px;
+    length: 100%;
+    object-fit: cover;
+}
+.recipe-step{
+    font-size: 25px;
+    text-align: left;
+}
+.carousel-caption.top{
+    top: 1.5rem;
+}

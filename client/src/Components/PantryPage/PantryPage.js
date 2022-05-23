@@ -9,16 +9,19 @@ import Form from 'react-bootstrap/Form';
 import RecipeCard from "../RecipeCard/RecipeCard";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 function PantryPage(){
     let { pantry_id } = useParams()
     const [pantryData] = useFetchPantryData(pantry_id)
     const [pantryIngredients, setPantryIngredients] = useFetchPantryIngredients(pantry_id)
+    console.log(pantryIngredients)
     const [show, setShow] = useState(false);
     const [newIngredientForm, setNewIngredientForm] = useState({
         ingredient_name: "",
         ingredient_type: "",
-        amount: ""
+        amount: "",
+        metric: ""
     });
 
     function handleNewIngredientFormChange(e){
@@ -33,50 +36,39 @@ function PantryPage(){
                 "Content-Type" : "application/json",
                 "Accepts" : "application/json"
             },
-            body: JSON.stringify({
-                ingredient_name : newIngredientForm.ingredient_name,
-                ingredient_type : newIngredientForm.ingredient_type
-            })
+            body: JSON.stringify(newIngredientForm)
         }
         
 
-        fetch('/ingredients', configObjIngredient)
+        fetch(`/pantries/${pantry_id}/ingredients`, configObjIngredient)
         .then(res => res.json())
-        .then(newIngredient => {
-            //use the newIngredient posted to create a PantryIngredient
-            const configObjUserIngredient={
-                method : "POST",
-                headers :{
-                    "Content-Type" : "application/json",
-                    "Accepts" : "application/json"
-                },
-                body: JSON.stringify({
-                    ingredient_id: newIngredient.id,
-                    pantry_id: pantry_id,
-                    amount : newIngredientForm.amount
-                })
-            }
-
-            fetch('/pantry_ingredients', configObjUserIngredient)
-            .then(res => res.json())
-            .then(newUserIngredient => console.log("New User Ingredient: ", newUserIngredient))
+        .then(newPantryIngredients => {
+            setPantryIngredients(newPantryIngredients)
+            setShow(false);
         })
         
     }
 
-    const mappedIngredients = pantryIngredients.map(ingredientObject => {
+    const mappedIngredients = pantryIngredients ? pantryIngredients.map((ingredientObject, index) => {
+        const ingredientAttributes = ingredientObject.pantry_ingredients ? ingredientObject.pantry_ingredients[0] : "Loading..."
         return(
-        <RecipeCard key={ingredientObject.id} ingredientObject={ingredientObject}>
-            <h1>{ingredientObject.ingredient_name}</h1>
-        </RecipeCard>)
+        <Col md={3} key={index}>
+            <RecipeCard ingredientObject={ingredientObject} pantry_id={pantry_id} setPantryIngredients={setPantryIngredients} pantryIngredients={pantryIngredients}>
+                <h3>{ingredientObject.ingredient_name}</h3>
+                <p>{ingredientObject.ingredient_type}</p>
+                <p style={{fontSize: "30px"}}>{ingredientAttributes.amount}<span> {ingredientAttributes.metric}</span></p>
+            </RecipeCard>
+        </Col>)
     }
-)
+) : "Loading..."
+
+
     return(
         <>
         <article>
             <header>
-                <h1>{pantryData.pantry_name}</h1>
-                <h3>{pantryData.pantry_description}</h3>
+                <h1>{pantryData ? pantryData.pantry_name :  "Loading..."}</h1>
+                <h3>{pantryData ? pantryData.pantry_description : "Loading..." }</h3>
                 <Button variant="secondary" onClick={()=>setShow(true)}><strong>+</strong> Add an Ingredient</Button>
             </header>
             <hr/>
@@ -114,6 +106,13 @@ function PantryPage(){
                     <Form.Control type="number"
                                   name="amount"
                                   value={newIngredientForm.amount}
+                                  onChange={handleNewIngredientFormChange}/>
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Metric:</Form.Label>
+                    <Form.Control type="text"
+                                  name="metric"
+                                  value={newIngredientForm.metric}
                                   onChange={handleNewIngredientFormChange}/>
                 </Form.Group>
                 <Button type="submit">Add Ingredient</Button>

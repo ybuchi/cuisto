@@ -21,7 +21,8 @@ function NewRecipePage(){
     const [ingredientData, setIngredientData] = useState ([{
         ingredient_name : "",
         ingredient_type : "",
-        amount : "" 
+        amount : 0.00, 
+        metric : ""
     }])
 
     //This state takes care of the recipe steps which will be sent along with the recipe metadata
@@ -32,7 +33,8 @@ function NewRecipePage(){
         setIngredientData([...ingredientData, {
             ingredient_name : "",
             ingredient_type : "",
-            amount : null
+            amount : 0.00,
+            metric : ""
         }])
     }
     
@@ -100,7 +102,24 @@ function NewRecipePage(){
         fetch('/new-recipe', recipeConfigObj)
         .then(res => {
             if (res.ok){
-                res.json().then(response => console.log(response))
+                res.json().then(response => {
+                    setRecipeMetadata({
+                        recipe_name : "",
+                        cuisine : "",
+                        time_to_cook_min : "",
+                        diet : "",
+                        description: "",
+                        image: ""
+                    })
+                    setIngredientData([{
+                        ingredient_name : "",
+                        ingredient_type : "",
+                        amount : 0.00, 
+                        metric : ""
+                    }])
+                    setStepsData([""])
+                    console.log(response)
+                })
             }else{
                 console.log(res.status)
             }
@@ -131,8 +150,17 @@ function NewRecipePage(){
                         <Col sm={6} lg={3}>
                             <Form.Label>Amount:</Form.Label>
                             <Form.Control type="number"
+                                          step="0.01"
+                                          min="0"
                                           name={`amount-${index}`}
                                           value={ingredientData[index].amount}
+                                          onChange={handleIngredientDataChange}/>
+                        </Col>
+                        <Col sm={6} lg={3}>
+                            <Form.Label>Metric:</Form.Label>
+                            <Form.Control type="text"
+                                          name={`metric-${index}`}
+                                          value={ingredientData[index].metric}
                                           onChange={handleIngredientDataChange}/>
                         </Col>
                         <Col sm={12} lg={3}>

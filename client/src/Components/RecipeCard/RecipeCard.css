@@ -1,6 +1,8 @@
 .recipe-card{
     padding: 20px;
     border: 2px solid black;
+    margin-top: 15px;
+    margin-bottom: 15px;
     border-radius: 5px;
 }
 .recipe-card:hover{

@@ -4,6 +4,7 @@ import useFetchUserLibrary from "../CustomHooks/useFetchUserRecipes";
 import RecipeCard from "../RecipeCard/RecipeCard";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 function RecipeLibraryPage(){
     const [userLibrary, setUserLibrary] = useFetchUserLibrary()
@@ -11,15 +12,25 @@ function RecipeLibraryPage(){
 
     const mappedRecipeCards = userLibrary.map(recipeObject => {
         return(<RecipeCard key={recipeObject.id} recipeObject={recipeObject}>
+            <Row>
+                <Col md={3}>
                     <header>
-                        <h2>{recipeObject.recipe_name}</h2>
+                        <h3>{recipeObject.recipe_name}</h3>
                     </header>
-                    <section>
-                        <p>Cuisine: {recipeObject.cuisine}</p>
-                        <p>Diet: {recipeObject.diet}</p>
-                        <p>Cooking Time (min): {recipeObject.time_to_cook_min}</p>
-                        <p>{recipeObject.description}</p>
-                    </section>
+                </Col>
+                <Col md={3}>
+                    <p>Cuisine:</p>
+                    <p>{recipeObject.cuisine}</p>
+                </Col>
+                <Col md={3}>
+                    <p>Diet:</p>
+                    <p>{recipeObject.diet}</p>
+                </Col>
+                <Col md={3}>
+                    <p>Cooking Time (min):</p>
+                    <p>{recipeObject.time_to_cook_min}</p>
+                </Col>
+            </Row>
                 </RecipeCard>)
     })
     return(
