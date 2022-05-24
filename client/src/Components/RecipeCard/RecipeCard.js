@@ -12,6 +12,11 @@ function RecipeCard(props){
     const navigate = useNavigate()
 
     const[editMode, setEditMode] = useState(false);
+    const [showUpdateIngrSb, setShowUpdateIngrSb] = useState("");
+    function revealUpdateIngrSb(){
+        setShowUpdateIngrSb("show")
+        setTimeout(()=>setShowUpdateIngrSb(""), 3000)
+    }
     
     //If the prop being sent is an ingredient
     function renderIngredientsInModal(){
@@ -84,23 +89,21 @@ function RecipeCard(props){
 
         fetch(`/pantry_ingredients/${props.ingredientObject.pantry_ingredients[0].id}`, configObj)
         .then(res => res.json())
-        .then(updatedIngredient => props.setPantryIngredients(props.pantryIngredients.map(ingredientObject => {
-            console.log("IngredientObject", ingredientObject)
-            console.log("UpdatedIngredient", updatedIngredient)
-            console.log("PantryIng", props.pantryIngredients)
-            if (ingredientObject.id === updatedIngredient.ingredient_id){
-                const updatedPantryIngredient = {...ingredientObject, pantry_ingredients : [{
-                    ...ingredientObject.pantry_ingredients[0], amount: updatedIngredient.amount, metric: updatedIngredient.metric
-                }]}
-                // return updatedIngredient
-                console.log(updatedPantryIngredient)
-                return updatedPantryIngredient
-            }else{
-                return ingredientObject
-            }
-        }
-    )))
-    }
+        .then(updatedIngredient => {
+            setEditMode(false)
+            revealUpdateIngrSb();
+            props.setPantryIngredients(props.pantryIngredients.map(ingredientObject => {
+                if (ingredientObject.id === updatedIngredient.ingredient_id){
+                    const updatedPantryIngredient = {...ingredientObject, pantry_ingredients : [{
+                        ...ingredientObject.pantry_ingredients[0], amount: updatedIngredient.amount, metric: updatedIngredient.metric
+                    }]}
+
+                    return updatedPantryIngredient
+                }else{
+                    return ingredientObject
+                }
+        }))}
+    )}
 
     
     return(
@@ -186,6 +189,7 @@ function RecipeCard(props){
                         <Button variant="danger" onClick={handleRemoveIngredient}>Remove from Pantry</Button>
                     </Container>
                 </Modal.Body>}
+                <div id="updateIngrSb" className={`${showUpdateIngrSb}`}>Ingredient Updated!</div>
             </Modal>
         </>
     )
