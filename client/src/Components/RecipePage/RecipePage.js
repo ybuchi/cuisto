@@ -143,8 +143,8 @@ function RecipePage(){
 
         {/* Modal for deleting a recipe */}
         <Modal show={showDeleteModal} onHide={()=>setShowDeleteModal(false)} backdrop="static" keyboard={false}>
-            <Modal.Header closeButton>
-                <Modal.Title>Delete {recipeData.recipe_name}</Modal.Title>
+            <Modal.Header>
+                <Modal.Title closeButton>Delete {recipeData.recipe_name}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <p>Are you sure you want to remove <strong>{recipeData.recipe_name}</strong> from your recipe library?</p>

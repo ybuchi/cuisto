@@ -13,9 +13,9 @@ import Col from "react-bootstrap/Col";
 
 function PantryPage(){
     let { pantry_id } = useParams()
+
     const [pantryData] = useFetchPantryData(pantry_id)
     const [pantryIngredients, setPantryIngredients] = useFetchPantryIngredients(pantry_id)
-    console.log(pantryIngredients)
     const [show, setShow] = useState(false);
     const [newIngredientForm, setNewIngredientForm] = useState({
         ingredient_name: "",
@@ -23,6 +23,18 @@ function PantryPage(){
         amount: "",
         metric: ""
     });
+    const [showSnackBar, setShowSnackBar] = useState("")
+    // Handling Various SnackBars being displayed
+    const [showSnackBarRemovePantryIngr, setShowSnackBarRemovePantryIngr] = useState("")
+    function revealPantryIngrRemovedSnackBar(){
+        setShowSnackBarRemovePantryIngr("show")
+        setTimeout(()=>setShowSnackBarRemovePantryIngr(""), 3000)
+    }
+
+    function revealSnackBar(){
+        setShowSnackBar("show")
+        setTimeout(()=>setShowSnackBar(""), 3000)
+    }
 
     function handleNewIngredientFormChange(e){
         setNewIngredientForm({...newIngredientForm, [e.target.name] : e.target.value})
@@ -45,6 +57,7 @@ function PantryPage(){
         .then(newPantryIngredients => {
             setPantryIngredients(newPantryIngredients)
             setShow(false);
+            revealSnackBar();
         })
         
     }
@@ -57,7 +70,11 @@ function PantryPage(){
                 const ingredientAttributes = ingredientObject.pantry_ingredients[0]
                 return(
                 <Col md={3} key={index}>
-                    <RecipeCard ingredientObject={ingredientObject} pantry_id={pantry_id} setPantryIngredients={setPantryIngredients} pantryIngredients={pantryIngredients}>
+                    <RecipeCard ingredientObject={ingredientObject} 
+                                pantry_id={pantry_id} 
+                                setPantryIngredients={setPantryIngredients} 
+                                pantryIngredients={pantryIngredients}
+                                revealPantryIngrRemovedSnackBar={revealPantryIngrRemovedSnackBar}>
                         <p>{ingredientObject.ingredient_type}</p>
                         <h3>{ingredientObject.ingredient_name}</h3>
                         <p style={{fontSize: "30px"}}>{ingredientAttributes.amount}<span> {ingredientAttributes.metric}</span></p>
@@ -127,6 +144,9 @@ function PantryPage(){
             </Form>
         </Modal.Body>
     </Modal>
+    <div className={`snackbar ${showSnackBar}`}>Ingredient Added to Pantry!</div>
+    <div className={`snackbar ${showSnackBarRemovePantryIngr}`}>Ingredient Removed from Pantry!</div>
+
     </>
         
     )

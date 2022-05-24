@@ -11,6 +11,8 @@ import Row from "react-bootstrap/Row";
 function RecipeCard(props){
     const navigate = useNavigate()
 
+    const[editMode, setEditMode] = useState(false);
+    
     //If the prop being sent is an ingredient
     function renderIngredientsInModal(){
         if(props.ingredientObject){
@@ -41,9 +43,6 @@ function RecipeCard(props){
         }
         console.log("This is props", props.recipeObject)
     }
-    const[editMode, setEditMode] = useState(false);
-
-    
 
     function handleRemoveIngredient(){
         const pantryIngredientObj = props.ingredientObject.pantry_ingredients[0]
@@ -57,9 +56,9 @@ function RecipeCard(props){
             if (res.ok){
                 const setPantryIngredients = props.setPantryIngredients
                 const pantryIngredients = props.pantryIngredients
-                
+
                 setPantryIngredients(pantryIngredients.filter(ingredientObj=>ingredientObj.pantry_ingredients[0].id !== pantryIngredientObj.id))
-                setShow(false)
+                props.revealPantryIngrRemovedSnackBar()
             }
         })
 
@@ -113,7 +112,9 @@ function RecipeCard(props){
 
             <Modal show={show} fullscreen={true} onHide={()=>setShow(false)}>
                 <Modal.Header closeButton>
-                    <h3>{ ingredientsInModal ? ingredientsInModal.ingredient_name : <p>Loading...</p>}</h3>
+                    <Modal.Title >
+                        <h3>{ ingredientsInModal ? ingredientsInModal.ingredient_name : <p>Loading...</p>}</h3>
+                    </Modal.Title>
                 </Modal.Header>
                 { editMode ? <Modal.Body>
                         <Form onSubmit={handleUpdatedIngredientSubmission}>
