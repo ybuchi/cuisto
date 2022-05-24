@@ -14,7 +14,11 @@ function NewRecipePage(){
         time_to_cook_min : "",
         diet : "",
         description: "",
-        image: ""
+        image: "",
+        gluten_Free: false,
+        lactoste_free: false,
+        peanut_free: false,
+        visibility: "private"
     })
 
     //This state takes care of the ingredients
@@ -228,7 +232,7 @@ function NewRecipePage(){
                     </Col>
                     <Col sm={8} md={2}>
                         <Form.Group>
-                            <Form.Label>Diet</Form.Label>
+                            <Form.Label>Diet Type</Form.Label>
                             <Form.Control type="text"
                                           name="diet"
                                           value={recipeMetadata.diet}
@@ -256,6 +260,32 @@ function NewRecipePage(){
                                           value={recipeMetadata.image}
                                           onChange={handleRecipeMetadataChange}/>
                         </Form.Group>
+                    </Col>
+                </Row>
+                <hr/>
+                <Row>
+                    <h3>Dietary Restrictions</h3>
+                    <Col>
+
+                        <Form.Check inline
+                                    label="Gluten Free"
+                                    name="gluten_Free"
+                                    type="checkbox"
+                                    id = "gluten-free-radio"/>
+
+
+                        <Form.Check inline
+                                    label="Lactose Free"
+                                    name="lactose_free"
+                                    type="checkbox"
+                                    id = "lactose-free-radio"/>
+
+
+                        <Form.Check inline
+                                    label="Peanut Free"
+                                    name="peanut_free"
+                                    type="checkbox"
+                                    id = "gluten-free-radio"/>
                     </Col>
                 </Row>
                 <hr/>

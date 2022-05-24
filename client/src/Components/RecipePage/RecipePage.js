@@ -155,6 +155,7 @@ function RecipePage(){
             </Modal.Footer>
         </Modal>
         <div className={`snackbar ${showSnackBar}`}>Recipe removed from your Library! Redirecting you shortly...</div>
+
         </>
     )
 }
