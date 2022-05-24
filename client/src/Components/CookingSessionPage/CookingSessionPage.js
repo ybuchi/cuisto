@@ -1,6 +1,6 @@
 import React from "react";
 import "./CookingSessionPage.css";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import useFetchRecipeData from "../CustomHooks/useFetchRecipeData";
 import useFetchRecipeIngredients from "../CustomHooks/useFetchRecipeIngredients";
 import Carousel from 'react-bootstrap/Carousel';
@@ -11,6 +11,7 @@ function CookingSessionPage(){
     let { recipe_id } = useParams();
     const [recipeData, setRecipeData] = useFetchRecipeData(recipe_id);
     const [recipeIngredients, setRecipeIngredients] = useFetchRecipeIngredients(recipe_id);
+    const navigate = useNavigate();
 
     const mappedCarouselSteps = recipeData.steps ? recipeData.steps.map((step, index) => {
 
@@ -29,6 +30,7 @@ function CookingSessionPage(){
     return(
         <>
         <h1>{recipeData.recipe_name}</h1>
+        <Button onClick={()=>navigate(`/recipe-library/${recipe_id}`)}>Back to Recipe Page</Button>
         <hr/>
         <Carousel interval={null} variant="dark">
             {mappedCarouselSteps}

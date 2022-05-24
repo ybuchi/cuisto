@@ -16,6 +16,7 @@ function UserPantryPage(){
         pantry_description: ""
     })
 
+
     function handleNewPantryFormChange(e){
         setNewPantryForm({...newPantryForm, [e.target.name] : e.target.value})
     }  
@@ -39,15 +40,48 @@ function UserPantryPage(){
         })
     }
 
+    function handleActivatePantry(e){
+        e.stopPropagation();
+        e.preventDefault();
+        console.log(e.target.checked)
+        const isActive = e.target.checked
+        const pantry_id = e.target.name
+        const configObj = {
+            method : "PATCH",
+            headers : {
+                "Content-Type" : "application/json",
+                "Accepts" : "application/json"
+            },
+            body: JSON.stringify({
+                active : isActive
+            })
+        }
+
+        fetch(`/user_pantries/${pantry_id}/activate`, configObj)
+        .then(res => res.json())
+        .then(updatedUserPantries => setUserPantries(updatedUserPantries))
+    }
+
     const mappedPantries = userPantries.map(pantryObject=>{
         return(
             <RecipeCard key={pantryObject.id} pantryObject={pantryObject}>
                     <header>
                         <h2>{pantryObject.pantry_name}</h2>
+                        <h3>
+                            
+                            <Form>
+                                <Form.Check type="switch"
+                                            name={pantryObject.id}
+                                            checked={pantryObject.user_pantries[0].active}
+                                            onClick={handleActivatePantry}/>
+                            </Form>
+                            <p>{pantryObject.user_pantries[0].active ? "Active" : "Inactive"}</p>
+                        </h3>
                     </header>
                     <section>
                         <p>{pantryObject.pantry_description}</p>
                     </section>
+                    
             </RecipeCard>
         )
     })
