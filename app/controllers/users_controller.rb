@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    before_action :find_user, only: [:show]
+    before_action :find_user, only: [:show, :create_new_recipe]
     skip_before_action :authorize, only: [:index, :create, :show]
     
     def index
@@ -38,8 +38,9 @@ class UsersController < ApplicationController
     end
 
     def create_new_recipe
+        current_user = User.find_by(params[:id])
         #First, create a new recipe and link it to user
-        newRecipe = Recipe.create!(recipe_name: params[:recipe_name], cuisine: params[:cuisine], steps: params[:steps], diet: params[:diet], time_to_cook_min: params[:time_to_cook_min], author: session[:user_id], description: params[:description], image: params[:image])
+        newRecipe = Recipe.create!(recipe_name: params[:recipe_name], cuisine: params[:cuisine], steps: params[:steps], diet: params[:diet], time_to_cook_min: params[:time_to_cook_min], author: current_user.username, description: params[:description], image: params[:image])
         newUserRecipe = UserLibrary.create!(user_id: session[:user_id], recipe_id: newRecipe.id)
 
         params[:recipe_ingredients_array].each do |ing_obj|
@@ -49,10 +50,7 @@ class UsersController < ApplicationController
             newRecipeIngredient = RecipeIngredient.create!(ingredient_id: newIngredient.id, recipe_id: newRecipe.id, amount: ing_obj[:amount].to_f, metric: ing_obj[:metric])
             puts "New Recipe Ingredient created!"
         end
-
         render json: newRecipe
-        #NExt create new ingredients and link them to recipe
-        
     end
 
     def show_recipe_library

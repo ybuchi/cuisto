@@ -6,7 +6,10 @@ function useFetchRecipeData(recipeId){
     useEffect(()=>{
         fetch(`/recipes/${recipeId}`)
         .then(res => res.json())
-        .then(recipeData => setRecipeData(recipeData))
+        .then(recipeData => {
+            setRecipeData(recipeData)
+            
+        })
     },[recipeId])
 
     return [recipeData, setRecipeData]

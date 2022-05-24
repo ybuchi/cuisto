@@ -3,6 +3,7 @@ import "./RecipePage.css"
 import { useParams, useNavigate } from "react-router-dom";
 import useFetchRecipeData from "../CustomHooks/useFetchRecipeData";
 import useFetchRecipeIngredients from "../CustomHooks/useFetchRecipeIngredients";
+import useFindRecipeAuthor from "../CustomHooks/useFindRecipeAuthor";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
@@ -11,12 +12,15 @@ import Modal from "react-bootstrap/Modal";
 
 function RecipePage(){
     let { recipe_id } = useParams()
+
     const navigate = useNavigate()
+
+    // States
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showSnackBar, setShowSnackBar] = useState("")
-    const [recipeData, setRecipeData] = useFetchRecipeData(recipe_id);
+    const [recipeData] = useFetchRecipeData(recipe_id); 
     
-    const [recipeIngredients, setRecipeIngredients] = useFetchRecipeIngredients(recipe_id);
+    const [recipeIngredients] = useFetchRecipeIngredients(recipe_id);
     console.log("Recipe Data", recipeData);
 
     function revealSnackBar(){
@@ -102,6 +106,7 @@ function RecipePage(){
                 <Row>
                     <Col>
                         <h1 className="title-label">{recipeData.recipe_name}</h1>
+                        <p className="title-label">Author: {recipeData.author}</p>
                     </Col>
                 </Row>
                 <Row>

@@ -49,19 +49,26 @@ function PantryPage(){
         
     }
 
-    const mappedIngredients = pantryIngredients ? pantryIngredients.map((ingredientObject, index) => {
-        const ingredientAttributes = ingredientObject.pantry_ingredients ? ingredientObject.pantry_ingredients[0] : "Loading..."
-        return(
-        <Col md={3} key={index}>
-            <RecipeCard ingredientObject={ingredientObject} pantry_id={pantry_id} setPantryIngredients={setPantryIngredients} pantryIngredients={pantryIngredients}>
-                <h3>{ingredientObject.ingredient_name}</h3>
-                <p>{ingredientObject.ingredient_type}</p>
-                <p style={{fontSize: "30px"}}>{ingredientAttributes.amount}<span> {ingredientAttributes.metric}</span></p>
-            </RecipeCard>
-        </Col>)
+    const mappedIngredients = () => {
+       if(pantryIngredients && pantryIngredients.length === 0){
+            return "Your pantry is not stocked yet!"
+        }else if(pantryIngredients){
+            const recipeCard = pantryIngredients.map((ingredientObject, index) => {
+                const ingredientAttributes = ingredientObject.pantry_ingredients[0]
+                return(
+                <Col md={3} key={index}>
+                    <RecipeCard ingredientObject={ingredientObject} pantry_id={pantry_id} setPantryIngredients={setPantryIngredients} pantryIngredients={pantryIngredients}>
+                        <p>{ingredientObject.ingredient_type}</p>
+                        <h3>{ingredientObject.ingredient_name}</h3>
+                        <p style={{fontSize: "30px"}}>{ingredientAttributes.amount}<span> {ingredientAttributes.metric}</span></p>
+                    </RecipeCard>
+                </Col>)
+            })
+            return recipeCard
+        }else{
+            return "Loading..."
+        }
     }
-) : "Loading..."
-
 
     return(
         <>
@@ -75,14 +82,14 @@ function PantryPage(){
             <section>
                 <Container>
                     <Row>
-                        {mappedIngredients}
+                        {mappedIngredients()}
                     </Row>
                 </Container>
             </section>
         </article>
         <Modal show={show} fullscreen={true} onHide={() => setShow(false)}>
         <Modal.Header>
-            <Modal.Title>New Ingredient</Modal.Title>
+            <Modal.Title closeButton>New Ingredient</Modal.Title>
         </Modal.Header>
         <Modal.Body>
             <Form onSubmit={handleNewIngredientSubmission}>

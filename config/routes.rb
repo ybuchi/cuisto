@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   get "/user-pantries", to: "users#show_user_pantries"
   get "/pantries/:id/ingredients", to: "pantries#show_pantry_ingredients"
   get "/recipes/:id/ingredients", to: "recipes#show_recipe_ingredients"
+  get "/recipe-author/:id", to: "users#get_recipe_author"
 
   delete "/recipe/:id", to: "users#remove_recipe_from_library"
   

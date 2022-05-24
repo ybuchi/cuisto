@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_23_160834) do
+ActiveRecord::Schema.define(version: 2022_05_24_000639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,13 +54,18 @@ ActiveRecord::Schema.define(version: 2022_05_23_160834) do
     t.text "steps", default: [], array: true
     t.string "diet"
     t.integer "time_to_cook_min"
-    t.integer "author"
+    t.string "author"
     t.string "privacy"
     t.float "rating"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "description"
     t.string "image"
+    t.string "visibility"
+    t.boolean "favorite", default: false
+    t.boolean "lactose_free", default: false
+    t.boolean "peanut_free", default: false
+    t.boolean "gluten_Free", default: false
   end
 
   create_table "user_libraries", force: :cascade do |t|
@@ -68,6 +73,7 @@ ActiveRecord::Schema.define(version: 2022_05_23_160834) do
     t.integer "recipe_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "times_cooked"
   end
 
   create_table "user_pantries", force: :cascade do |t|
@@ -87,6 +93,7 @@ ActiveRecord::Schema.define(version: 2022_05_23_160834) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "password_digest"
+    t.integer "recipes_cooked"
   end
 
 end
