@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import "./RecipePage.css"
+import React, { useState, useContext } from "react";
+import "./RecipePage.css";
+import {UserContext} from "../Contexts/UserContext";
 import { useParams, useNavigate } from "react-router-dom";
 import useFetchRecipeData from "../CustomHooks/useFetchRecipeData";
 import useFetchRecipeIngredients from "../CustomHooks/useFetchRecipeIngredients";
@@ -18,15 +19,23 @@ function RecipePage(){
     // States
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showSnackBar, setShowSnackBar] = useState("")
+    const [showHardDeleteSb, setShowHardDeleteSb] = useState("")
     const [recipeData] = useFetchRecipeData(recipe_id); 
-    
     const [recipeIngredients] = useFetchRecipeIngredients(recipe_id);
+    const { user } = useContext(UserContext)
+    console.log("User:", user)
     console.log("Recipe Data", recipeData);
 
     function revealSnackBar(){
         setShowSnackBar("show")
         setTimeout(()=>setShowSnackBar(""), 3000)
-        setTimeout(()=> navigate('/recipe-library'), 4000)
+        setTimeout(()=> navigate('/recipe-library'), 3500)
+    }
+
+    function revealHardDeleteSnackBar(){
+        setShowHardDeleteSb("show")
+        setTimeout(()=>setShowHardDeleteSb(""), 3000)
+        setTimeout(()=> navigate('/recipe-library'), 3500)
     }
 
     function retrieveUniqueIngredientTypes(){
@@ -52,7 +61,7 @@ function RecipePage(){
         const configObj={
             method: "DELETE"
         }
-        fetch(`/recipe/${recipe_id}`, configObj)
+        fetch(`/recipes/${recipe_id}`, configObj)
         .then(res => {
             if(res.ok){
                 revealSnackBar()
@@ -64,6 +73,25 @@ function RecipePage(){
 
     function enterCookingSession(){
         navigate(`/recipe-library/cooking-session/${recipe_id}`)
+    }
+    function handleRecipeHardDelete(){
+        console.log("Hard delete")
+        const configObj = {
+            method:"DELETE"
+        }
+        fetch(`/recipes/${recipe_id}`, configObj)
+        .then(res=>{
+            if (res.ok){
+                res.json().then(()=>{
+                    revealHardDeleteSnackBar();
+                    console.log("Successfully deleted!")
+                })
+            }
+        })
+
+    }
+    function handleEditRecipe(){
+        console.log("Editing Recipe!")
     }
     
     const uniqueTypesArray = retrieveUniqueIngredientTypes();
@@ -105,8 +133,9 @@ function RecipePage(){
             <Container>
                 <Row>
                     <Col>
-                        <h1 className="title-label">{recipeData.recipe_name}</h1>
                         <p className="title-label">Author: {recipeData.author}</p>
+                        <h1 className="title-label">{recipeData.recipe_name}</h1>
+                        <p>{recipeData.gluten_Free ? "| Gluten Free |" : null} {recipeData.lactose_free ? "| Lactose Free |" : null}{recipeData.peanut_free ? "| Peanut Free |" : null} </p>
                     </Col>
                 </Row>
                 <Row>
@@ -137,6 +166,9 @@ function RecipePage(){
                 {/* This button will start the cooking session */}
                 <Button onClick={enterCookingSession}>Enter Cooking Session</Button>
                 <Button variant="warning" onClick={handleDeleteRecipe}>Remove Recipe from Library</Button>
+                {recipeData.author === user.username ? <Button variant="info" onClick={handleEditRecipe}>Edit Recipe</Button> : null }
+                {recipeData.author === user.username ? <Button variant="danger" onClick={handleRecipeHardDelete}>Permanently Remove Recipe</Button> : null }
+
                 {/* STRETCHGOAL: If the user is the author of the recipe, give them the option to delete the recipe permanently */}
             </Container>
         </article>
@@ -155,6 +187,7 @@ function RecipePage(){
             </Modal.Footer>
         </Modal>
         <div className={`snackbar ${showSnackBar}`}>Recipe removed from your Library! Redirecting you shortly...</div>
+        <div id="hard-delete-sb" className={`${showHardDeleteSb}`}>Recipe removed from your Library! Redirecting you shortly...</div>
 
         </>
     )
