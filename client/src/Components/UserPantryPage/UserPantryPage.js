@@ -9,7 +9,7 @@ import Row from "react-bootstrap/Row"
 
 function UserPantryPage(){
     const [userPantries, setUserPantries]= useFetchUserPantries();
-
+    console.log(userPantries)
     const [show, setShow] = useState(false);
     const [newPantryForm, setNewPantryForm] = useState({
         pantry_name: "",
@@ -45,7 +45,11 @@ function UserPantryPage(){
         e.preventDefault();
         console.log(e.target.checked)
         const isActive = e.target.checked
-        const pantry_id = e.target.name
+        const pantry_id = e.target.name.split("-")[0]
+        // This is the index of the pantry object that is being mapped
+        const pantryObjectIndex = e.target.name.split("-")[1]
+        console.log("Pantry Index", pantryObjectIndex)
+
         const configObj = {
             method : "PATCH",
             headers : {
@@ -59,21 +63,29 @@ function UserPantryPage(){
 
         fetch(`/user_pantries/${pantry_id}/activate`, configObj)
         .then(res => res.json())
-        .then(updatedUserPantries => setUserPantries(updatedUserPantries))
+        .then(updatedPantry => {
+            console.log("Updated Pantry", updatedPantry)
+            setUserPantries(userPantries.map(pantryObject => {
+                if(updatedPantry.id === pantryObject.id){
+                    return updatedPantry
+                }else{
+                    return pantryObject
+                }
+            }))
+        })
     }
 
-    const mappedPantries = userPantries.map(pantryObject=>{
+    const mappedPantries = userPantries.map((pantryObject, index)=>{
         return(
             <RecipeCard key={pantryObject.id} pantryObject={pantryObject}>
                     <header>
                         <h2>{pantryObject.pantry_name}</h2>
                         <h3>
-                            
-                            <Form>
+                            <Form onClick={(e)=>e.stopPropagation()}>
                                 <Form.Check type="switch"
-                                            name={pantryObject.id}
+                                            name={`${pantryObject.id}-${index}`}
                                             checked={pantryObject.user_pantries[0].active}
-                                            onClick={handleActivatePantry}/>
+                                            onChange={handleActivatePantry}/>
                             </Form>
                             <p>{pantryObject.user_pantries[0].active ? "Active" : "Inactive"}</p>
                         </h3>
@@ -81,7 +93,6 @@ function UserPantryPage(){
                     <section>
                         <p>{pantryObject.pantry_description}</p>
                     </section>
-                    
             </RecipeCard>
         )
     })

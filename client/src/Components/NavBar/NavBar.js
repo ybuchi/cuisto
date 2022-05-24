@@ -9,10 +9,12 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Offcanvas from 'react-bootstrap/Offcanvas';
+import useFetchActivePantryIngredients from "../CustomHooks/useFetchActivePantryIngredients";
 
 function NavBar(){
     useLoginState();
-
+    const { totalIngredientsArray, setTotalIngredientsArray } = useFetchActivePantryIngredients();
+    console.log(totalIngredientsArray);
     const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
     const navigate = useNavigate();
 

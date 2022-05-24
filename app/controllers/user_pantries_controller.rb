@@ -5,8 +5,9 @@ class UserPantriesController < ApplicationController
     def handle_activate_pantry
         current_user_pantries = @user.pantries
         @user_pantry.update!(active: !@user_pantry.active)
+        pantry_to_render = Pantry.find_by(id: @user_pantry.pantry_id)
         # We want to return all of the user's pantries to make it easier to set state in the front-end
-        render json: current_user_pantries, status: 202
+        render json: pantry_to_render, status: 202
     end
 
     private

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    before_action :find_user, only: [:show, :create_new_recipe]
+    before_action :find_user, only: [:show, :create_new_recipe, :show_user_active_pantries]
     skip_before_action :authorize, only: [:index, :create, :show]
     
     def index
@@ -61,6 +61,13 @@ class UsersController < ApplicationController
     def show_user_pantries
         current_user = User.find_by(id: session[:user_id])
         render json: current_user.pantries
+    end
+
+    def show_user_active_pantries
+        current_user = User.find_by(id: session[:user_id])
+        active_pantries = UserPantry.where(user_id: current_user.id).or(UserPantry.where(active: true))
+
+        render json: active_pantries
     end
 
     private
