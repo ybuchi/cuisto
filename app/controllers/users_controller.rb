@@ -40,7 +40,7 @@ class UsersController < ApplicationController
     def create_new_recipe
         current_user = User.find_by(params[:id])
         #First, create a new recipe and link it to user
-        newRecipe = Recipe.create!(recipe_name: params[:recipe_name], cuisine: params[:cuisine], steps: params[:steps], diet: params[:diet], time_to_cook_min: params[:time_to_cook_min], author: current_user.username, description: params[:description], image: params[:image])
+        newRecipe = Recipe.create!(recipe_name: params[:recipe_name], cuisine: params[:cuisine], steps: params[:steps], diet: params[:diet], time_to_cook_min: params[:time_to_cook_min], author: current_user.username, description: params[:description], image: params[:image], visibility: params[:visibility], gluten_Free: params[:gluten_Free], lactose_free: params[:lactose_free], peanut_free: params[:peanut_free])
         newUserRecipe = UserLibrary.create!(user_id: session[:user_id], recipe_id: newRecipe.id)
 
         params[:recipe_ingredients_array].each do |ing_obj|

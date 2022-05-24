@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
@@ -16,7 +17,7 @@ function NewRecipePage(){
         description: "",
         image: "",
         gluten_Free: false,
-        lactoste_free: false,
+        lactose_free: false,
         peanut_free: false,
         visibility: "private"
     })
@@ -31,6 +32,14 @@ function NewRecipePage(){
 
     //This state takes care of the recipe steps which will be sent along with the recipe metadata
     const [stepsData, setStepsData] = useState([""])
+    const navigate = useNavigate()
+
+    const [showSuccessfullySubmited, setShowSuccessfullySubmitted] = useState("")
+    function revealSuccessSnackBar(){
+        setShowSuccessfullySubmitted("show")
+        setTimeout(()=>setShowSuccessfullySubmitted(""), 3000)
+        setTimeout(()=>navigate("/recipe-library"), 4000)
+    }
 
     //Adds an ingredient input
     function handleAddIngredient(){
@@ -64,6 +73,10 @@ function NewRecipePage(){
 
     function handleRecipeMetadataChange(e){
         setRecipeMetadata({...recipeMetadata, [e.target.name] : e.target.value})
+    }
+    function handleCheckboxChange(e){
+        console.log(e.target.checked)
+        setRecipeMetadata({...recipeMetadata, [e.target.name] : e.target.checked})
     }
 
     //Handles change in state of ingredients. These need to be handled differently since we can add/remove inputs at will
@@ -107,13 +120,18 @@ function NewRecipePage(){
         .then(res => {
             if (res.ok){
                 res.json().then(response => {
+                    // clear the form
                     setRecipeMetadata({
                         recipe_name : "",
                         cuisine : "",
                         time_to_cook_min : "",
                         diet : "",
                         description: "",
-                        image: ""
+                        image: "",
+                        gluten_Free: false,
+                        lactose_free: false,
+                        peanut_free: false,
+                        visibility: "private"
                     })
                     setIngredientData([{
                         ingredient_name : "",
@@ -122,6 +140,7 @@ function NewRecipePage(){
                         metric : ""
                     }])
                     setStepsData([""])
+                    revealSuccessSnackBar();
                     console.log(response)
                 })
             }else{
@@ -271,20 +290,22 @@ function NewRecipePage(){
                                     label="Gluten Free"
                                     name="gluten_Free"
                                     type="checkbox"
+                                    checked={recipeMetadata.gluten_Free}
+                                    onChange={handleCheckboxChange}
                                     id = "gluten-free-radio"/>
-
-
                         <Form.Check inline
                                     label="Lactose Free"
                                     name="lactose_free"
                                     type="checkbox"
+                                    checked={recipeMetadata.lactose_free}
+                                    onChange={handleCheckboxChange}
                                     id = "lactose-free-radio"/>
-
-
                         <Form.Check inline
                                     label="Peanut Free"
                                     name="peanut_free"
                                     type="checkbox"
+                                    checked={recipeMetadata.peanut_free}
+                                    onChange={handleCheckboxChange}
                                     id = "gluten-free-radio"/>
                     </Col>
                 </Row>
@@ -307,6 +328,7 @@ function NewRecipePage(){
                 <Button type="submit">Create Recipe</Button>
             </Container>
         </Form>
+        <div id="new-recipe-snackbar" className={`snackbar ${showSuccessfullySubmited}`}>New Recipe Created and Added to Library!</div>
         </>
     )
 }
