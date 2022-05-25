@@ -65,7 +65,8 @@ class UsersController < ApplicationController
 
     def show_user_active_pantries
         current_user = User.find_by(id: session[:user_id])
-        active_pantries = UserPantry.where(user_id: current_user.id).or(UserPantry.where(active: true))
+        user_pantries = UserPantry.where(user_id: current_user.id )
+        active_pantries = user_pantries.where(active: true)
 
         render json: active_pantries
     end
