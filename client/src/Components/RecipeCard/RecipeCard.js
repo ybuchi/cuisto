@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { UserContext } from "../Contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 import "./RecipeCard.css";
 import Modal from "react-bootstrap/Modal";
@@ -7,12 +8,23 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import useComparePantryToRecipe from "../CustomHooks/useComparePantryToRecipe";
 
 function RecipeCard(props){
     const navigate = useNavigate()
 
     const[editMode, setEditMode] = useState(false);
     const [showUpdateIngrSb, setShowUpdateIngrSb] = useState("");
+    const missingIngredientsArray = useComparePantryToRecipe(props.recipeObject);
+    const mapPantriesWithMissingIngredients = missingIngredientsArray ? missingIngredientsArray.map(pantry => {
+        const mappedMissingIngr = pantry.missing_ingredients.map((ingredient, index) => {return <span key={index}>{ ingredient} </span>})
+        return(
+            <p key={pantry.pantry_id}>{pantry.pantry_name} pantry is missing: {mappedMissingIngr}</p>
+        )
+    }) : null
+    console.log("MISSING INGREDIENTS! ", missingIngredientsArray)
+    const { userPantry }= useContext(UserContext)
+    
     function revealUpdateIngrSb(){
         setShowUpdateIngrSb("show")
         setTimeout(()=>setShowUpdateIngrSb(""), 3000)
@@ -110,6 +122,7 @@ function RecipeCard(props){
         <>
             <article className="recipe-card" onClick={goToRecipePage}>
                 {props.children}
+                {props.recipeObject ? mapPantriesWithMissingIngredients : null}
             </article>
 
 

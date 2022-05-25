@@ -8,7 +8,7 @@ function UserProvider({children}){
         const [user, setUser] = useState({});
         // Check whether someone is logged in
         const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+        //Retrieves a user's pantries 
         const [userPantries, setUserPantries] =useState([])
         // this value will be available to child components of this provider
         return (<UserContext.Provider value={{ user, setUser, isLoggedIn, setIsLoggedIn, userPantries, setUserPantries }}>

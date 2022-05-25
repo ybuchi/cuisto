@@ -79,6 +79,7 @@ function NavBar(){
         </Dropdown.Item>
       )
     })
+
     const mappedInactivePantries = userPantries.filter(pantryObj => !pantryObj.user_pantries[0].active).map(inactivePantryObj=>{
       return(
         <Dropdown.Item key={inactivePantryObj.id} name={`${inactivePantryObj.id}`} onClick={handleActivatePantry}>
@@ -89,7 +90,7 @@ function NavBar(){
 
     const navLinks = isLoggedIn ? <Nav className="justify-content-end flex-grow-1 pe-3">
                                     <Nav.Link href="/dashboard">Dashboard</Nav.Link>
-                                    <Nav.Link href="/recipe-library">Recipy Library</Nav.Link>
+                                    <Nav.Link href="/recipe-library">Recipes</Nav.Link>
                                     <Nav.Link href="/clubs">Clubs</Nav.Link>
                                     <SplitButton variant="secondary" title="Pantries" onClick={()=> navigate("/pantries")}>
                                       <Dropdown.Header>Active</Dropdown.Header>
