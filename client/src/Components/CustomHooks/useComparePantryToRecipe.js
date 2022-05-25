@@ -32,7 +32,7 @@ function useComparePantryToRecipe(recipeObject){
 
     function retrieveMissingIngredients(){
         //If there are multiple active pantries
-        if (activePantries.length > 1){
+        if (activePantries.length >= 1){
             const missingIngredientsArray = activePantries.map(pantryObject => {
                 //Compare the pantry object ingredients to recipe ingredients
                 const pantryIngredients = pantryObject.ingredients
@@ -63,7 +63,7 @@ function useComparePantryToRecipe(recipeObject){
                     missing_ingredients: missingRecipeIngredients
                 }
             })
-            
+
             return missingIngredientsArray
         }
     }
