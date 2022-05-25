@@ -11,6 +11,12 @@
     overflow:hidden;
     position:relative
 }
+.menu-card:hover .menu-card-label header{
+    background-color: rgba(255,255,255, 0.9);
+}
+.menu-card:hover .menu-card-bg{
+    transform: scale(1.1)
+}
 .menu-card-bg{
     opacity: 0.6;
     position: absolute;
@@ -19,9 +25,18 @@
     width: 100%;
     height: auto;
     z-index: -1;
+    transition: transform 1s;
 }
 .dashboard-item{
     position: relative;
+}
+.menu-card-label header{
+    border: 1px solid black;
+    background-color: rgba(255, 255, 255, 0.5);
+    transition: background-color 2s ease-out;
+}
+.menu-card-label header h3 {
+    margin: 0;
 }
 
 header h1 {
