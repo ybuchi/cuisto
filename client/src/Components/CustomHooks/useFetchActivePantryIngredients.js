@@ -8,7 +8,7 @@ function useFetchActivePantryIngredients(){
         fetch(`/user_active_pantries`)
         .then(res => res.json())
         .then(activeUserPantries => setActivePantries(activeUserPantries))
-    },[])
+    },[setActivePantries])
 
     return [activePantries, setActivePantries]
 }

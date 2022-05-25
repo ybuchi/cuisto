@@ -13,8 +13,8 @@ import useFetchActivePantryIngredients from "../CustomHooks/useFetchActivePantry
 
 function NavBar(){
     useLoginState();
-    const { totalIngredientsArray, setTotalIngredientsArray } = useFetchActivePantryIngredients();
-    console.log(totalIngredientsArray);
+    const [activePantries, setActivePantries ] = useFetchActivePantryIngredients();
+    console.log(activePantries);
     const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
     const navigate = useNavigate();
 

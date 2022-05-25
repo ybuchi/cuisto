@@ -1,9 +1,32 @@
 .dashboard-item{
-    border: 2px black solid;
+    border: 1px black solid;
     margin: 20px;
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 2px;
 }
 .dashboard-item:hover{
     cursor: pointer;
+}
+.menu-card{
+    overflow:hidden;
+    position:relative
+}
+.menu-card-bg{
+    opacity: 0.6;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: auto;
+    z-index: -1;
+}
+.dashboard-item{
+    position: relative;
+}
+
+header h1 {
+    font-family: "Libre Baskerville", serif;
+}
+article header{
+    font-family: "Libre Baskerville", serif;
 }
