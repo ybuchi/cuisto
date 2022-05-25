@@ -13,9 +13,9 @@ import Col from "react-bootstrap/Col";
 
 function PantryPage(){
     let { pantry_id } = useParams()
+
     const [pantryData] = useFetchPantryData(pantry_id)
     const [pantryIngredients, setPantryIngredients] = useFetchPantryIngredients(pantry_id)
-    console.log(pantryIngredients)
     const [show, setShow] = useState(false);
     const [newIngredientForm, setNewIngredientForm] = useState({
         ingredient_name: "",
@@ -23,6 +23,18 @@ function PantryPage(){
         amount: "",
         metric: ""
     });
+    const [showSnackBar, setShowSnackBar] = useState("")
+    // Handling Various SnackBars being displayed
+    const [showSnackBarRemovePantryIngr, setShowSnackBarRemovePantryIngr] = useState("")
+    function revealPantryIngrRemovedSnackBar(){
+        setShowSnackBarRemovePantryIngr("show")
+        setTimeout(()=>setShowSnackBarRemovePantryIngr(""), 3000)
+    }
+
+    function revealSnackBar(){
+        setShowSnackBar("show")
+        setTimeout(()=>setShowSnackBar(""), 3000)
+    }
 
     function handleNewIngredientFormChange(e){
         setNewIngredientForm({...newIngredientForm, [e.target.name] : e.target.value})
@@ -45,23 +57,35 @@ function PantryPage(){
         .then(newPantryIngredients => {
             setPantryIngredients(newPantryIngredients)
             setShow(false);
+            revealSnackBar();
         })
         
     }
 
-    const mappedIngredients = pantryIngredients ? pantryIngredients.map((ingredientObject, index) => {
-        const ingredientAttributes = ingredientObject.pantry_ingredients ? ingredientObject.pantry_ingredients[0] : "Loading..."
-        return(
-        <Col md={3} key={index}>
-            <RecipeCard ingredientObject={ingredientObject} pantry_id={pantry_id} setPantryIngredients={setPantryIngredients} pantryIngredients={pantryIngredients}>
-                <h3>{ingredientObject.ingredient_name}</h3>
-                <p>{ingredientObject.ingredient_type}</p>
-                <p style={{fontSize: "30px"}}>{ingredientAttributes.amount}<span> {ingredientAttributes.metric}</span></p>
-            </RecipeCard>
-        </Col>)
+    const mappedIngredients = () => {
+       if(pantryIngredients && pantryIngredients.length === 0){
+            return "Your pantry is not stocked yet!"
+        }else if(pantryIngredients){
+            const recipeCard = pantryIngredients.map((ingredientObject, index) => {
+                const ingredientAttributes = ingredientObject.pantry_ingredients[0]
+                return(
+                <Col md={3} key={index}>
+                    <RecipeCard ingredientObject={ingredientObject} 
+                                pantry_id={pantry_id} 
+                                setPantryIngredients={setPantryIngredients} 
+                                pantryIngredients={pantryIngredients}
+                                revealPantryIngrRemovedSnackBar={revealPantryIngrRemovedSnackBar}>
+                        <p>{ingredientObject.ingredient_type}</p>
+                        <h3>{ingredientObject.ingredient_name}</h3>
+                        <p style={{fontSize: "30px"}}>{ingredientAttributes.amount}<span> {ingredientAttributes.metric}</span></p>
+                    </RecipeCard>
+                </Col>)
+            })
+            return recipeCard
+        }else{
+            return "Loading..."
+        }
     }
-) : "Loading..."
-
 
     return(
         <>
@@ -75,14 +99,14 @@ function PantryPage(){
             <section>
                 <Container>
                     <Row>
-                        {mappedIngredients}
+                        {mappedIngredients()}
                     </Row>
                 </Container>
             </section>
         </article>
         <Modal show={show} fullscreen={true} onHide={() => setShow(false)}>
         <Modal.Header>
-            <Modal.Title>New Ingredient</Modal.Title>
+            <Modal.Title closeButton>New Ingredient</Modal.Title>
         </Modal.Header>
         <Modal.Body>
             <Form onSubmit={handleNewIngredientSubmission}>
@@ -120,6 +144,9 @@ function PantryPage(){
             </Form>
         </Modal.Body>
     </Modal>
+    <div className={`snackbar ${showSnackBar}`}>Ingredient Added to Pantry!</div>
+    <div className={`snackbar ${showSnackBarRemovePantryIngr}`}>Ingredient Removed from Pantry!</div>
+
     </>
         
     )

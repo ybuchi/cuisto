@@ -23,12 +23,17 @@ function UserDashboard(){
         <Container>
             <Row>
                 <Col sm={12} md={6}>
-                    <article id="pantry-article" className="dashboard-item" onClick={()=>navigate("/pantries")}>
+                    <div className="menu-card dashboard-item">
+                    <img className="menu-card-bg"
+                         src="https://media-cldnry.s-nbcnews.com/image/upload/t_focal-758x379,f_auto,q_auto:best/rockcms/2022-03/plant-based-food-mc-220323-02-273c7b.jpg"
+                         alt="pantry-img"/>
+                    <article id="pantry-article" className="menu-card-label" onClick={()=>navigate("/pantries")}>
                         <header>
                             <h3>Pantries</h3>
                         </header>
                         {/* Insert pantries here */}
                     </article>
+                    </div>
                 </Col>
                 <Col sm={12} md={6}>
                     <article id="recipe-library-article" className="dashboard-item" onClick={()=>navigate("/recipe-library")}>

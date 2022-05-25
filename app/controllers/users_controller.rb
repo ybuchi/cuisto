@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    before_action :find_user, only: [:show]
+    before_action :find_user, only: [:show, :create_new_recipe, :show_user_active_pantries]
     skip_before_action :authorize, only: [:index, :create, :show]
     
     def index
@@ -38,8 +38,9 @@ class UsersController < ApplicationController
     end
 
     def create_new_recipe
+        current_user = User.find_by(params[:id])
         #First, create a new recipe and link it to user
-        newRecipe = Recipe.create!(recipe_name: params[:recipe_name], cuisine: params[:cuisine], steps: params[:steps], diet: params[:diet], time_to_cook_min: params[:time_to_cook_min], author: session[:user_id], description: params[:description], image: params[:image])
+        newRecipe = Recipe.create!(recipe_name: params[:recipe_name], cuisine: params[:cuisine], steps: params[:steps], diet: params[:diet], time_to_cook_min: params[:time_to_cook_min], author: current_user.username, description: params[:description], image: params[:image], visibility: params[:visibility], gluten_Free: params[:gluten_Free], lactose_free: params[:lactose_free], peanut_free: params[:peanut_free])
         newUserRecipe = UserLibrary.create!(user_id: session[:user_id], recipe_id: newRecipe.id)
 
         params[:recipe_ingredients_array].each do |ing_obj|
@@ -49,10 +50,7 @@ class UsersController < ApplicationController
             newRecipeIngredient = RecipeIngredient.create!(ingredient_id: newIngredient.id, recipe_id: newRecipe.id, amount: ing_obj[:amount].to_f, metric: ing_obj[:metric])
             puts "New Recipe Ingredient created!"
         end
-
         render json: newRecipe
-        #NExt create new ingredients and link them to recipe
-        
     end
 
     def show_recipe_library
@@ -63,6 +61,14 @@ class UsersController < ApplicationController
     def show_user_pantries
         current_user = User.find_by(id: session[:user_id])
         render json: current_user.pantries
+    end
+
+    def show_user_active_pantries
+        current_user = User.find_by(id: session[:user_id])
+        user_pantries = UserPantry.where(user_id: current_user.id )
+        active_pantries = user_pantries.where(active: true)
+
+        render json: active_pantries
     end
 
     private

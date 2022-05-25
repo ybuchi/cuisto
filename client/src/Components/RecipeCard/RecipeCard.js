@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { UserContext } from "../Contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 import "./RecipeCard.css";
 import Modal from "react-bootstrap/Modal";
@@ -7,10 +8,28 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import useComparePantryToRecipe from "../CustomHooks/useComparePantryToRecipe";
 
 function RecipeCard(props){
     const navigate = useNavigate()
 
+    const[editMode, setEditMode] = useState(false);
+    const [showUpdateIngrSb, setShowUpdateIngrSb] = useState("");
+    const missingIngredientsArray = useComparePantryToRecipe(props.recipeObject);
+    const mapPantriesWithMissingIngredients = missingIngredientsArray ? missingIngredientsArray.map(pantry => {
+        const mappedMissingIngr = pantry.missing_ingredients.map((ingredient, index) => {return <span key={index}>{ ingredient} </span>})
+        return(
+            <p key={pantry.pantry_id}>{pantry.pantry_name} pantry is missing: {mappedMissingIngr}</p>
+        )
+    }) : null
+    console.log("MISSING INGREDIENTS! ", missingIngredientsArray)
+    const { userPantry }= useContext(UserContext)
+    
+    function revealUpdateIngrSb(){
+        setShowUpdateIngrSb("show")
+        setTimeout(()=>setShowUpdateIngrSb(""), 3000)
+    }
+    
     //If the prop being sent is an ingredient
     function renderIngredientsInModal(){
         if(props.ingredientObject){
@@ -41,9 +60,6 @@ function RecipeCard(props){
         }
         console.log("This is props", props.recipeObject)
     }
-    const[editMode, setEditMode] = useState(false);
-
-    
 
     function handleRemoveIngredient(){
         const pantryIngredientObj = props.ingredientObject.pantry_ingredients[0]
@@ -57,9 +73,9 @@ function RecipeCard(props){
             if (res.ok){
                 const setPantryIngredients = props.setPantryIngredients
                 const pantryIngredients = props.pantryIngredients
-                
+
                 setPantryIngredients(pantryIngredients.filter(ingredientObj=>ingredientObj.pantry_ingredients[0].id !== pantryIngredientObj.id))
-                setShow(false)
+                props.revealPantryIngrRemovedSnackBar()
             }
         })
 
@@ -85,35 +101,36 @@ function RecipeCard(props){
 
         fetch(`/pantry_ingredients/${props.ingredientObject.pantry_ingredients[0].id}`, configObj)
         .then(res => res.json())
-        .then(updatedIngredient => props.setPantryIngredients(props.pantryIngredients.map(ingredientObject => {
-            console.log("IngredientObject", ingredientObject)
-            console.log("UpdatedIngredient", updatedIngredient)
-            console.log("PantryIng", props.pantryIngredients)
-            if (ingredientObject.id === updatedIngredient.ingredient_id){
-                const updatedPantryIngredient = {...ingredientObject, pantry_ingredients : [{
-                    ...ingredientObject.pantry_ingredients[0], amount: updatedIngredient.amount, metric: updatedIngredient.metric
-                }]}
-                // return updatedIngredient
-                console.log(updatedPantryIngredient)
-                return updatedPantryIngredient
-            }else{
-                return ingredientObject
-            }
-        }
-    )))
-    }
+        .then(updatedIngredient => {
+            setEditMode(false)
+            revealUpdateIngrSb();
+            props.setPantryIngredients(props.pantryIngredients.map(ingredientObject => {
+                if (ingredientObject.id === updatedIngredient.ingredient_id){
+                    const updatedPantryIngredient = {...ingredientObject, pantry_ingredients : [{
+                        ...ingredientObject.pantry_ingredients[0], amount: updatedIngredient.amount, metric: updatedIngredient.metric
+                    }]}
+
+                    return updatedPantryIngredient
+                }else{
+                    return ingredientObject
+                }
+        }))}
+    )}
 
     
     return(
         <>
             <article className="recipe-card" onClick={goToRecipePage}>
                 {props.children}
+                {props.recipeObject ? mapPantriesWithMissingIngredients : null}
             </article>
 
 
             <Modal show={show} fullscreen={true} onHide={()=>setShow(false)}>
                 <Modal.Header closeButton>
-                    <h3>{ ingredientsInModal ? ingredientsInModal.ingredient_name : <p>Loading...</p>}</h3>
+                    <Modal.Title >
+                        <h3>{ ingredientsInModal ? ingredientsInModal.ingredient_name : <p>Loading...</p>}</h3>
+                    </Modal.Title>
                 </Modal.Header>
                 { editMode ? <Modal.Body>
                         <Form onSubmit={handleUpdatedIngredientSubmission}>
@@ -185,6 +202,7 @@ function RecipeCard(props){
                         <Button variant="danger" onClick={handleRemoveIngredient}>Remove from Pantry</Button>
                     </Container>
                 </Modal.Body>}
+                <div id="updateIngrSb" className={`${showUpdateIngrSb}`}>Ingredient Updated!</div>
             </Modal>
         </>
     )
