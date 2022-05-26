@@ -6,13 +6,16 @@ import {
 import './index.css';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { UserProvider } from './Components/Contexts/UserContext';
 
 import reportWebVitals from './reportWebVitals';
 
 
 ReactDOM.render(
   <BrowserRouter>
-    <App/>
+    <UserProvider>
+      <App/>
+    </UserProvider>
   </BrowserRouter>,
   document.getElementById('root')
 );
