@@ -36,27 +36,38 @@ function UserDashboard(){
                     </div>
                 </Col>
                 <Col sm={12} md={6}>
-                    <article id="recipe-library-article" className="dashboard-item" onClick={()=>navigate("/recipe-library")}>
+                    <div className="menu-card dashboard-item">
+                    <img className="menu-card-bg" 
+                         src="https://thumbs.dreamstime.com/b/bucharest-romania-may-famous-cook-recipe-books-sale-library-book-store-famous-cook-recipe-books-sale-library-book-99222208.jpg"
+                         alt="recipe-library"/>
+                    <article id="recipe-library-article" className="menu-card-label" onClick={()=>navigate("/recipe-library")}>
                         <header>
                             <h3>Recipy Library</h3>
                         </header>
                         {/* Insert pantries here */}
                     </article>
+                    </div>
                 </Col>
             </Row>
            <Row>
                <Col sm={12} md={6}>
-                    <article id="new-recipe-article" className="dashboard-item" onClick={()=>navigate("/new-recipe")}>
+                   <div className="menu-card dashboard-item">
+                    <img className="menu-card-bg"
+                         src="https://images.squarespace-cdn.com/content/v1/58d1b3ff1b631bb1893d108d/eb410491-651b-49df-9a3c-c388088c3304/P7121975+%281%29.jpg"
+                         alt="recipe-book"/>
+                    <article id="new-recipe-article" className="menu-card-label" onClick={()=>navigate("/new-recipe")}>
                             <header>
                                 <h3>Create Your Recipe</h3>
                             </header>
                             {/* Insert pantries here */}
                     </article>
+                    </div>
                 </Col>
                 <Col sm={12} md={6}>
                     <article id="cooking-club-article" className="dashboard-item">
                             <header>
-                                <h3>Cooking Club</h3>
+                                <h3>Cooking Club </h3>
+                                <p>Coming Soon!</p>
                             </header>
                             {/* Insert pantries here */}
                     </article>
