@@ -1,7 +1,7 @@
 import useFetchUserPantries from "./useFetchUserPantries";
 
 function useComparePantryToRecipe(recipeObject){
-    const [userPantries, setUserPantries] = useFetchUserPantries()
+    const [userPantries] = useFetchUserPantries()
     if (recipeObject){
 
     console.log("Recipe Object to Compare: ", recipeObject)
@@ -31,7 +31,7 @@ function useComparePantryToRecipe(recipeObject){
             //add it to a missing ingredients array
 
     function retrieveMissingIngredients(){
-        //If there are multiple active pantries
+        //If there are one or  multiple active pantries
         if (activePantries.length >= 1){
             const missingIngredientsArray = activePantries.map(pantryObject => {
                 //Compare the pantry object ingredients to recipe ingredients

@@ -9,6 +9,10 @@
     cursor: pointer;
 }
 
+.missing-ingredients{
+  text-align: left;
+}
+
 #updateIngrSb{
     visibility: hidden; /* Hidden by default. Visible on click */
     min-width: 250px; /* Set a default minimum width */

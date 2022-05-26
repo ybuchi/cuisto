@@ -1,7 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { UserContext } from "../Contexts/UserContext";
+
 
 function useFetchUserLibrary(){
-    const [userLibrary, setUserLibrary] = useState([])
+    const { userLibrary, setUserLibrary } = useContext(UserContext);
+    // const [userLibrary, setUserLibrary] = useState([])
 
     useEffect(()=>{
         fetch("/user-library")

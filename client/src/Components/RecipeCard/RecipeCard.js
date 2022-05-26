@@ -1,5 +1,4 @@
-import React, { useState, useContext } from "react";
-import { UserContext } from "../Contexts/UserContext";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./RecipeCard.css";
 import Modal from "react-bootstrap/Modal";
@@ -9,22 +8,73 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import useComparePantryToRecipe from "../CustomHooks/useComparePantryToRecipe";
+import useRecommendRecipeInPantry from "../CustomHooks/useRecommendRecipeInPantry";
 
 function RecipeCard(props){
     const navigate = useNavigate()
 
     const[editMode, setEditMode] = useState(false);
     const [showUpdateIngrSb, setShowUpdateIngrSb] = useState("");
+
+    // For RecipeCards showing recipe information (as opposed to Pantry information)
     const missingIngredientsArray = useComparePantryToRecipe(props.recipeObject);
     const mapPantriesWithMissingIngredients = missingIngredientsArray ? missingIngredientsArray.map(pantry => {
-        const mappedMissingIngr = pantry.missing_ingredients.map((ingredient, index) => {return <span key={index}>{ ingredient} </span>})
+        const mappedMissingIngr = pantry.missing_ingredients.map((ingredient, index) => {return <strong key={index}>{ ingredient} </strong>})
         return(
-            <p key={pantry.pantry_id}>{pantry.pantry_name} pantry is missing: {mappedMissingIngr}</p>
+            <>
+            {mappedMissingIngr.length > 0 ? <p className="missing-ingredients" key={pantry.pantry_id}><strong>{pantry.pantry_name}</strong> pantry is missing: {mappedMissingIngr}</p> : <p className="missing-ingredients" key={pantry.pantry_id}><strong>{pantry.pantry_name}</strong> has all the ingredients!</p>}
+            </>
         )
     }) : null
     console.log("MISSING INGREDIENTS! ", missingIngredientsArray)
-    const { userPantry }= useContext(UserContext)
     
+    // For RecipeCards showing pantry information
+    const recommendedRecipesArray = useRecommendRecipeInPantry(props.pantryObject)
+    console.log("RECOMMENDED RECIPES", recommendedRecipesArray)
+    const mapRecommendedRecipes = ()=>{
+        if(recommendedRecipesArray){
+            if(recommendedRecipesArray.length > 0){
+                const recRecipes = recommendedRecipesArray.map(recipeObject=>{
+                    console.log("CHECK1:", recipeObject)
+                    return(
+                        <li key={recipeObject.id}>
+                            <p><strong>{`${recipeObject.recipe_name}: `}</strong>{recipeObject.included_pantry_ingredients.length} ingredients in the pantry, {recipeObject.number_of_missing_ingredients} missing ingredients </p>
+                        </li>
+                    )
+                })
+                return recRecipes
+            }else if(recommendedRecipesArray.length === 0){
+                return(
+                    <p>No recipes in your library to recommend yet...</p>
+                )
+            }
+        }else{
+            return null;
+        }
+        
+    }
+    console.log("ROOOOOOO", mapRecommendedRecipes)
+
+    const mappedRecommendedRecipesContainer = ()=>{
+        
+        if(props.pantryObject){
+            return(
+                <>
+                <p>Recommended Recipes Based on {props.pantryObject.pantry_name} pantry ingredients:</p>
+                <ol>
+                    {mapRecommendedRecipes()}
+                </ol>
+                </>
+            )
+        }else{
+            return null;
+        }
+
+    }
+
+    console.log(mappedRecommendedRecipesContainer())
+
+
     function revealUpdateIngrSb(){
         setShowUpdateIngrSb("show")
         setTimeout(()=>setShowUpdateIngrSb(""), 3000)
@@ -122,7 +172,10 @@ function RecipeCard(props){
         <>
             <article className="recipe-card" onClick={goToRecipePage}>
                 {props.children}
+
+                {/* If we are in a recipe related card, show missing pantry ingredients */}
                 {props.recipeObject ? mapPantriesWithMissingIngredients : null}
+                {mappedRecommendedRecipesContainer()}
             </article>
 
 
