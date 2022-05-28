@@ -17,6 +17,7 @@ import ProfilePage from './Components/ProfilePage/ProfilePage';
 import RecipePage from './Components/RecipePage/RecipePage';
 import PantryPage from './Components/PantryPage/PantryPage';
 import CookingSessionPage from './Components/CookingSessionPage/CookingSessionPage';
+import PublicRecipesPage from './Components/PublicRecipesPage/PublicRecipesPage';
 
 function App() {
   useLoginState();
@@ -31,6 +32,7 @@ function App() {
           <Route path="/" element={<Landing/>}/>
           <Route path="login" element={<Login/>}/>
           <Route path="dashboard" element={<UserDashboard/>}/>
+          <Route path="/browse-recipes" element={<PublicRecipesPage/>}/>
           <Route path="new-recipe" element={<NewRecipePage/>}/>
           <Route path="recipe-library" element={<RecipeLibraryPage/>}/>
           <Route path="/recipe-library/:recipe_id" element={<RecipePage />}/>

@@ -19,7 +19,7 @@ function NewRecipePage(){
         gluten_Free: false,
         lactose_free: false,
         peanut_free: false,
-        visibility: "private"
+        visibility: "Private"
     })
 
     //This state takes care of the ingredients
@@ -131,7 +131,7 @@ function NewRecipePage(){
                         gluten_Free: false,
                         lactose_free: false,
                         peanut_free: false,
-                        visibility: "private"
+                        visibility: "Private"
                     })
                     setIngredientData([{
                         ingredient_name : "",
@@ -165,10 +165,20 @@ function NewRecipePage(){
                         </Col>
                         <Col sm={6} lg={3}>
                             <Form.Label>Type: </Form.Label>
-                            <Form.Control type="text"
+                            <Form.Select type="text"
                                           name={`ingredient_type-${index}`}
                                           value={ingredientData[index].ingredient_type}
-                                          onChange={handleIngredientDataChange}/>
+                                          onChange={handleIngredientDataChange}>
+                                <option>Eggs and Dairy</option>  
+                                <option>Fats and Oils</option>
+                                <option>Fruits</option>
+                                <option>Grain, Nuts and Baking Products</option> 
+                                <option>Herbs and Spices</option>         
+                                <option>Meats and Fish</option>
+                                <option>Pasta, Rice and Pulses</option>
+                                <option>Vegetables</option>
+                                <option>Other</option>
+                            </Form.Select>
                         </Col>
                         <Col sm={6} lg={2}>
                             <Form.Label>Amount:</Form.Label>
@@ -222,6 +232,20 @@ function NewRecipePage(){
             <Container>
                 <Row>
                     <h3>Recipe Metadata</h3>
+                    <Col sm={12} md={12}>
+                        <Form.Group>
+                            <Form.Label>Privacy</Form.Label>
+                            <Form.Select type="text"
+                                          name="visibility"
+                                          value={recipeMetadata.visibility}
+                                          onChange={handleRecipeMetadataChange}>
+                                <option>Private</option>
+                                <option>Friends Only</option>
+                                <option>Public</option>
+                            </Form.Select>
+                        </Form.Group>
+                    </Col>
+
                     <Col sm={8} md={5}>
                         <Form.Group>
                             <Form.Label>Recipe Name</Form.Label>

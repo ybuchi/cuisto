@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./UserPantryPage.css"
 import useFetchUserPantries from "../CustomHooks/useFetchUserPantries";
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -100,10 +101,11 @@ function UserPantryPage(){
 
     return(
         <>
-        <h1>UserPantry</h1>
-        <Button onClick={() => setShow(true)}>Add new Pantry</Button>
+        <h1>Pantries</h1>
         <hr/>
         <Container>
+        <Button id="add-pantry-button" variant="secondary" onClick={() => setShow(true)}><strong>+</strong> Add new Pantry</Button>
+
             <Row>
                 {mappedPantries}
             </Row>

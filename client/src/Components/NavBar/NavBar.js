@@ -90,14 +90,15 @@ function NavBar(){
 
     const navLinks = isLoggedIn ? <Nav className="justify-content-end flex-grow-1 pe-3">
                                     <Nav.Link href="/dashboard">Dashboard</Nav.Link>
-                                    <Nav.Link href="/recipe-library">Recipes</Nav.Link>
+                                    <Nav.Link href="/browse-recipes">Browse Recipes</Nav.Link>
+                                    <Nav.Link href="/recipe-library">Library</Nav.Link>
                                     <Nav.Link href="/clubs">Clubs</Nav.Link>
                                     <SplitButton variant="secondary" title="Pantries" onClick={()=> navigate("/pantries")}>
                                       <Dropdown.Header>Active</Dropdown.Header>
-                                      {mappedActivePantries}
+                                        {mappedActivePantries}
                                       <Dropdown.Divider/>
                                       <Dropdown.Header>Inactive</Dropdown.Header>
-                                      {mappedInactivePantries}
+                                        {mappedInactivePantries}
                                     </SplitButton>
                                     <Nav.Link href="/profile">Profile</Nav.Link>
                                     <Nav.Link onClick={handleLogout}>Logout</Nav.Link>

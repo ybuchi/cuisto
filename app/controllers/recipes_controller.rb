@@ -6,6 +6,11 @@ class RecipesController < ApplicationController
       render json: @recipe
     end
 
+    def show_public_recipes
+      public_recipes = Recipe.where(visibility: "Public")
+      render json: public_recipes
+    end
+
     def show_recipe_ingredients
       render json: @recipe.ingredients
     end
