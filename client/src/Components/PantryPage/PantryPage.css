@@ -12,8 +12,8 @@
     transform: scale(1.2)
 }
 #add-icon{
-    margin-right: 10px;
+    margin-left: 10px;
 }
 #remove-icon{
-    margin-left: 10px;
+    margin-right: 10px;
 }
