@@ -126,7 +126,7 @@ function PantryPage(){
 
     const mappedIngredients = () => {
        if(pantryIngredients && pantryIngredients.length === 0){
-            return "Your pantry is not stocked yet!"
+            return <p style={{fontSize: "30px", fontStyle : "italic"}}>Your pantry is not stocked yet!</p>
         }else if(pantryIngredients){
             const recipeCard = pantryIngredients.map((ingredientObject, index) => {
                 const ingredientAttributes = ingredientObject.pantry_ingredients[0]
@@ -162,7 +162,7 @@ function PantryPage(){
             <hr/>
             <section>
                 <Container>
-                    <p><strong style={{fontSize: "30px"}}>{mappedIngredients().length}</strong> ingredients in your pantry.</p>
+                    <p><strong style={{fontSize: "30px"}}>{typeof(mappedIngredients()) !== "number" ? 0 : mappedIngredients().length}</strong> ingredients in your pantry.</p>
                     <p>Click on an ingredient for more options.</p>
                     <Row>
                         {mappedIngredients()}
