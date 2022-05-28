@@ -62,6 +62,67 @@ function PantryPage(){
         
     }
 
+    //Configure this to change the colors of the ingredient type labels in the pantry
+    const typeLabel = (ingredientObject)=> {
+        switch(ingredientObject.ingredient_type){
+            
+            case "Eggs and Dairy":
+                return "#FDFCE5";
+
+            case "Fats and Oils":
+                return "#FDE49C";
+            
+            case "Fruits":
+                return "#A03C78";
+            case "Grain, Nuts and Baking Products":
+                return "#D8B384"
+            case "Herbs and Spices":
+                return "#1EAE98"
+            
+            case "Meats and Fish":
+                return "#CF0000"
+            
+            case "Pasta, Rice and Pulses":
+                return "#F0C929"
+            
+            case "Vegetables":
+                return "#1E6F5C";
+
+            default:
+                return "gray";
+        }
+    }
+    const typeLabelFontColor = (ingredientObject)=> {
+        switch(ingredientObject.ingredient_type){
+            
+            case "Eggs and Dairy":
+                return "black";
+
+            case "Fats and Oils":
+                return "black";
+            
+            case "Fruits":
+                return "white";
+
+            case "Grain, Nuts and Baking Products":
+                return "white"
+
+            case "Herbs and Spices":
+                return "white"
+            
+            case "Meats and Fish":
+                return "white"
+            
+            case "Pasta, Rice and Pulses":
+                return "black"
+            
+            case "Vegetables":
+                return "white";
+
+            default:
+                return "white";
+        }
+    }
     const mappedIngredients = () => {
        if(pantryIngredients && pantryIngredients.length === 0){
             return "Your pantry is not stocked yet!"
@@ -75,7 +136,7 @@ function PantryPage(){
                                 setPantryIngredients={setPantryIngredients} 
                                 pantryIngredients={pantryIngredients}
                                 revealPantryIngrRemovedSnackBar={revealPantryIngrRemovedSnackBar}>
-                        <p>{ingredientObject.ingredient_type}</p>
+                        <p style={{backgroundColor: typeLabel(ingredientObject), color: typeLabelFontColor(ingredientObject)}}>{ingredientObject.ingredient_type}</p>
                         <h3>{ingredientObject.ingredient_name}</h3>
                         <p style={{fontSize: "30px"}}>{ingredientAttributes.amount}<span> {ingredientAttributes.metric}</span></p>
                     </RecipeCard>
@@ -98,6 +159,7 @@ function PantryPage(){
             <hr/>
             <section>
                 <Container>
+                    <p>You have {mappedIngredients().length} ingredients in your pantry.</p>
                     <Row>
                         {mappedIngredients()}
                     </Row>
@@ -119,10 +181,20 @@ function PantryPage(){
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Type:</Form.Label>
-                    <Form.Control type="text"
+                    <Form.Select type="text"
                                   name="ingredient_type" 
                                   value={newIngredientForm.ingredient_type}
-                                  onChange={handleNewIngredientFormChange}/>
+                                  onChange={handleNewIngredientFormChange}>
+                        <option>Eggs and Dairy</option>  
+                        <option>Fats and Oils</option>
+                        <option>Fruits</option>
+                        <option>Grain, Nuts and Baking Products</option> 
+                        <option>Herbs and Spices</option>         
+                        <option>Meats and Fish</option>
+                        <option>Pasta, Rice and Pulses</option>
+                        <option>Vegetables</option>
+                        <option>Other</option>
+                    </Form.Select>
                 </Form.Group>
                 {/* Stretch Goal: Add an image for a pantry */}
                 <Form.Group>
