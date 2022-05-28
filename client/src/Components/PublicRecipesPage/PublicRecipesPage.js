@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import "./PublicRecipesPage.css"
 import useFetchPublicRecipes from "../CustomHooks/useFetchPublicRecipes";
 import RecipeCard from "../RecipeCard/RecipeCard";
@@ -6,13 +6,30 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
+import { UserContext } from "../Contexts/UserContext";
+import useFetchUserLibrary from "../CustomHooks/useFetchUserRecipes";
 
 function PublicRecipesPage(){
+    const { user } = useContext(UserContext)
+    const [userLibrary, setUserLibrary] = useFetchUserLibrary();
+
     const [publicRecipes, setPublicRecipes] = useFetchPublicRecipes()
     console.log("Public Recipes: ", publicRecipes )
+    console.log("USER LIBRARY", userLibrary)
 
     //Map public recipes
     const mappedRecipes = publicRecipes.map(recipeObject => {
+        console.log("RECIPEOBJECT", recipeObject);
+        const recipeIsInLibrary = ()=>{
+            for (let i = 0; i < userLibrary.length; i++){
+                if(userLibrary[i].id === recipeObject.id){
+                    return true
+                }else{
+                    return false
+                }
+            }
+        }
+
         return(
         <RecipeCard key={recipeObject.id} recipeObject={recipeObject}>
             
@@ -41,7 +58,7 @@ function PublicRecipesPage(){
             </Row>
             <hr/>
             
-            <Button style={{textAlign: "left"}}><strong>+</strong> Add To Library</Button>
+            {recipeIsInLibrary ? <p style={{fontStyle : "italic"}}>Recipe Is In Library</p> : <Button><strong>+</strong> Add To Library</Button>}
             
         </RecipeCard>)
         
@@ -49,7 +66,7 @@ function PublicRecipesPage(){
 
     return(
         <>
-        <h1>Public Recipes Page</h1>
+        <h1>Browse Recipes</h1>
         <Container>
             {mappedRecipes}
         </Container>
