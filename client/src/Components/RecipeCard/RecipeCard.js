@@ -175,7 +175,7 @@ function RecipeCard(props){
     
     return(
         <>
-            <article className="recipe-card" onClick={goToRecipePage}>
+            <article className="recipe-card" style={{backgroundColor: props.backgroundColor ? props.backgroundColor : "white"}} onClick={goToRecipePage}>
                 {props.children}
 
                 {/* If we are in a recipe related card, show missing pantry ingredients */}
@@ -256,8 +256,8 @@ function RecipeCard(props){
 
                             </Col>
                         </Row>
-                        <Button variant="info" onClick={handleUpdateIngredient}>Update Amount/Metric</Button>
-                        <Button variant="danger" onClick={handleRemoveIngredient}>Remove from Pantry</Button>
+                        <Button style={{margin: "5px"}} variant="info" onClick={handleUpdateIngredient}>Update Amount/Metric</Button>
+                        <Button style={{margin: "5px"}} variant="danger" onClick={handleRemoveIngredient}>Remove from Pantry</Button>
                     </Container>
                 </Modal.Body>}
                 <div id="updateIngrSb" className={`${showUpdateIngrSb}`}>Ingredient Updated!</div>

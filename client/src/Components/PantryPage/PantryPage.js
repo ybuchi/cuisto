@@ -136,10 +136,11 @@ function PantryPage(){
                                 pantry_id={pantry_id} 
                                 setPantryIngredients={setPantryIngredients} 
                                 pantryIngredients={pantryIngredients}
-                                revealPantryIngrRemovedSnackBar={revealPantryIngrRemovedSnackBar}>
-                        <h3>{ingredientObject.ingredient_name}</h3>
+                                revealPantryIngrRemovedSnackBar={revealPantryIngrRemovedSnackBar}
+                                backgroundColor="#EFF8FF">
+                        <h3><strong>{ingredientObject.ingredient_name}</strong></h3>
                         <p style={{fontSize: "30px"}}>{ingredientAttributes.amount}<span> {ingredientAttributes.metric}</span></p>
-                        <p style={{backgroundColor: typeLabel(ingredientObject), color: typeLabelFontColor(ingredientObject)}}>{ingredientObject.ingredient_type}</p>
+                        <p style={{backgroundColor: typeLabel(ingredientObject), color: typeLabelFontColor(ingredientObject), borderRadius: "5px", padding: "5px"}}>{ingredientObject.ingredient_type}</p>
 
                     </RecipeCard>
                 </Col>)
@@ -161,7 +162,8 @@ function PantryPage(){
             <hr/>
             <section>
                 <Container>
-                    <p>You have {mappedIngredients().length} ingredients in your pantry.</p>
+                    <p><strong style={{fontSize: "30px"}}>{mappedIngredients().length}</strong> ingredients in your pantry.</p>
+                    <p>Click on an ingredient for more options.</p>
                     <Row>
                         {mappedIngredients()}
                     </Row>
