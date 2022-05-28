@@ -15,7 +15,7 @@ class PantryIngredientsController < ApplicationController
     end
 
     def update
-        @pantryIngredient.update!(amount: params[:amount], metric: params[:metric])
+        @pantryIngredient.update!(amount: params[:amount], metric: params[:metric], needs_restock: params[:needs_restock])
         render json: @pantryIngredient
     end
 
