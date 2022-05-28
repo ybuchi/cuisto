@@ -4,3 +4,16 @@
     top: -40px;
     left: 0px;
 }
+.add-remove-icon{
+    width: 20px;
+    transition: transform 0.2s ease;
+}
+.add-remove-icon:hover{
+    transform: scale(1.2)
+}
+#add-icon{
+    margin-right: 10px;
+}
+#remove-icon{
+    margin-left: 10px;
+}

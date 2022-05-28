@@ -10,7 +10,9 @@ import RecipeCard from "../RecipeCard/RecipeCard";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import restockLogo from "../Images/Logos/restock_logo.png"
+import restockLogo from "../Images/Logos/restock_logo.png";
+import {PlusCircle} from "react-bootstrap-icons";
+import {DashCircle} from "react-bootstrap-icons";
 
 function PantryPage(){
     let { pantry_id } = useParams()
@@ -169,7 +171,8 @@ function PantryPage(){
                                 backgroundColor="#EFF8FF">
                         <img src={restockLogo} alt="restock!" id="restock-logo" style={{visibility : ingredientObject.pantry_ingredients[0].needs_restock ? "visible" : "hidden"}}/>
                         <h3><strong>{ingredientObject.ingredient_name}</strong></h3>
-                        <p style={{fontSize: "30px"}}>{ingredientAttributes.amount}<span> {ingredientAttributes.metric}</span></p>
+                        <p style={{fontSize: "30px"}}><span><PlusCircle className="add-remove-icon" id="add-icon"/></span>{ingredientAttributes.amount}<span><DashCircle className="add-remove-icon" id="remove-icon"/></span></p>
+                        <p>{ingredientAttributes.metric}</p>
                         <p style={{backgroundColor: typeLabel(ingredientObject), color: typeLabelFontColor(ingredientObject), borderRadius: "5px", padding: "5px"}}>{ingredientObject.ingredient_type}</p>
                         {ingredientObject.pantry_ingredients[0].needs_restock ? <Button variant="success" onClick={(e)=>handleIngrRestock(e, ingredientObject)}>Restocked</Button> : <Button variant="secondary" onClick={(e)=>handleIngrRestock(e, ingredientObject)}>Restock!</Button> }
 
