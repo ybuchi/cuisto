@@ -167,7 +167,7 @@ function PantryPage(){
                                 pantryIngredients={pantryIngredients}
                                 revealPantryIngrRemovedSnackBar={revealPantryIngrRemovedSnackBar}
                                 backgroundColor="#EFF8FF">
-                        <img src={restockLogo} alt="restock!" id="restock-logo"/>
+                        <img src={restockLogo} alt="restock!" id="restock-logo" style={{visibility : ingredientObject.pantry_ingredients[0].needs_restock ? "visible" : "hidden"}}/>
                         <h3><strong>{ingredientObject.ingredient_name}</strong></h3>
                         <p style={{fontSize: "30px"}}>{ingredientAttributes.amount}<span> {ingredientAttributes.metric}</span></p>
                         <p style={{backgroundColor: typeLabel(ingredientObject), color: typeLabelFontColor(ingredientObject), borderRadius: "5px", padding: "5px"}}>{ingredientObject.ingredient_type}</p>
