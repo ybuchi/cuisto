@@ -229,6 +229,7 @@ function PantryPage(){
                                 backgroundColor="#EFF8FF">
                         <img src={restockLogo} alt="restock!" id="restock-logo" style={{visibility : ingredientObject.pantry_ingredients[0].needs_restock ? "visible" : "hidden"}}/>
                         <h3><strong>{ingredientObject.ingredient_name}</strong></h3>
+                        <hr/>
                         <p style={{fontSize: "30px"}}>
                             <span><DashCircle className="add-remove-icon" id="remove-icon" onClick={(e)=>removeOne(e, ingredientObject)}/></span>
                             {ingredientAttributes.amount}
@@ -253,13 +254,14 @@ function PantryPage(){
             <header>
                 <h1>{pantryData ? pantryData.pantry_name :  "Loading..."}</h1>
                 <h3>{pantryData ? pantryData.pantry_description : "Loading..." }</h3>
-                <Button variant="secondary" onClick={()=>setShow(true)}><strong>+</strong> Add an Ingredient</Button>
             </header>
             <hr/>
             <section>
                 <Container>
                     <p><strong style={{fontSize: "30px"}}>{mappedIngredients().length >= 1 ? mappedIngredients().length : 0}</strong> ingredients in your pantry.</p>
                     <p>Click on an ingredient for more options.</p>
+                    <Button id="add-ingredient-button" variant="secondary" onClick={()=>setShow(true)}><strong>+</strong> Add Ingredient</Button>
+
                     <Row>
                         {mappedIngredients()}
                     </Row>
