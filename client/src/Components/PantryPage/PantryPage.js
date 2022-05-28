@@ -123,6 +123,7 @@ function PantryPage(){
                 return "white";
         }
     }
+
     const mappedIngredients = () => {
        if(pantryIngredients && pantryIngredients.length === 0){
             return "Your pantry is not stocked yet!"
@@ -136,9 +137,10 @@ function PantryPage(){
                                 setPantryIngredients={setPantryIngredients} 
                                 pantryIngredients={pantryIngredients}
                                 revealPantryIngrRemovedSnackBar={revealPantryIngrRemovedSnackBar}>
-                        <p style={{backgroundColor: typeLabel(ingredientObject), color: typeLabelFontColor(ingredientObject)}}>{ingredientObject.ingredient_type}</p>
                         <h3>{ingredientObject.ingredient_name}</h3>
                         <p style={{fontSize: "30px"}}>{ingredientAttributes.amount}<span> {ingredientAttributes.metric}</span></p>
+                        <p style={{backgroundColor: typeLabel(ingredientObject), color: typeLabelFontColor(ingredientObject)}}>{ingredientObject.ingredient_type}</p>
+
                     </RecipeCard>
                 </Col>)
             })

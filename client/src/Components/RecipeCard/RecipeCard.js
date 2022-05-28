@@ -126,7 +126,9 @@ function RecipeCard(props){
                 const pantryIngredients = props.pantryIngredients
 
                 setPantryIngredients(pantryIngredients.filter(ingredientObj=>ingredientObj.pantry_ingredients[0].id !== pantryIngredientObj.id))
+                setShow(false)
                 props.revealPantryIngrRemovedSnackBar()
+                
             }
         })
 
@@ -153,8 +155,7 @@ function RecipeCard(props){
         fetch(`/pantry_ingredients/${props.ingredientObject.pantry_ingredients[0].id}`, configObj)
         .then(res => res.json())
         .then(updatedIngredient => {
-            setEditMode(false)
-            revealUpdateIngrSb();
+            
             props.setPantryIngredients(props.pantryIngredients.map(ingredientObject => {
                 if (ingredientObject.id === updatedIngredient.ingredient_id){
                     const updatedPantryIngredient = {...ingredientObject, pantry_ingredients : [{
@@ -165,7 +166,10 @@ function RecipeCard(props){
                 }else{
                     return ingredientObject
                 }
-        }))}
+            }))
+            setEditMode(false)
+            revealUpdateIngrSb();
+        }
     )}
 
     
