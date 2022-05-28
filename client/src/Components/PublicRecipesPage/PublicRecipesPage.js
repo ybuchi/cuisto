@@ -11,9 +11,9 @@ import useFetchUserLibrary from "../CustomHooks/useFetchUserRecipes";
 
 function PublicRecipesPage(){
     const { user } = useContext(UserContext)
-    const [userLibrary, setUserLibrary] = useFetchUserLibrary();
+    const [userLibrary] = useFetchUserLibrary();
 
-    const [publicRecipes, setPublicRecipes] = useFetchPublicRecipes()
+    const [publicRecipes] = useFetchPublicRecipes()
     console.log("Public Recipes: ", publicRecipes )
     console.log("USER LIBRARY", userLibrary)
 
@@ -32,7 +32,8 @@ function PublicRecipesPage(){
 
         return(
         <RecipeCard key={recipeObject.id} recipeObject={recipeObject}>
-            
+            {recipeIsInLibrary ? <p style={{fontStyle : "italic"}}>Recipe Is In Library</p> : <Button><strong>+</strong> Add To Library</Button>}
+            <hr/>
             <Row>
                 <Col md={3}>
                     <header>
@@ -56,10 +57,6 @@ function PublicRecipesPage(){
                     <p>{recipeObject.author}</p>
                 </Col>
             </Row>
-            <hr/>
-            
-            {recipeIsInLibrary ? <p style={{fontStyle : "italic"}}>Recipe Is In Library</p> : <Button><strong>+</strong> Add To Library</Button>}
-            
         </RecipeCard>)
         
     })
