@@ -1,15 +1,65 @@
 .ingredient-list{
-    list-style: none;
+    list-style: square;
+    text-align: left;
+
+}
+.recipe-meta{
+  background-color: #D7E9F7;
+  padding: 20px;
+  margin-bottom: 20px;
+  /* color: white; */
+}
+.meta-label{
+  background-color: rgb(250, 250, 250, 0.5);
+  padding: 10px;
+
 }
 #ingredients-container{
     text-align: left;
+    /* border: 1px solid black; */
+    padding: 20px;
+    /* background-color: #FEF7DC; */
+    border-radius: 5px;
 }
 #recipe-steps-list{
   text-align: left;
+  font-size: 15px;
+}
+.nav-button{
+  margin: 10px;
+}
+#recipe-steps-container{
+  background-color: black;
+  background-image: url("https://media.istockphoto.com/photos/wood-table-top-on-blur-kitchen-counter-background-picture-id1162090981?k=20&m=1162090981&s=170667a&w=0&h=vCe7N_OdsDs6EpgGdbIF48ViAMhuZ_Np4svIe68Qsw4=");
+  padding: 20px;
+  margin: 20px;
+}
+.list-container{
+  /* border: 1px solid black; */
+  padding: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  background-color: rgb(250, 250, 0, 0.5);
+
+}
+#recipe-title{
+  text-decoration: underline;
+}
+#recipe-author{
+  text-align: left;
+}
+.recipe-step{
+  border: 1px solid black;
+  padding: 10px;
+  margin: 20px;
+  background-color: rgb(250, 250 , 250, 0.7);
 }
 .title-label{
     margin-top: 20px;
     margin-bottom: 20px;
+    font-family: "Bitter", serif;
 }
 .snackbar, #hard-delete-sb{
   visibility: hidden; /* Hidden by default. Visible on click */

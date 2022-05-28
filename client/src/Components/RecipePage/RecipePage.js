@@ -95,7 +95,7 @@ function RecipePage(){
     }
     
     const uniqueTypesArray = retrieveUniqueIngredientTypes();
-    const mappedRecipeSteps = recipeData.steps ? recipeData.steps.map((step, index) => {return <li key={index}>{step}</li>}) : "Loading..."
+    const mappedRecipeSteps = recipeData.steps ? recipeData.steps.map((step, index) => {return <li className="recipe-step" key={index}>{step}</li>}) : "Loading..."
     
     const mappedRecipeIngredients = () => {
         if(uniqueTypesArray){
@@ -106,12 +106,12 @@ function RecipePage(){
                     const ingredientInfo = ingrObject.recipe_ingredients[0]
                     return(
                         <li key={index}>
-                            <p>{ingrObject.ingredient_name}: <strong>{ingredientInfo.amount === null ? "not set" : ingredientInfo.amount} <span>{ingredientInfo.metric}</span></strong></p>
+                            <p><strong>{ingrObject.ingredient_name}</strong>: {ingredientInfo.amount === null ? "not set" : ingredientInfo.amount} <span>{ingredientInfo.metric}</span></p>
                         </li>
                     )
                 })
                 return(
-                    <Col className="list-container" key={index}>
+                    <Col md={2} className="list-container" key={index}>
                         <h4 style={{fontStyle: "italic"}}>{ingrType}</h4>
                         <ul className="ingredient-list">
                             {mappedIngredients}
@@ -130,44 +130,51 @@ function RecipePage(){
     return(
         <>
         <article>
-            <Container>
-                <Row>
-                    <Col>
-                        <p className="title-label">Author: {recipeData.author}</p>
-                        <h1 className="title-label">{recipeData.recipe_name}</h1>
-                        <p>{recipeData.gluten_Free ? "| Gluten Free |" : null} {recipeData.lactose_free ? "| Lactose Free |" : null}{recipeData.peanut_free ? "| Peanut Free |" : null} </p>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <h5> <strong>Cuisine:</strong> {recipeData.cuisine}</h5>
-                    </Col>
-                    <Col>
-                        <h5><strong>Diet:</strong> {recipeData.diet}</h5>
-                    </Col>
-                    <Col>
-                        <h5><strong>Cooking Time:</strong> {recipeData.time_to_cook_min} min</h5>
-                    </Col>
-                </Row>
+            <Container style={{fontFamily: "'Bitter', serif"}}>
+                <Container className="recipe-meta" >
+                    <Row>
+                        <Col>
+                            <Button variant="secondary" href="/recipe-library">Back to Recipe Library</Button>
+                            {recipeData.author === user.username ? <Button className="nav-button" variant="secondary" onClick={handleEditRecipe}>Edit Recipe</Button> : null }
+                            <p id="recipe-author" className="title-label">Author: {recipeData.author}</p>
+                            
+                            <h1 id="recipe-title" className="title-label">{recipeData.recipe_name}</h1>
+                            <p>{recipeData.gluten_Free ? "| Gluten Free |" : null} {recipeData.lactose_free ? "| Lactose Free |" : null}{recipeData.peanut_free ? "| Peanut Free |" : null} </p>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <h5> <strong>Cuisine:</strong></h5>
+                            <h3 className="meta-label">{recipeData.cuisine}</h3>
+                        </Col>
+                        <Col >
+                            <h5 ><strong>Diet:</strong></h5>
+                            <h3 className="meta-label">{recipeData.diet}</h3>
+                        </Col>
+                        <Col>
+                            <h5><strong>Cooking Time:</strong></h5>
+                            <h3 className="meta-label" style={{fontSize: "30px", fontWeight: "bold"}}>{recipeData.time_to_cook_min} min</h3>
+                        </Col>
+                    </Row>
+                </Container>
+                <Container>
+                    <Row id="ingredients-container">
+                        <h3 className="title-label">Ingredients:</h3>
+                        {mappedRecipeIngredients()}
+                    </Row>
+                </Container>
                 <hr/>
-                <Row id="ingredients-container">
-                    <h3 className="title-label">Ingredients:</h3>
-                    {mappedRecipeIngredients()}
-                </Row>
-                <hr/>
-                <Row>
-                    <h3 className="title-label" style={{textAlign: "left"}}>Steps:</h3>
+                <Row id="recipe-steps-container">
+                    <h3 className="title-label" style={{textAlign: "left"}}>Instructions:</h3>
                     <ol id="recipe-steps-list">
                         {mappedRecipeSteps}
                     </ol>
-                    
                 </Row>
                 
                 {/* This button will start the cooking session */}
-                <Button onClick={enterCookingSession}>Enter Cooking Session</Button>
-                <Button variant="warning" onClick={handleDeleteRecipe}>Remove Recipe from Library</Button>
-                {recipeData.author === user.username ? <Button variant="info" onClick={handleEditRecipe}>Edit Recipe</Button> : null }
-                {recipeData.author === user.username ? <Button variant="danger" onClick={handleRecipeHardDelete}>Permanently Remove Recipe</Button> : null }
+                <Button className="nav-button" variant="secondary" onClick={enterCookingSession}>Enter Cooking Session</Button>
+                <Button className="nav-button" variant="warning" onClick={handleDeleteRecipe}>Remove Recipe from Library</Button>
+                {recipeData.author === user.username ? <Button className="nav-button" variant="danger" onClick={handleRecipeHardDelete}>Permanently Remove Recipe</Button> : null }
 
                 {/* STRETCHGOAL: If the user is the author of the recipe, give them the option to delete the recipe permanently */}
             </Container>

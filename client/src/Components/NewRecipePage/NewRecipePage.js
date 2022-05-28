@@ -152,10 +152,10 @@ function NewRecipePage(){
     const mappedIngredientInputs = ingredientData.map((ingredientObject, index) => {
         return(
             
-            <Form.Group key={index}>
+            <Form.Group style={{margin: "20px"}} key={index}>
                 <h4>Ingredient {index + 1}</h4>
                 <Container>
-                    <Row>
+                    <Row >
                         <Col sm={12} lg={3}>
                             <Form.Label>Ingredient Name:</Form.Label>
                             <Form.Control type="text"
@@ -170,7 +170,7 @@ function NewRecipePage(){
                                           value={ingredientData[index].ingredient_type}
                                           onChange={handleIngredientDataChange}/>
                         </Col>
-                        <Col sm={6} lg={3}>
+                        <Col sm={6} lg={2}>
                             <Form.Label>Amount:</Form.Label>
                             <Form.Control type="number"
                                           step="0.01"
@@ -179,7 +179,7 @@ function NewRecipePage(){
                                           value={ingredientData[index].amount}
                                           onChange={handleIngredientDataChange}/>
                         </Col>
-                        <Col sm={6} lg={3}>
+                        <Col sm={6} lg={1}>
                             <Form.Label>Metric:</Form.Label>
                             <Form.Control type="text"
                                           name={`metric-${index}`}
@@ -197,7 +197,7 @@ function NewRecipePage(){
 
     const mappedStepsInputs = stepsData.map((step, index) => {
         return(
-            <Form.Group key={index}>
+            <Form.Group style={{margin: "20px"}} key={index}>
                 <Container >
                     <Row>
                         <Col sm={12} md={11}>
@@ -266,7 +266,8 @@ function NewRecipePage(){
                             <Form.Control type="text"
                                           name="description"
                                           value={recipeMetadata.description}
-                                          onChange={handleRecipeMetadataChange}/>
+                                          onChange={handleRecipeMetadataChange}
+                                          style={{height: "70px"}}/>
                         </Form.Group>
                     </Col>
                 </Row>
@@ -314,7 +315,7 @@ function NewRecipePage(){
                     <h3>Ingredients</h3>
                     <Col>
                         {mappedIngredientInputs}
-                        <Button  onClick={handleAddIngredient} name="ingredient-input">Add Another Ingredient</Button>
+                        <Button variant="secondary" onClick={handleAddIngredient} name="ingredient-input"><strong>+</strong> Add Another Ingredient</Button>
                     </Col>
                 </Row>
                 <hr/>
@@ -322,10 +323,10 @@ function NewRecipePage(){
                     <h3>Recipe Steps</h3>
                     <Col>
                         {mappedStepsInputs}
-                        <Button onClick={handleAddRecipeStep} name="step-input">Add Another Step</Button>
+                        <Button variant="secondary" onClick={handleAddRecipeStep} name="step-input"><strong>+</strong> Add Another Step</Button>
                     </Col>
                 </Row>
-                <Button type="submit">Create Recipe</Button>
+                <Button style={{margin: "20px"}} type="submit">Create Recipe</Button>
             </Container>
         </Form>
         <div id="new-recipe-snackbar" className={`snackbar ${showSuccessfullySubmited}`}>New Recipe Created and Added to Library!</div>

@@ -19,10 +19,11 @@ function RecipeCard(props){
     // For RecipeCards showing recipe information (as opposed to Pantry information)
     const missingIngredientsArray = useComparePantryToRecipe(props.recipeObject);
     const mapPantriesWithMissingIngredients = missingIngredientsArray ? missingIngredientsArray.map(pantry => {
-        const mappedMissingIngr = pantry.missing_ingredients.map((ingredient, index) => {return <strong key={index}>{ ingredient} </strong>})
+        const mappedMissingIngr = pantry.missing_ingredients.map((ingredient, index) => {return index === pantry.missing_ingredients.length - 1 ? <strong key={index}>{ ingredient } </strong> : <strong key={index}>{ ingredient }, </strong> })
         return(
             <>
-            {mappedMissingIngr.length > 0 ? <p className="missing-ingredients" key={pantry.pantry_id}><strong>{pantry.pantry_name}</strong> pantry is missing: {mappedMissingIngr}</p> : <p className="missing-ingredients" key={pantry.pantry_id}><strong>{pantry.pantry_name}</strong> has all the ingredients!</p>}
+            <hr/>
+            {mappedMissingIngr.length > 0 ? <p className="missing-ingredients" key={pantry.pantry_id}><strong>{pantry.pantry_name}</strong> pantry is missing {mappedMissingIngr.length} ingredients: {mappedMissingIngr}</p> : <p className="missing-ingredients" key={pantry.pantry_id}><strong>{pantry.pantry_name}</strong> has all the ingredients!</p>}
             </>
         )
     }) : null

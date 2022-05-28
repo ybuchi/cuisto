@@ -42,7 +42,7 @@ function useComparePantryToRecipe(recipeObject){
                 for (let i = 0; i < pantryIngredients.length; i++){
                     // if the hash key already exists
                     if(hashMap[pantryIngredients[i].ingredient_name.toLowerCase()]){
-                        hashMap[pantryIngredients[i].ingredient_name.toLowerCae()] = hashMap[pantryIngredients[i].ingredient_name.toLowerCae()] += 1
+                        hashMap[pantryIngredients[i].ingredient_name.toLowerCase()] = hashMap[pantryIngredients[i].ingredient_name.toLowerCase()] += 1
                     }else{
                         hashMap[pantryIngredients[i].ingredient_name.toLowerCase()] = 1
                     }

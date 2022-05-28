@@ -40,13 +40,16 @@ function RecipeLibraryPage(){
         </header>
 
         <article>
-            <p>Some information about the page here...</p>
-            <Link to="/new-recipe">Create a New Recipe</Link>
+            <p>Feeling Inspired? <span><Link to="/new-recipe">Create a New Recipe</Link></span> and share it with the world!</p>
+            <p>Or keep it to yourself. We won't tell...</p>
+            
         </article>
         <hr/>
 
         <section>
             <Container>
+            <p>You have <strong style={{fontSize: "30px"}}>{mappedRecipeCards.length}</strong> recipes.</p>
+
                 <Row>
                     {mappedRecipeCards}
                 </Row>
