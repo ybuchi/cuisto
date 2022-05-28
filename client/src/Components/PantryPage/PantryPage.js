@@ -171,7 +171,7 @@ function PantryPage(){
                         <h3><strong>{ingredientObject.ingredient_name}</strong></h3>
                         <p style={{fontSize: "30px"}}>{ingredientAttributes.amount}<span> {ingredientAttributes.metric}</span></p>
                         <p style={{backgroundColor: typeLabel(ingredientObject), color: typeLabelFontColor(ingredientObject), borderRadius: "5px", padding: "5px"}}>{ingredientObject.ingredient_type}</p>
-                        {ingredientObject.pantry_ingredients[0].needs_restock ? <Button variant="secondary" onClick={(e)=>handleIngrRestock(e, ingredientObject)}>Restock!</Button> : <Button variant="secondary" onClick={(e)=>handleIngrRestock(e, ingredientObject)}>No Restock</Button> }
+                        {ingredientObject.pantry_ingredients[0].needs_restock ? <Button variant="success" onClick={(e)=>handleIngrRestock(e, ingredientObject)}>Restocked</Button> : <Button variant="secondary" onClick={(e)=>handleIngrRestock(e, ingredientObject)}>Restock!</Button> }
 
                     </RecipeCard>
                 </Col>)
@@ -193,7 +193,7 @@ function PantryPage(){
             <hr/>
             <section>
                 <Container>
-                    <p><strong style={{fontSize: "30px"}}>{typeof(mappedIngredients()) !== "number" ? 0 : mappedIngredients().length}</strong> ingredients in your pantry.</p>
+                    <p><strong style={{fontSize: "30px"}}>{mappedIngredients().length >= 1 ? mappedIngredients().length : 0}</strong> ingredients in your pantry.</p>
                     <p>Click on an ingredient for more options.</p>
                     <Row>
                         {mappedIngredients()}
