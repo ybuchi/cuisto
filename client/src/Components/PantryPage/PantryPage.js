@@ -10,7 +10,9 @@ import RecipeCard from "../RecipeCard/RecipeCard";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import restockLogo from "../Images/Logos/restock_logo.png"
+import restockLogo from "../Images/Logos/restock_logo.png";
+import {PlusCircle} from "react-bootstrap-icons";
+import {DashCircle} from "react-bootstrap-icons";
 
 function PantryPage(){
     let { pantry_id } = useParams()
@@ -153,6 +155,64 @@ function PantryPage(){
             }))
     })}
 
+    //PLUS BUTTON -- Adds an amount to ingredient
+    function addOne(e, ingredientObject){
+        e.stopPropagation();
+        const configObj = {
+            method: "PATCH",
+            headers: {
+                "Content-Type" : "application/json",
+                "Accepts" : "application/json"           
+            }, 
+            body: JSON.stringify({...ingredientObject.pantry_ingredients[0], amount : ingredientObject.pantry_ingredients[0].amount + 1 })
+        }
+        fetch(`/pantry_ingredients/${ingredientObject.pantry_ingredients[0].id}`, configObj)
+        .then(res => res.json())
+        .then(updatedIngredient => {
+            console.log("UPDATED ING", updatedIngredient)
+            setPantryIngredients(pantryIngredients.map(ingredientObject => {
+                if (ingredientObject.id === updatedIngredient.ingredient_id){
+                    const updatedPantryIngredient = {...ingredientObject, pantry_ingredients : [{
+                        ...ingredientObject.pantry_ingredients[0], amount: updatedIngredient.amount
+                    }]}
+
+                    return updatedPantryIngredient
+                }else{
+                    return ingredientObject
+                }
+            }))
+        })
+    }
+
+    //MINUS SIGN -- Remove one from the ingredient amount
+    function removeOne(e, ingredientObject){
+        e.stopPropagation();
+        const configObj = {
+            method: "PATCH",
+            headers: {
+                "Content-Type" : "application/json",
+                "Accepts" : "application/json"           
+            }, 
+            body: JSON.stringify({...ingredientObject.pantry_ingredients[0], amount : ingredientObject.pantry_ingredients[0].amount - 1 })
+        }
+        fetch(`/pantry_ingredients/${ingredientObject.pantry_ingredients[0].id}`, configObj)
+        .then(res => res.json())
+        .then(updatedIngredient => {
+            console.log("UPDATED ING", updatedIngredient)
+            setPantryIngredients(pantryIngredients.map(ingredientObject => {
+                if (ingredientObject.id === updatedIngredient.ingredient_id){
+                    const updatedPantryIngredient = {...ingredientObject, pantry_ingredients : [{
+                        ...ingredientObject.pantry_ingredients[0], amount: updatedIngredient.amount
+                    }]}
+
+                    return updatedPantryIngredient
+                }else{
+                    return ingredientObject
+                }
+            }))
+        })
+    }
+
     const mappedIngredients = () => {
        if(pantryIngredients && pantryIngredients.length === 0){
             return <p style={{fontSize: "30px", fontStyle : "italic"}}>Your pantry is not stocked yet!</p>
@@ -169,7 +229,12 @@ function PantryPage(){
                                 backgroundColor="#EFF8FF">
                         <img src={restockLogo} alt="restock!" id="restock-logo" style={{visibility : ingredientObject.pantry_ingredients[0].needs_restock ? "visible" : "hidden"}}/>
                         <h3><strong>{ingredientObject.ingredient_name}</strong></h3>
-                        <p style={{fontSize: "30px"}}>{ingredientAttributes.amount}<span> {ingredientAttributes.metric}</span></p>
+                        <p style={{fontSize: "30px"}}>
+                            <span><DashCircle className="add-remove-icon" id="remove-icon" onClick={(e)=>removeOne(e, ingredientObject)}/></span>
+                            {ingredientAttributes.amount}
+                            <span><PlusCircle className="add-remove-icon" id="add-icon" onClick={(e)=>addOne(e, ingredientObject)}/></span>
+                        </p>
+                        <p>{ingredientAttributes.metric}</p>
                         <p style={{backgroundColor: typeLabel(ingredientObject), color: typeLabelFontColor(ingredientObject), borderRadius: "5px", padding: "5px"}}>{ingredientObject.ingredient_type}</p>
                         {ingredientObject.pantry_ingredients[0].needs_restock ? <Button variant="success" onClick={(e)=>handleIngrRestock(e, ingredientObject)}>Restocked</Button> : <Button variant="secondary" onClick={(e)=>handleIngrRestock(e, ingredientObject)}>Restock!</Button> }
 
