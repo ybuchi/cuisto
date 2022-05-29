@@ -7,7 +7,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 function RecipeLibraryPage(){
-    const [userLibrary, setUserLibrary] = useFetchUserLibrary()
+    const [userLibrary] = useFetchUserLibrary()
     console.log(userLibrary)
 
     const mappedRecipeCards = userLibrary.map(recipeObject => {

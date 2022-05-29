@@ -22,17 +22,17 @@ function PublicRecipesPage(){
         console.log("RECIPEOBJECT", recipeObject);
         const recipeIsInLibrary = ()=>{
             for (let i = 0; i < userLibrary.length; i++){
+                console.log(recipeObject.id)
+                console.log(userLibrary[i].id)
                 if(userLibrary[i].id === recipeObject.id){
                     return true
-                }else{
-                    return false
                 }
             }
         }
 
         return(
         <RecipeCard key={recipeObject.id} recipeObject={recipeObject}>
-            {recipeIsInLibrary ? <p style={{fontStyle : "italic"}}>Recipe Is In Library</p> : <Button><strong>+</strong> Add To Library</Button>}
+            {recipeIsInLibrary() ? <p style={{fontStyle : "italic"}}>Recipe Is In Library</p> : <Button><strong>+</strong> Add To Library</Button>}
             <hr/>
             <Row>
                 <Col md={3}>

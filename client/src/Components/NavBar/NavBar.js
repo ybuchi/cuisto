@@ -17,7 +17,7 @@ function NavBar(){
     useLoginState();
     const [userPantries, setUserPantries ] = useFetchUserPantries();
     console.log(userPantries);
-    const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
+    const { isLoggedIn, setIsLoggedIn, setUser } = useContext(UserContext);
     const navigate = useNavigate();
 
     function handleInactivatePantry(e){
@@ -118,6 +118,7 @@ function NavBar(){
           if (res.ok){
               console.log("logged out");
               setIsLoggedIn(false) ;
+              setUser({});
               navigate("login");
           }
       })

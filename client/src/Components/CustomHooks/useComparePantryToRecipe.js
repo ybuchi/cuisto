@@ -3,9 +3,6 @@ import useFetchUserPantries from "./useFetchUserPantries";
 function useComparePantryToRecipe(recipeObject){
     const [userPantries] = useFetchUserPantries()
     if (recipeObject){
-
-    console.log("Recipe Object to Compare: ", recipeObject)
-    console.log("Pantries to Comppare: ", userPantries)
  
     const activePantries = userPantries.filter(pantryObject => pantryObject.user_pantries[0].active)
 
@@ -46,7 +43,6 @@ function useComparePantryToRecipe(recipeObject){
                     }else{
                         hashMap[pantryIngredients[i].ingredient_name.toLowerCase()] = 1
                     }
-                    console.log("HASH MAP", hashMap);
                 }
 
                 //Use the hashMap. If a recipe ingredient does NOT exist as a key in the hashmap, push to missingIngredients. 

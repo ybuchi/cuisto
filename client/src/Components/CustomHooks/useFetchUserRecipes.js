@@ -10,7 +10,7 @@ function useFetchUserLibrary(){
         fetch("/user-library")
         .then(res => res.json())
         .then(recipeData => setUserLibrary(recipeData))
-    },[])
+    },[setUserLibrary])
 
     return [userLibrary, setUserLibrary]
 }
