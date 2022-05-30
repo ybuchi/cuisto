@@ -25,7 +25,37 @@ function EditRecipePage(){
         setRecipeData({...recipeData, [e.target.name] : e.target.checked})
     }
 
-    const mappedIngredientInputs = recipeData.ingredients.map((ingredientObject, index) => {
+    //Adds an ingredient input
+    function handleAddIngredient(){
+        setRecipeData({...recipeData, ingredients : [...recipeData.ingredients, {
+            ingredient_name : "",
+            ingredient_type : "",
+            amount : 0.00,
+            metric : ""
+        }]})
+    }
+
+    //Removes an ingredient input
+    function handleRemoveIngredient(e){
+        const ingredientIndex = e.target.name
+        const updatedIngredientData = recipeData.ingredients.filter((ingredient, index ) => { return index.toString() !== ingredientIndex})
+        setRecipeData({...recipeData, ingredients : updatedIngredientData});
+        console.log(updatedIngredientData);
+    }
+
+    function handleIngredientDataChange(e){
+        const ingredientIndex = e.target.name.replace(/\D/g,'')
+        const inputName = e.target.name.replace(/[0-9]/g, '').slice(0, -1)
+
+        const newObject = {...recipeData.ingredients[ingredientIndex], [inputName] : e.target.value}
+        
+        const updatedIngredientsArray = [...recipeData.ingredients]
+        updatedIngredientsArray[ingredientIndex] = newObject 
+
+        setRecipeData({...recipeData, ingredients : updatedIngredientsArray});
+    }
+
+    const mappedIngredientInputs = recipeData.ingredients ? recipeData.ingredients.map((ingredientObject, index) => {
         const ingredients = recipeData.ingredients
         return(
             
@@ -38,6 +68,7 @@ function EditRecipePage(){
                             <Form.Control type="text"
                                           name={`ingredient_name-${index}`}
                                           value={ingredients[index].ingredient_name}
+                                          onChange={handleIngredientDataChange}
                                           />
                         </Col>
                         <Col sm={6} lg={3}>
@@ -74,15 +105,15 @@ function EditRecipePage(){
                                           />
                         </Col>
                         <Col sm={12} lg={3}>
-                            <Button variant="danger" name={index}>Remove</Button>
+                            <Button variant="danger" onClick={handleRemoveIngredient} name={index}>Remove</Button>
                         </Col>
                     </Row>
                 </Container>
             </Form.Group>
         )
-    })
+    }) : []
 
-    const mappedStepsInputs = recipeData.steps.map((step, index) => {
+    const mappedStepsInputs = recipeData.steps ? recipeData.steps.map((step, index) => {
         const steps = recipeData.steps
         return(
             <Form.Group style={{margin: "20px"}} key={index}>
@@ -102,7 +133,7 @@ function EditRecipePage(){
                 </Container>
             </Form.Group>
         )
-    })
+    }) : []
 
     console.log(recipeIngredients);
     return(
@@ -201,7 +232,7 @@ function EditRecipePage(){
                         <h3>Ingredients</h3>
                         <Col>
                             {mappedIngredientInputs}
-                            <Button variant="secondary" name="ingredient-input"><strong>+</strong> Add Another Ingredient</Button>
+                            <Button variant="secondary" onClick={handleAddIngredient} name="ingredient-input"><strong>+</strong> Add Another Ingredient</Button>
                         </Col>
                     </Row>
                     <hr/>
@@ -212,7 +243,7 @@ function EditRecipePage(){
                             <Button variant="secondary" name="step-input"><strong>+</strong> Add Another Step</Button>
                         </Col>
                     </Row>
-                    <Button style={{margin: "20px"}} type="submit">Create Recipe</Button>
+                    <Button style={{margin: "20px"}} type="submit">Save Changes</Button>
                 </Container>
             </Form>
         </>
