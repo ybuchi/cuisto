@@ -266,7 +266,7 @@ function NewRecipePage(){
                     </Col>
                     <Col sm={4} md={2}>
                         <Form.Group>
-                            <Form.Label>Time to Cook</Form.Label>
+                            <Form.Label>Cooking Time (min)</Form.Label>
                             <Form.Control type="number"
                                           name="time_to_cook_min"
                                           value={recipeMetadata.time_to_cook_min}
@@ -286,7 +286,7 @@ function NewRecipePage(){
                 <Row>
                     <Col>
                         <Form.Group>
-                            <Form.Label>Short Description</Form.Label>
+                            <Form.Label>Description</Form.Label>
                             <Form.Control type="text"
                                           name="description"
                                           value={recipeMetadata.description}
