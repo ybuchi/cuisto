@@ -6,6 +6,7 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
+import Button from "react-bootstrap/Button";
 
 
 
@@ -24,7 +25,84 @@ function EditRecipePage(){
         setRecipeData({...recipeData, [e.target.name] : e.target.checked})
     }
 
-   
+    const mappedIngredientInputs = recipeData.ingredients.map((ingredientObject, index) => {
+        const ingredients = recipeData.ingredients
+        return(
+            
+            <Form.Group style={{margin: "20px"}} key={index}>
+                <h4>Ingredient {index + 1}</h4>
+                <Container>
+                    <Row >
+                        <Col sm={12} lg={3}>
+                            <Form.Label>Ingredient Name:</Form.Label>
+                            <Form.Control type="text"
+                                          name={`ingredient_name-${index}`}
+                                          value={ingredients[index].ingredient_name}
+                                          />
+                        </Col>
+                        <Col sm={6} lg={3}>
+                            <Form.Label>Type: </Form.Label>
+                            <Form.Select type="text"
+                                          name={`ingredient_type-${index}`}
+                                          value={ingredients[index].ingredient_type}
+                                          >
+                                <option>Eggs and Dairy</option>  
+                                <option>Fats and Oils</option>
+                                <option>Fruits</option>
+                                <option>Grain, Nuts and Baking Products</option> 
+                                <option>Herbs and Spices</option>         
+                                <option>Meats and Fish</option>
+                                <option>Pasta, Rice and Pulses</option>
+                                <option>Vegetables</option>
+                                <option>Other</option>
+                            </Form.Select>
+                        </Col>
+                        <Col sm={6} lg={2}>
+                            <Form.Label>Amount:</Form.Label>
+                            <Form.Control type="number"
+                                          step="0.01"
+                                          min="0"
+                                          name={`amount-${index}`}
+                                          value={ingredients[index].amount}
+                                          />
+                        </Col>
+                        <Col sm={6} lg={1}>
+                            <Form.Label>Metric:</Form.Label>
+                            <Form.Control type="text"
+                                          name={`metric-${index}`}
+                                          value={ingredients[index].metric}
+                                          />
+                        </Col>
+                        <Col sm={12} lg={3}>
+                            <Button variant="danger" name={index}>Remove</Button>
+                        </Col>
+                    </Row>
+                </Container>
+            </Form.Group>
+        )
+    })
+
+    const mappedStepsInputs = recipeData.steps.map((step, index) => {
+        const steps = recipeData.steps
+        return(
+            <Form.Group style={{margin: "20px"}} key={index}>
+                <Container >
+                    <Row>
+                        <Col sm={12} md={11}>
+                            <Form.Label>Step {index + 1}</Form.Label>
+                            <Form.Control type="text"
+                                          name={`step-${index}`}
+                                          value={steps[index]}
+                                          />
+                        </Col>
+                        <Col sm={12} md={1}>
+                            <Button variant="danger" name={index}>Remove</Button>
+                        </Col>
+                    </Row>
+                </Container>
+            </Form.Group>
+        )
+    })
 
     console.log(recipeIngredients);
     return(
@@ -118,6 +196,23 @@ function EditRecipePage(){
                                                 onChange={handleCheckboxChange}/>
                         </Col>
                     </Row>
+                    <hr/>
+                    <Row>
+                        <h3>Ingredients</h3>
+                        <Col>
+                            {mappedIngredientInputs}
+                            <Button variant="secondary" name="ingredient-input"><strong>+</strong> Add Another Ingredient</Button>
+                        </Col>
+                    </Row>
+                    <hr/>
+                    <Row>
+                        <h3>Recipe Steps</h3>
+                        <Col>
+                            {mappedStepsInputs}
+                            <Button variant="secondary" name="step-input"><strong>+</strong> Add Another Step</Button>
+                        </Col>
+                    </Row>
+                    <Button style={{margin: "20px"}} type="submit">Create Recipe</Button>
                 </Container>
             </Form>
         </>
