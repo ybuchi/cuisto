@@ -55,6 +55,26 @@ function EditRecipePage(){
         setRecipeData({...recipeData, ingredients : updatedIngredientsArray});
     }
 
+    //Adds a recipe step input
+    function handleAddRecipeStep(){
+        setRecipeData({...recipeData, steps : [...recipeData.steps, ""]})
+    }
+
+    //Removes recipe step input
+    function handleRemoveStep(e){
+        const stepIndex = e.target.name
+        const updatedSteps = recipeData.steps.filter((ingredient, index) => {return index.toString() !== stepIndex })
+        setRecipeData({...recipeData, steps : updatedSteps});
+    }
+
+    function handleStepsChange(e){
+        const stepIndex = e.target.name.replace(/\D/g,'')
+        console.log(stepIndex);
+        const newStepsDataArray = [...recipeData.steps]
+        newStepsDataArray[stepIndex] = e.target.value
+        setRecipeData({...recipeData, steps : newStepsDataArray});
+    }
+
     const mappedIngredientInputs = recipeData.ingredients ? recipeData.ingredients.map((ingredientObject, index) => {
         const ingredients = recipeData.ingredients
         return(
@@ -76,6 +96,7 @@ function EditRecipePage(){
                             <Form.Select type="text"
                                           name={`ingredient_type-${index}`}
                                           value={ingredients[index].ingredient_type}
+                                          onChange={handleIngredientDataChange}
                                           >
                                 <option>Eggs and Dairy</option>  
                                 <option>Fats and Oils</option>
@@ -95,6 +116,7 @@ function EditRecipePage(){
                                           min="0"
                                           name={`amount-${index}`}
                                           value={ingredients[index].amount}
+                                          onChange={handleIngredientDataChange}
                                           />
                         </Col>
                         <Col sm={6} lg={1}>
@@ -102,6 +124,7 @@ function EditRecipePage(){
                             <Form.Control type="text"
                                           name={`metric-${index}`}
                                           value={ingredients[index].metric}
+                                          onChange={handleIngredientDataChange}
                                           />
                         </Col>
                         <Col sm={12} lg={3}>
@@ -124,10 +147,11 @@ function EditRecipePage(){
                             <Form.Control type="text"
                                           name={`step-${index}`}
                                           value={steps[index]}
+                                          onChange={handleStepsChange}
                                           />
                         </Col>
                         <Col sm={12} md={1}>
-                            <Button variant="danger" name={index}>Remove</Button>
+                            <Button variant="danger" onClick={handleRemoveStep} name={index}>Remove</Button>
                         </Col>
                     </Row>
                 </Container>
@@ -240,7 +264,7 @@ function EditRecipePage(){
                         <h3>Recipe Steps</h3>
                         <Col>
                             {mappedStepsInputs}
-                            <Button variant="secondary" name="step-input"><strong>+</strong> Add Another Step</Button>
+                            <Button variant="secondary" onClick={handleAddRecipeStep} name="step-input"><strong>+</strong> Add Another Step</Button>
                         </Col>
                     </Row>
                     <Button style={{margin: "20px"}} type="submit">Save Changes</Button>
