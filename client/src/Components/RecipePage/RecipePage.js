@@ -140,6 +140,7 @@ function RecipePage(){
                             {recipeData.author === user.username ? <Button className="nav-button" variant="secondary" onClick={handleEditRecipe}>Edit Recipe <PencilSquare/></Button> : null }
                             
                             <h1 id="recipe-title" className="title-label">{recipeData.recipe_name}</h1>
+                            <h4>{recipeData.description}</h4>
                             <p id="recipe-author" className="title-label"><strong>Author:</strong> {recipeData.author}</p>
 
                             <p>{recipeData.gluten_Free ? "| Gluten Free |" : null} {recipeData.lactose_free ? "| Lactose Free |" : null}{recipeData.peanut_free ? "| Peanut Free |" : null} </p>

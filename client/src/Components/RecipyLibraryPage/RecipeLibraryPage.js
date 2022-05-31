@@ -17,7 +17,19 @@ function RecipeLibraryPage(){
         return(
             <Col md={4} >
 
-                <RecipeCard key={recipeObject.id} recipeObject={recipeObject} backgroundColor="#A2D5F2">
+                <RecipeCard key={recipeObject.id} recipeObject={recipeObject} backgroundColor="rgb(250, 250, 250, 0.5)">
+                
+                <div className="recipe-tooltip">
+                    <Row>
+                        <div className="recipe-header" >
+                            <h4>{recipeObject.recipe_name}</h4>
+                            
+                            {/* <img className="recipe-image" src={recipeObject.image} alt="recipe"/> */}
+                        </div>
+                    </Row>
+                </div>
+                <div className="recipe-main-content" style={{backgroundImage : `url(${recipeObject.image})`}}>
+                </div>
                 <div className="recipe-tooltip">
                     <Row>
                         <Col lg={6}>
@@ -29,24 +41,6 @@ function RecipeLibraryPage(){
                         </Col>
                     </Row>
                 </div>
-                    <Row>
-                        <Col md={12}>
-                            <header>
-                                
-                                <Row>
-                                    <Col lg={12}>
-                                        <div className="recipe-header">
-                                            <h3>{recipeObject.recipe_name}</h3>
-                                            <p className="no-margin">{recipeObject.diet}</p>
-                                            <img src={recipeObject.image} alt="recipe"/>
-                                        </div>
-                                    </Col>
-                                </Row>
-                                
-                            </header>
-                        </Col>
-                        
-                    </Row>
                 </RecipeCard>
             </Col>)
     })

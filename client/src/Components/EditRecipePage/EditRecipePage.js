@@ -7,6 +7,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
+import axios from "axios"
 
 
 
@@ -15,6 +16,52 @@ function EditRecipePage(){
     const [recipeData, setRecipeData] = useFetchRecipeData(recipe_id);
     console.log("RECIPE DATA:", recipeData)
     const [recipeIngredients] = useFetchRecipeIngredients(recipe_id);
+
+    const [recipeImage, setRecipeImage] = useState("");
+    function handleUpload(e){
+        const file = e.target.files[0];
+        setRecipeImage(file);
+    }
+
+    function handleImageSubmit(e){
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append("file", recipeImage);
+        formData.append("upload_preset", "o49cfbqa" );
+
+        axios.post("https://api.cloudinary.com/v1_1/dxopxhdph/image/upload", formData)
+        .then(res => setRecipeData({...recipeData, image: res.data.secure_url}))
+    }
+
+    function handleUpdateRecipe(e){
+        e.preventDefault();
+        
+        const configObj = {
+            method : "PATCH",
+            headers : {
+                "Content-Type" : "application/json",
+                "Accepts" : "application/json"
+            },
+            body : JSON.stringify({
+                recipe_name : recipeData.recipe_name,
+                cuisine : recipeData.cuisine,
+                steps : recipeData.steps,
+                diet : recipeData.diet,
+                time_to_cook_min : recipeData.time_to_cook_min,
+                description: recipeData.description,
+                image : recipeData.image,
+                visibility : recipeData.visibility, 
+                lactose_free : recipeData.lactose_free,
+                peanut_free : recipeData.peanut_free,
+                gluten_Free : recipeData.gluten_Free
+            })
+        }
+
+        //FETCH call for recipe metadata (recipe model)
+        fetch(`/recipes/${recipe_id}`, configObj)
+        .then(res => res.json())
+        .then(updatedRecipe => console.log("UPDATED REC:", updatedRecipe))
+    }
   
 
     function handleRecipeMetadataChange(e){
@@ -164,7 +211,7 @@ function EditRecipePage(){
         <>
             <h1>Edit Recipe</h1>
 
-            <Form>
+            <Form onSubmit={handleUpdateRecipe}>
                 <Container>
                     <Row>
                         <Col sm={12} md={5}>
@@ -209,7 +256,7 @@ function EditRecipePage(){
                             <Form.Group>
                                 <Form.Label>Description:</Form.Label>
                                 <Form.Control type="text"
-                                              description="description"
+                                              name="description"
                                               value={recipeData.description}
                                               onChange={handleRecipeMetadataChange}/>
                             </Form.Group>
@@ -221,8 +268,8 @@ function EditRecipePage(){
                                 <Form.Label>Image:</Form.Label>
                                 <Form.Control type="file"
                                               name="image"
-                                              value={recipeData.image}
-                                              onChange={handleRecipeMetadataChange}/>
+                                              onChange={handleUpload}/>
+                                <Button type="submit" onClick={handleImageSubmit}>Submit Image</Button>
                             </Form.Group>
                         </Col>
                     </Row>

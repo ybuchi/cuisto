@@ -22,11 +22,12 @@ function RecipeCard(props){
         const mappedMissingIngr = pantry.missing_ingredients.map((ingredient, index) => {return index === pantry.missing_ingredients.length - 1 ? <strong key={index}>{ ingredient } </strong> : <strong key={index}>{ ingredient }, </strong> })
         return(
             <>
-            <hr/>
             {mappedMissingIngr.length > 0 ? <p className="missing-ingredients" key={pantry.pantry_id}><strong>{pantry.pantry_name}</strong> pantry is missing {mappedMissingIngr.length} ingredients: {mappedMissingIngr}</p> : <p className="missing-ingredients" key={pantry.pantry_id}><strong>{pantry.pantry_name}</strong> has all the ingredients!</p>}
             </>
         )
     }) : null
+
+   
     
     // For RecipeCards showing pantry information
     const recommendedRecipesArray = useRecommendRecipeInPantry(props.pantryObject)

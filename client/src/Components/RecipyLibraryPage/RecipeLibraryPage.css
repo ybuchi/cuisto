@@ -19,4 +19,12 @@
 .recipe-header{
     margin-top: 10px;
     margin-bottom: 10px;
+
+}
+.recipe-main-content{
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 250px;
+    color: white;
 }
