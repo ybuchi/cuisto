@@ -16,7 +16,17 @@ class RecipesController < ApplicationController
     end
 
     def update 
-      @recipe.update!(recipe_name: params[:recipe_name], cuisine: params[:cuisine], steps: params[:steps], diet: params[:diet], time_to_cook_min: params[:time_to_cook_min], description: params[:description], image: params[:image], visibility: params[:visibility], lactose_free: params[:lactose_free], peanut_free: params[:peanut_free], gluten_Free: params[:gluten_Free])
+      updated_recipe = @recipe.update!(recipe_name: params[:recipe_name], cuisine: params[:cuisine], steps: params[:steps], diet: params[:diet], time_to_cook_min: params[:time_to_cook_min], description: params[:description], image: params[:image], visibility: params[:visibility], lactose_free: params[:lactose_free], peanut_free: params[:peanut_free], gluten_Free: params[:gluten_Free])
+      updated_user_recipe = UserLibrary.find_by(user_id: session[:user_id], recipe_id: @recipe.id)
+
+      params[:ingredients].each do |ing_obj|
+        #Change this so that we first verify if ingredients exists
+        ingredientToUpdate = Ingredient.find_by(id: ing_obj[:id])
+        recipeIngredientToUpdate = RecipeIngredient.find_by(recipe_id: ing_obj[:id], recipe_id: @recipe.id)
+        newRecipeIngredient = recipeIngredientToUpdate.update!(amount: ing_obj[:amount].to_f, metric: ing_obj[:metric])
+        puts "New Recipe Ingredient updated!"
+      end
+      render json: @recipe;
     end
 
     def destroy

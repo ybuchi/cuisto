@@ -42,19 +42,7 @@ function EditRecipePage(){
                 "Content-Type" : "application/json",
                 "Accepts" : "application/json"
             },
-            body : JSON.stringify({
-                recipe_name : recipeData.recipe_name,
-                cuisine : recipeData.cuisine,
-                steps : recipeData.steps,
-                diet : recipeData.diet,
-                time_to_cook_min : recipeData.time_to_cook_min,
-                description: recipeData.description,
-                image : recipeData.image,
-                visibility : recipeData.visibility, 
-                lactose_free : recipeData.lactose_free,
-                peanut_free : recipeData.peanut_free,
-                gluten_Free : recipeData.gluten_Free
-            })
+            body : JSON.stringify(recipeData)
         }
 
         //FETCH call for recipe metadata (recipe model)
