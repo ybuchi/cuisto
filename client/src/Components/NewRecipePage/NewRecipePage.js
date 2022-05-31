@@ -5,6 +5,8 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
+import axios from 'axios';
+
 
 function NewRecipePage(){
 
@@ -30,6 +32,23 @@ function NewRecipePage(){
         metric : ""
     }])
 
+    //Handles uploading an image
+    const [recipeImage, setRecipeImage] = useState("")
+    function handleUpload(e){
+        const file = e.target.files[0];
+        setRecipeImage(file);
+    }
+    console.log(recipeImage);
+
+    function handleImageSubmit(e){
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append("file", recipeImage);
+        formData.append("upload_preset", "o49cfbqa" );
+
+        axios.post("https://api.cloudinary.com/v1_1/dxopxhdph/image/upload", formData)
+        .then(res => setRecipeMetadata({...recipeMetadata, image: res.data.secure_url}))
+    }
     //This state takes care of the recipe steps which will be sent along with the recipe metadata
     const [stepsData, setStepsData] = useState([""])
     const navigate = useNavigate()
@@ -301,8 +320,9 @@ function NewRecipePage(){
                             <Form.Label>Image</Form.Label>
                             <Form.Control type="file"
                                           name="image"
-                                          value={recipeMetadata.image}
-                                          onChange={handleRecipeMetadataChange}/>
+                                          onChange={handleUpload}
+                                          controlId="recipeImageFile"/>
+                            <Button type="submit" onClick={handleImageSubmit}>Submit Image</Button>
                         </Form.Group>
                     </Col>
                 </Row>
