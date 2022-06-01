@@ -10,6 +10,8 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import {ArrowLeftCircle} from "react-bootstrap-icons";
+import {PencilSquare} from "react-bootstrap-icons";
 
 function RecipePage(){
     let { recipe_id } = useParams()
@@ -91,7 +93,7 @@ function RecipePage(){
 
     }
     function handleEditRecipe(){
-        console.log("Editing Recipe!")
+        navigate("edit");
     }
     
     const uniqueTypesArray = retrieveUniqueIngredientTypes();
@@ -129,16 +131,18 @@ function RecipePage(){
     
     return(
         <>
-        <article>
+        <article id="recipe-page">
             <Container style={{fontFamily: "'Bitter', serif"}}>
                 <Container className="recipe-meta" >
                     <Row>
                         <Col>
-                            <Button variant="secondary" href="/recipe-library">Back to Recipe Library</Button>
-                            {recipeData.author === user.username ? <Button className="nav-button" variant="secondary" onClick={handleEditRecipe}>Edit Recipe</Button> : null }
-                            <p id="recipe-author" className="title-label">Author: {recipeData.author}</p>
+                            <Button variant="secondary" href="/recipe-library"><ArrowLeftCircle/> Back to Recipe Library</Button>
+                            {recipeData.author === user.username ? <Button className="nav-button" variant="secondary" onClick={handleEditRecipe}>Edit Recipe <PencilSquare/></Button> : null }
                             
                             <h1 id="recipe-title" className="title-label">{recipeData.recipe_name}</h1>
+                            <h4>{recipeData.description}</h4>
+                            <p id="recipe-author" className="title-label"><strong>Author:</strong> {recipeData.author}</p>
+
                             <p>{recipeData.gluten_Free ? "| Gluten Free |" : null} {recipeData.lactose_free ? "| Lactose Free |" : null}{recipeData.peanut_free ? "| Peanut Free |" : null} </p>
                         </Col>
                     </Row>
@@ -147,8 +151,8 @@ function RecipePage(){
                             <h5> <strong>Cuisine:</strong></h5>
                             <h3 className="meta-label">{recipeData.cuisine}</h3>
                         </Col>
-                        <Col >
-                            <h5 ><strong>Diet:</strong></h5>
+                        <Col>
+                            <h5><strong>Diet:</strong></h5>
                             <h3 className="meta-label">{recipeData.diet}</h3>
                         </Col>
                         <Col>

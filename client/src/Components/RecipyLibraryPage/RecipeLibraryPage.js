@@ -1,4 +1,5 @@
 import React from "react";
+import "./RecipeLibraryPage.css"
 import { Link } from "react-router-dom";
 import useFetchUserLibrary from "../CustomHooks/useFetchUserRecipes";
 import RecipeCard from "../RecipeCard/RecipeCard";
@@ -7,31 +8,41 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 function RecipeLibraryPage(){
-    const [userLibrary, setUserLibrary] = useFetchUserLibrary()
+    const [userLibrary] = useFetchUserLibrary()
     console.log(userLibrary)
 
+
     const mappedRecipeCards = userLibrary.map(recipeObject => {
-        return(<RecipeCard key={recipeObject.id} recipeObject={recipeObject}>
-            <Row>
-                <Col md={3}>
-                    <header>
-                        <h3>{recipeObject.recipe_name}</h3>
-                    </header>
-                </Col>
-                <Col md={3}>
-                    <p>Cuisine:</p>
-                    <p>{recipeObject.cuisine}</p>
-                </Col>
-                <Col md={3}>
-                    <p>Diet:</p>
-                    <p>{recipeObject.diet}</p>
-                </Col>
-                <Col md={3}>
-                    <p>Cooking Time (min):</p>
-                    <p>{recipeObject.time_to_cook_min}</p>
-                </Col>
-            </Row>
-                </RecipeCard>)
+        console.log("RECIPE OBJ", recipeObject)
+        return(
+            <Col md={4} >
+
+                <RecipeCard key={recipeObject.id} recipeObject={recipeObject} backgroundColor="rgb(250, 250, 250, 0.5)">
+                
+                <div className="recipe-tooltip">
+                    <Row>
+                        <div className="recipe-header" >
+                            <h4>{recipeObject.recipe_name}</h4>
+                            
+                            {/* <img className="recipe-image" src={recipeObject.image} alt="recipe"/> */}
+                        </div>
+                    </Row>
+                </div>
+                <div className="recipe-main-content" style={{backgroundImage : `url(${recipeObject.image})`}}>
+                </div>
+                <div className="recipe-tooltip">
+                    <Row>
+                        <Col lg={6}>
+                            <p className="no-margin left-align">{recipeObject.cuisine}</p>
+                        </Col>
+                        
+                        <Col lg={6}>
+                            <p className="no-margin right-align"><strong style={{fontSize : "20px"}}>{recipeObject.time_to_cook_min === null ? "--" : recipeObject.time_to_cook_min}</strong> min</p>
+                        </Col>
+                    </Row>
+                </div>
+                </RecipeCard>
+            </Col>)
     })
     return(
         <>
@@ -44,7 +55,6 @@ function RecipeLibraryPage(){
             <p>Or keep it to yourself. We won't tell...</p>
             
         </article>
-        <hr/>
 
         <section>
             <Container>

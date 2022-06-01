@@ -38,7 +38,7 @@ class UsersController < ApplicationController
     end
 
     def create_new_recipe
-        current_user = User.find_by(params[:id])
+        current_user = User.find_by(id: session[:user_id])
         #First, create a new recipe and link it to user
         newRecipe = Recipe.create!(recipe_name: params[:recipe_name], cuisine: params[:cuisine], steps: params[:steps], diet: params[:diet], time_to_cook_min: params[:time_to_cook_min], author: current_user.username, description: params[:description], image: params[:image], visibility: params[:visibility], gluten_Free: params[:gluten_Free], lactose_free: params[:lactose_free], peanut_free: params[:peanut_free])
         newUserRecipe = UserLibrary.create!(user_id: session[:user_id], recipe_id: newRecipe.id)
@@ -52,6 +52,7 @@ class UsersController < ApplicationController
         end
         render json: newRecipe
     end
+
 
     def show_recipe_library
         current_user = User.find_by(id: session[:user_id])

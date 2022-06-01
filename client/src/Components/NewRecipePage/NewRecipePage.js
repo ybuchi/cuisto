@@ -5,6 +5,8 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
+import axios from 'axios';
+
 
 function NewRecipePage(){
 
@@ -19,7 +21,7 @@ function NewRecipePage(){
         gluten_Free: false,
         lactose_free: false,
         peanut_free: false,
-        visibility: "private"
+        visibility: "Private"
     })
 
     //This state takes care of the ingredients
@@ -30,6 +32,23 @@ function NewRecipePage(){
         metric : ""
     }])
 
+    //Handles uploading an image
+    const [recipeImage, setRecipeImage] = useState("")
+    function handleUpload(e){
+        const file = e.target.files[0];
+        setRecipeImage(file);
+    }
+    console.log(recipeImage);
+
+    function handleImageSubmit(e){
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append("file", recipeImage);
+        formData.append("upload_preset", "o49cfbqa" );
+
+        axios.post("https://api.cloudinary.com/v1_1/dxopxhdph/image/upload", formData)
+        .then(res => setRecipeMetadata({...recipeMetadata, image: res.data.secure_url}))
+    }
     //This state takes care of the recipe steps which will be sent along with the recipe metadata
     const [stepsData, setStepsData] = useState([""])
     const navigate = useNavigate()
@@ -131,7 +150,7 @@ function NewRecipePage(){
                         gluten_Free: false,
                         lactose_free: false,
                         peanut_free: false,
-                        visibility: "private"
+                        visibility: "Private"
                     })
                     setIngredientData([{
                         ingredient_name : "",
@@ -165,10 +184,20 @@ function NewRecipePage(){
                         </Col>
                         <Col sm={6} lg={3}>
                             <Form.Label>Type: </Form.Label>
-                            <Form.Control type="text"
+                            <Form.Select type="text"
                                           name={`ingredient_type-${index}`}
                                           value={ingredientData[index].ingredient_type}
-                                          onChange={handleIngredientDataChange}/>
+                                          onChange={handleIngredientDataChange}>
+                                <option>Eggs and Dairy</option>  
+                                <option>Fats and Oils</option>
+                                <option>Fruits</option>
+                                <option>Grain, Nuts and Baking Products</option> 
+                                <option>Herbs and Spices</option>         
+                                <option>Meats and Fish</option>
+                                <option>Pasta, Rice and Pulses</option>
+                                <option>Vegetables</option>
+                                <option>Other</option>
+                            </Form.Select>
                         </Col>
                         <Col sm={6} lg={2}>
                             <Form.Label>Amount:</Form.Label>
@@ -222,6 +251,20 @@ function NewRecipePage(){
             <Container>
                 <Row>
                     <h3>Recipe Metadata</h3>
+                    <Col sm={12} md={12}>
+                        <Form.Group>
+                            <Form.Label>Privacy</Form.Label>
+                            <Form.Select type="text"
+                                          name="visibility"
+                                          value={recipeMetadata.visibility}
+                                          onChange={handleRecipeMetadataChange}>
+                                <option>Private</option>
+                                <option>Friends Only</option>
+                                <option>Public</option>
+                            </Form.Select>
+                        </Form.Group>
+                    </Col>
+
                     <Col sm={8} md={5}>
                         <Form.Group>
                             <Form.Label>Recipe Name</Form.Label>
@@ -242,7 +285,7 @@ function NewRecipePage(){
                     </Col>
                     <Col sm={4} md={2}>
                         <Form.Group>
-                            <Form.Label>Time to Cook</Form.Label>
+                            <Form.Label>Cooking Time (min)</Form.Label>
                             <Form.Control type="number"
                                           name="time_to_cook_min"
                                           value={recipeMetadata.time_to_cook_min}
@@ -262,7 +305,7 @@ function NewRecipePage(){
                 <Row>
                     <Col>
                         <Form.Group>
-                            <Form.Label>Short Description</Form.Label>
+                            <Form.Label>Description</Form.Label>
                             <Form.Control type="text"
                                           name="description"
                                           value={recipeMetadata.description}
@@ -277,8 +320,9 @@ function NewRecipePage(){
                             <Form.Label>Image</Form.Label>
                             <Form.Control type="file"
                                           name="image"
-                                          value={recipeMetadata.image}
-                                          onChange={handleRecipeMetadataChange}/>
+                                          onChange={handleUpload}
+                                          controlId="recipeImageFile"/>
+                            <Button type="submit" onClick={handleImageSubmit}>Submit Image</Button>
                         </Form.Group>
                     </Col>
                 </Row>

@@ -21,11 +21,13 @@ Rails.application.routes.draw do
   post "/pantries/:id/ingredients", to: "pantries#create_new_pantry_ingredient"
 
   get "/user-library", to: "users#show_recipe_library"
+  get "/public-recipes", to: "recipes#show_public_recipes"
   get "/user-pantries", to: "users#show_user_pantries"
   get "/pantries/:id/ingredients", to: "pantries#show_pantry_ingredients"
   get "/recipes/:id/ingredients", to: "recipes#show_recipe_ingredients"
   get "/recipe-author/:id", to: "users#get_recipe_author"
   get "/user_active_pantries", to: "users#show_user_active_pantries"
+
 
   delete "/recipe/:id", to: "users#remove_recipe_from_library"
 

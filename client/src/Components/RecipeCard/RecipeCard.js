@@ -22,21 +22,19 @@ function RecipeCard(props){
         const mappedMissingIngr = pantry.missing_ingredients.map((ingredient, index) => {return index === pantry.missing_ingredients.length - 1 ? <strong key={index}>{ ingredient } </strong> : <strong key={index}>{ ingredient }, </strong> })
         return(
             <>
-            <hr/>
             {mappedMissingIngr.length > 0 ? <p className="missing-ingredients" key={pantry.pantry_id}><strong>{pantry.pantry_name}</strong> pantry is missing {mappedMissingIngr.length} ingredients: {mappedMissingIngr}</p> : <p className="missing-ingredients" key={pantry.pantry_id}><strong>{pantry.pantry_name}</strong> has all the ingredients!</p>}
             </>
         )
     }) : null
-    console.log("MISSING INGREDIENTS! ", missingIngredientsArray)
+
+   
     
     // For RecipeCards showing pantry information
     const recommendedRecipesArray = useRecommendRecipeInPantry(props.pantryObject)
-    console.log("RECOMMENDED RECIPES", recommendedRecipesArray)
     const mapRecommendedRecipes = ()=>{
         if(recommendedRecipesArray){
             if(recommendedRecipesArray.length > 0){
                 const recRecipes = recommendedRecipesArray.map(recipeObject=>{
-                    console.log("CHECK1:", recipeObject)
                     return(
                         <li key={recipeObject.id}>
                             <p><strong>{`${recipeObject.recipe_name}: `}</strong>{recipeObject.included_pantry_ingredients.length} ingredients in the pantry, {recipeObject.number_of_missing_ingredients} missing ingredients </p>
@@ -54,7 +52,6 @@ function RecipeCard(props){
         }
         
     }
-    console.log("ROOOOOOO", mapRecommendedRecipes)
 
     const mappedRecommendedRecipesContainer = ()=>{
         
@@ -72,8 +69,6 @@ function RecipeCard(props){
         }
 
     }
-
-    console.log(mappedRecommendedRecipesContainer())
 
 
     function revealUpdateIngrSb(){
@@ -114,7 +109,6 @@ function RecipeCard(props){
 
     function handleRemoveIngredient(){
         const pantryIngredientObj = props.ingredientObject.pantry_ingredients[0]
-        console.log("Ingredient to Delete", pantryIngredientObj)
         const configObj = {
             method : "DELETE"
         }
@@ -138,7 +132,6 @@ function RecipeCard(props){
     }
 
     function handleUpdateFormChange(e){
-        console.log(e.target.name)
         setUpdateIngredientForm({...updateIngredientForm, [e.target.name] : e.target.value})
     }
     function handleUpdatedIngredientSubmission(e){

@@ -1,0 +1,30 @@
+.cooking-time{
+    font-size: 30px;
+    font-weight: bold;
+}
+.recipe-tooltip{
+    background-color: #E4E4E4;
+    padding: 5px;
+    border-bottom: 1px black solid;
+}
+.no-margin {
+    margin-bottom: 0;
+}
+.right-align{
+    text-align: right;
+}
+.left-align{
+    text-align: left;
+}
+.recipe-header{
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+.recipe-main-content{
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 250px;
+    color: white;
+}

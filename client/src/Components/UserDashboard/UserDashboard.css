@@ -9,7 +9,10 @@
 }
 .menu-card{
     overflow:hidden;
-    position:relative
+    position:relative;
+    height: 80%;
+    width: 80%;
+    margin: auto;
 }
 .menu-card:hover .menu-card-label header{
     background-color: rgba(255,255,255, 0.9);

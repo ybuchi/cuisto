@@ -5,6 +5,7 @@ import { UserContext } from "../Contexts/UserContext";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import recipeBg from "../Images/Backgrounds/create-recipe2.jpg";
 
 function UserDashboard(){
     const { user } = useContext(UserContext);
@@ -20,9 +21,9 @@ function UserDashboard(){
         <hr/>
 
         <section id="dashboard-menu">
-        <Container>
+        <Container style={{textAlign: "center"}}>
             <Row>
-                <Col sm={12} md={6}>
+                <Col sm={12} md={12}>
                     <div className="menu-card dashboard-item">
                     <img className="menu-card-bg"
                          src="https://media-cldnry.s-nbcnews.com/image/upload/t_focal-758x379,f_auto,q_auto:best/rockcms/2022-03/plant-based-food-mc-220323-02-273c7b.jpg"
@@ -35,7 +36,7 @@ function UserDashboard(){
                     </article>
                     </div>
                 </Col>
-                <Col sm={12} md={6}>
+                <Col sm={12} md={12}>
                     <div className="menu-card dashboard-item">
                     <img className="menu-card-bg" 
                          src="https://thumbs.dreamstime.com/b/bucharest-romania-may-famous-cook-recipe-books-sale-library-book-store-famous-cook-recipe-books-sale-library-book-99222208.jpg"
@@ -50,10 +51,10 @@ function UserDashboard(){
                 </Col>
             </Row>
            <Row>
-               <Col sm={12} md={6}>
+               <Col sm={12} md={12}>
                    <div className="menu-card dashboard-item">
                     <img className="menu-card-bg"
-                         src="https://images.squarespace-cdn.com/content/v1/58d1b3ff1b631bb1893d108d/eb410491-651b-49df-9a3c-c388088c3304/P7121975+%281%29.jpg"
+                         src={recipeBg}
                          alt="recipe-book"/>
                     <article id="new-recipe-article" className="menu-card-label" onClick={()=>navigate("/new-recipe")}>
                             <header>
@@ -63,15 +64,14 @@ function UserDashboard(){
                     </article>
                     </div>
                 </Col>
-                <Col sm={12} md={6}>
+                {/* <Col sm={12} md={6}>
                     <article id="cooking-club-article" className="dashboard-item">
                             <header>
                                 <h3>Cooking Club </h3>
                                 <p>Coming Soon!</p>
                             </header>
-                            {/* Insert pantries here */}
                     </article>
-               </Col>
+               </Col> */}
            </Row>
         </Container>
         </section>

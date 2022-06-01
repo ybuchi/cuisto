@@ -17,10 +17,12 @@ import ProfilePage from './Components/ProfilePage/ProfilePage';
 import RecipePage from './Components/RecipePage/RecipePage';
 import PantryPage from './Components/PantryPage/PantryPage';
 import CookingSessionPage from './Components/CookingSessionPage/CookingSessionPage';
+import PublicRecipesPage from './Components/PublicRecipesPage/PublicRecipesPage';
+import EditRecipePage from './Components/EditRecipePage/EditRecipePage';
 
 function App() {
   useLoginState();
-  const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
+  const { isLoggedIn } = useContext(UserContext);
   console.log("Loggin Status:", isLoggedIn)
 
   return (
@@ -31,9 +33,12 @@ function App() {
           <Route path="/" element={<Landing/>}/>
           <Route path="login" element={<Login/>}/>
           <Route path="dashboard" element={<UserDashboard/>}/>
+          <Route path="/browse-recipes" element={<PublicRecipesPage/>}/>
+          <Route path="/browse-recipes/:recipe_id" element={<RecipePage />}/>
           <Route path="new-recipe" element={<NewRecipePage/>}/>
           <Route path="recipe-library" element={<RecipeLibraryPage/>}/>
           <Route path="/recipe-library/:recipe_id" element={<RecipePage />}/>
+          <Route path="/recipe-library/:recipe_id/edit" element={<EditRecipePage/>}/>
           <Route path="/recipe-library/cooking-session/:recipe_id" element={<CookingSessionPage/>}/>
           <Route path="pantries" element={<UserPantryPage/>}/>
           <Route path="/pantries/:pantry_id" element={<PantryPage/>}/>
