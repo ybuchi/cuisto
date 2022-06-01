@@ -19,12 +19,21 @@ class RecipesController < ApplicationController
       updated_recipe = @recipe.update!(recipe_name: params[:recipe_name], cuisine: params[:cuisine], steps: params[:steps], diet: params[:diet], time_to_cook_min: params[:time_to_cook_min], description: params[:description], image: params[:image], visibility: params[:visibility], lactose_free: params[:lactose_free], peanut_free: params[:peanut_free], gluten_Free: params[:gluten_Free])
       updated_user_recipe = UserLibrary.find_by(user_id: session[:user_id], recipe_id: @recipe.id)
 
+      recipe_ing_to_destroy = RecipeIngredient.where(recipe_id: @recipe.id)
+
+      if @recipe.ingredients.count > 0
+        @recipe.ingredients.each do |ing|
+          recipe_ingredient = RecipeIngredient.find_by(recipe_id: @recipe.id, ingredient_id: ing.id)
+          recipe_ingredient.destroy
+        end
+      end
+
+
       params[:ingredients].each do |ing_obj|
-        #Change this so that we first verify if ingredients exists
-        ingredientToUpdate = Ingredient.find_by(id: ing_obj[:id])
-        recipeIngredientToUpdate = RecipeIngredient.find_by(recipe_id: ing_obj[:id], recipe_id: @recipe.id)
-        newRecipeIngredient = recipeIngredientToUpdate.update!(amount: ing_obj[:amount].to_f, metric: ing_obj[:metric])
-        puts "New Recipe Ingredient updated!"
+        newIngredient = Ingredient.create!(ingredient_name: ing_obj[:ingredient_name], ingredient_type: ing_obj[:ingredient_type])
+        puts "Ingredient #{ing_obj[:ingredient_name]} created!"
+        newRecipeIngredient = RecipeIngredient.create!(ingredient_id: newIngredient.id, recipe_id: @recipe.id, amount: ing_obj[:amount].to_f, metric: ing_obj[:metric])
+        puts "New Recipe Ingredient created!"
       end
       render json: @recipe;
     end

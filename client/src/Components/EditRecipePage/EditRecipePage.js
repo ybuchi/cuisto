@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
-import useFetchRecipeData from "../CustomHooks/useFetchRecipeData";
-import useFetchRecipeIngredients from "../CustomHooks/useFetchRecipeIngredients";
+import { useParams, useNavigate } from "react-router-dom";
+import useFetchRecipeDataForUpdate from "../CustomHooks/useFetchRecipeDataForUpdate";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
@@ -13,9 +12,17 @@ import axios from "axios"
 
 function EditRecipePage(){
     let { recipe_id } = useParams();
-    const [recipeData, setRecipeData] = useFetchRecipeData(recipe_id);
-    console.log("RECIPE DATA:", recipeData)
-    const [recipeIngredients] = useFetchRecipeIngredients(recipe_id);
+    const navigate = useNavigate();
+
+    const [showSuccessfullyUpdated, setShowSuccessfullyUpdated] = useState("")
+    function revealRecipeUpdatedSnackBar(){
+        setShowSuccessfullyUpdated("show")
+        setTimeout(()=>setShowSuccessfullyUpdated(""), 3000)
+        // setTimeout(()=>navigate("/recipe-library"), 4000)
+    }
+
+    const [recipeData, setRecipeData] = useFetchRecipeDataForUpdate(recipe_id);
+    console.log("recipe data:", recipeData)
 
     const [recipeImage, setRecipeImage] = useState("");
     function handleUpload(e){
@@ -35,6 +42,7 @@ function EditRecipePage(){
 
     function handleUpdateRecipe(e){
         e.preventDefault();
+        console.log(recipeData)
         
         const configObj = {
             method : "PATCH",
@@ -42,13 +50,16 @@ function EditRecipePage(){
                 "Content-Type" : "application/json",
                 "Accepts" : "application/json"
             },
-            body : JSON.stringify(recipeData)
+            body : JSON.stringify({...recipeData, ingredients : recipeData.ingredients})
         }
 
         //FETCH call for recipe metadata (recipe model)
         fetch(`/recipes/${recipe_id}`, configObj)
         .then(res => res.json())
-        .then(updatedRecipe => console.log("UPDATED REC:", updatedRecipe))
+        .then(updatedRecipe => {
+            console.log(updatedRecipe)
+            revealRecipeUpdatedSnackBar();
+        })
     }
   
 
@@ -62,30 +73,38 @@ function EditRecipePage(){
 
     //Adds an ingredient input
     function handleAddIngredient(){
+        console.log("IST IT AN ARRAY", recipeData.ingredients)
         setRecipeData({...recipeData, ingredients : [...recipeData.ingredients, {
             ingredient_name : "",
             ingredient_type : "",
             amount : 0.00,
             metric : ""
-        }]})
+        }] 
+    })
     }
 
     //Removes an ingredient input
     function handleRemoveIngredient(e){
-        const ingredientIndex = e.target.name
+        const ingredientIndex = e.target.name.replace(/\D/g,'')
+        console.log("Index:", ingredientIndex);
         const updatedIngredientData = recipeData.ingredients.filter((ingredient, index ) => { return index.toString() !== ingredientIndex})
-        setRecipeData({...recipeData, ingredients : updatedIngredientData});
-        console.log(updatedIngredientData);
+        console.log(updatedIngredientData)
+        setRecipeData({...recipeData, ingredients: updatedIngredientData});
+        // console.log("UPDATED INGR DATA", updatedIngredientData);
     }
 
     function handleIngredientDataChange(e){
         const ingredientIndex = e.target.name.replace(/\D/g,'')
+        console.log(ingredientIndex);
         const inputName = e.target.name.replace(/[0-9]/g, '').slice(0, -1)
+        console.log(inputName);
 
         const newObject = {...recipeData.ingredients[ingredientIndex], [inputName] : e.target.value}
+        console.log(newObject);
         
         const updatedIngredientsArray = [...recipeData.ingredients]
         updatedIngredientsArray[ingredientIndex] = newObject 
+        console.log(updatedIngredientsArray)
 
         setRecipeData({...recipeData, ingredients : updatedIngredientsArray});
     }
@@ -121,6 +140,7 @@ function EditRecipePage(){
                         <Col sm={12} lg={3}>
                             <Form.Label>Ingredient Name:</Form.Label>
                             <Form.Control type="text"
+                                          
                                           name={`ingredient_name-${index}`}
                                           value={ingredients[index].ingredient_name}
                                           onChange={handleIngredientDataChange}
@@ -129,9 +149,10 @@ function EditRecipePage(){
                         <Col sm={6} lg={3}>
                             <Form.Label>Type: </Form.Label>
                             <Form.Select type="text"
-                                          name={`ingredient_type-${index}`}
-                                          value={ingredients[index].ingredient_type}
-                                          onChange={handleIngredientDataChange}
+                                         
+                                         name={`ingredient_type-${index}`}
+                                         value={ingredients[index].ingredient_type}
+                                         onChange={handleIngredientDataChange}
                                           >
                                 <option>Eggs and Dairy</option>  
                                 <option>Fats and Oils</option>
@@ -194,7 +215,6 @@ function EditRecipePage(){
         )
     }) : []
 
-    console.log(recipeIngredients);
     return(
         <>
             <h1>Edit Recipe</h1>
@@ -305,6 +325,8 @@ function EditRecipePage(){
                     <Button style={{margin: "20px"}} type="submit">Save Changes</Button>
                 </Container>
             </Form>
+            <div id="update-recipe-snackbar" className={`snackbar ${showSuccessfullyUpdated}`}>Recipe Updated! Redirecting...!</div>
+
         </>
         
     )
