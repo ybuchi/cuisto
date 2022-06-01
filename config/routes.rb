@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   delete "/recipe/:id", to: "users#remove_recipe_from_library"
 
   patch "/user_pantries/:id/activate", to: "user_pantries#handle_activate_pantry"
+  patch "/add_times_cooked/:id", to: "user_libraries#update"
   
   # Routing logic: fallback requests for React Router.
   # Leave this here to help deploy your app later!

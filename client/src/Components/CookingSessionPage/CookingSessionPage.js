@@ -18,6 +18,34 @@ function CookingSessionPage(){
     const[showActivePantrySelection, setShowActivePantrySelection] = useState(false);
     const[selectedPantry, setSelectedPantry] = useState("");
 
+    function handleNoAction(){
+        //Make a patch call to user recipe to augment the count (times recipe was cooked)
+        const configObj = {
+            method : "PATCH",
+            headers : {
+                "Content-Type" : "application/json",
+                "Accepts" : "application/json"
+            },
+            body : JSON.stringify({
+                times_cooked : 1,
+                recipes_cooked: 1
+            })
+        }
+
+        fetch(`/add_times_cooked/${recipe_id}`, configObj)
+        .then(res => {
+            if(res.ok){
+                res.json()
+                .then(updatedUserRecipe => {
+                    console.log(updatedUserRecipe)
+                    setShowActivePantrySelection(false)
+                })
+            }
+        })
+
+        
+    }
+
     const [userPantries, setUserPantries ] = useFetchUserPantries();
     const activePantries = userPantries.filter(pantryObject => pantryObject.user_pantries[0].active)
 
@@ -108,7 +136,7 @@ function CookingSessionPage(){
                 <p>Selected Pantry: <strong>{selectedPantry}</strong></p>
                 <Button>Remove Cooked Ingredients from Pantry</Button>
                 <Button>Manage Pantry Manually</Button>
-                <Button variant="secondary">Continue With No Action</Button>
+                <Button onClick={handleNoAction} variant="secondary">No Action</Button>
             </Modal.Footer>
         </Modal>
         </>
