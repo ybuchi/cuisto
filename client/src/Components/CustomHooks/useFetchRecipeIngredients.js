@@ -9,7 +9,7 @@ function useFetchRecipeIngredients(recipeId){
         .then(recipeIngredients => setRecipeIngredients(recipeIngredients))
     },[recipeId])
 
-    console.log(recipeIngredients);
+    console.log(recipeIngredients, setRecipeIngredients);
 
     return [recipeIngredients, setRecipeIngredients]
 }

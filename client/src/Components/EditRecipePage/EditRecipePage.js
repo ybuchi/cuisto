@@ -18,7 +18,7 @@ function EditRecipePage(){
     function revealRecipeUpdatedSnackBar(){
         setShowSuccessfullyUpdated("show")
         setTimeout(()=>setShowSuccessfullyUpdated(""), 3000)
-        // setTimeout(()=>navigate("/recipe-library"), 4000)
+        setTimeout(()=>navigate("/recipe-library"), 4000)
     }
 
     const [recipeData, setRecipeData] = useFetchRecipeDataForUpdate(recipe_id);
