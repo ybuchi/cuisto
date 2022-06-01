@@ -35,6 +35,7 @@ function App() {
           <Route path="dashboard" element={<UserDashboard/>}/>
           <Route path="/browse-recipes" element={<PublicRecipesPage/>}/>
           <Route path="/browse-recipes/:recipe_id" element={<RecipePage />}/>
+          <Route path="/browse-recipes/:recipe_id/edit" element={<EditRecipePage />}/>
           <Route path="new-recipe" element={<NewRecipePage/>}/>
           <Route path="recipe-library" element={<RecipeLibraryPage/>}/>
           <Route path="/recipe-library/:recipe_id" element={<RecipePage />}/>
