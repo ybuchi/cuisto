@@ -12,6 +12,7 @@ import Modal from "react-bootstrap/Modal";
 
 function CookingSessionPage(){
     let { recipe_id } = useParams();
+    const navigate = useNavigate();
     const [recipeData, setRecipeData] = useFetchRecipeData(recipe_id);
     const [recipeIngredients, setRecipeIngredients] = useFetchRecipeIngredients(recipe_id)
 
@@ -46,6 +47,33 @@ function CookingSessionPage(){
         
     }
 
+    function handleManualPantry(){
+        const configObj = {
+            method : "PATCH",
+            headers : {
+                "Content-Type" : "application/json",
+                "Accepts" : "application/json"
+            },
+            body : JSON.stringify({
+                times_cooked : 1,
+                recipes_cooked: 1
+            })
+        }
+
+        fetch(`/add_times_cooked/${recipe_id}`, configObj)
+        .then(res => {
+            if(res.ok){
+                res.json()
+                .then(updatedUserRecipe => {
+                    console.log(updatedUserRecipe)
+                    setShowActivePantrySelection(false)
+                    navigate('/pantries')
+                })
+            }
+        })
+
+    }
+
     const [userPantries, setUserPantries ] = useFetchUserPantries();
     const activePantries = userPantries.filter(pantryObject => pantryObject.user_pantries[0].active)
 
@@ -56,7 +84,7 @@ function CookingSessionPage(){
     }
 
     const [slideIndex, setSlideIndex] = useState(0)
-    const navigate = useNavigate();
+
 
     function handleUpdateActiveIndex(activeIndex){
        setSlideIndex(activeIndex)
@@ -134,9 +162,10 @@ function CookingSessionPage(){
             </Modal.Body>
             <Modal.Footer>
                 <p>Selected Pantry: <strong>{selectedPantry}</strong></p>
-                <Button>Remove Cooked Ingredients from Pantry</Button>
-                <Button>Manage Pantry Manually</Button>
-                <Button onClick={handleNoAction} variant="secondary">No Action</Button>
+                {/* <Button>Auto-Remove Ingredients from Pantry</Button> */}
+                <Button onClick={handleManualPantry}>Go to Pantries</Button>
+                <Button onClick={handleNoAction} variant="secondary">Finish and Close</Button>
+                <Button variant = "secondary" onClick={() => setShowActivePantrySelection(false)}>Cancel</Button>
             </Modal.Footer>
         </Modal>
         </>

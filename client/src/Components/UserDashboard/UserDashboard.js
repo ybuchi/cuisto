@@ -17,7 +17,7 @@ function UserDashboard(){
             <h1>Welcome {user.first_name}!</h1>
             <p>User profile picture here.</p>
             {/* <p>{user.recipes_cooked === 0 || user.recipes_cooked === undefined ? null : `${user.recipes_cooked} recipes cooked`}</p> */}
-            <p>{user.recipes_cooked} recipes cooked</p>
+            <p>{user.recipes_cooked} meals cooked!</p>
         </header>
 
         <hr/>
