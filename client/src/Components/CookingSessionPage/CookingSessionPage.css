@@ -11,3 +11,12 @@
 .carousel-caption.top{
     top: 1.5rem;
 }
+.steps-list-container{
+    border: 1px black solid;
+    margin: 10px;
+    text-align: left;
+}
+
+.active-list-step{
+    border: 1px orange solid;
+}
