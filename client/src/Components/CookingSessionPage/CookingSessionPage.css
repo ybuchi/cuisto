@@ -20,3 +20,6 @@
 .active-list-step{
     border: 1px orange solid;
 }
+.pantry-select:hover{
+    cursor: pointer;
+}
