@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    before_action :find_user, only: [:show, :create_new_recipe, :show_user_active_pantries]
+    before_action :find_user, only: [:show, :create_new_recipe, :show_user_active_pantries, :update]
     skip_before_action :authorize, only: [:index, :create, :show]
     
     def index
@@ -16,6 +16,12 @@ class UsersController < ApplicationController
         # login after creation
         session[:user_id] =  user.id
         render json: user, status: :created
+    end
+    
+    def update
+        current_user = User.find_by(id: session[:user_id])
+        current_user.update!(first_name: params[:first_name], last_name: params[:last_name], email: params[:email], username: params[:username], birthday: params[:birthday], bio: params[:bio], recipes_cooked: params[:recipes_cooked], profile_picture: params[:profile_picture])
+        render json: @user
     end
 
     def store_recipe

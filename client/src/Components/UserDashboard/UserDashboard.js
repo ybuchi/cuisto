@@ -11,6 +11,7 @@ import hat from "../Images/Logos/chef-hat3.png";
 
 function UserDashboard(){
     const { user } = useContext(UserContext);
+    console.log(user)
     const navigate = useNavigate();
 
     return(
@@ -18,7 +19,7 @@ function UserDashboard(){
         <section id="intro-dash">
             <header>
                 <h1 id="welcome">Welcome, {user.username}</h1>
-                <div id="profile-pic-container">
+                <div id="profile-pic-container" style={{backgroundImage: `url(${user.profile_picture})`}}>
                     <img id="chef-hat" src={hat} alt="hat"/>
                     <img id="ribbon" src={ribbon} alt="ribbon"/>
                     <p id="ribbon-text">Chef {user.first_name} </p>

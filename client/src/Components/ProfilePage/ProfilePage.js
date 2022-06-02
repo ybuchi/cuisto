@@ -10,6 +10,7 @@ import Form from "react-bootstrap/Form";
 import axios from "axios";
 function ProfilePage(){
     const { user, setUser } = useContext(UserContext);
+    console.log("USER", user)
     const [recipeImage, setRecipeImage] = useState("");
 
     function uploadProfilePic(e){
@@ -24,7 +25,25 @@ function ProfilePage(){
         formData.append("upload_preset", "o49cfbqa" );
 
         axios.post("https://api.cloudinary.com/v1_1/dxopxhdph/image/upload", formData)
-        .then(res => setUser({...user, profile_picture: res.data.secure_url}))
+        .then(res => {
+            const configObj = {
+                method: "PATCH", 
+                headers: {
+                    "Content-Type" : "application/json",
+                    "Accepts" : "application/json"
+                }, 
+                body : JSON.stringify({...user, profile_picture : res.data.secure_url})
+            }
+            fetch(`/users/${user.id}`, configObj)
+            .then(res => {
+                if(res.ok){
+                    res.json().then(updatedUser => setUser(updatedUser))
+                }
+            })
+            
+
+            
+        })
     }
     return(
         <>
