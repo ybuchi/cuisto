@@ -23,3 +23,6 @@
 .pantry-select:hover{
     cursor: pointer;
 }
+#cooking-session-page{
+    margin-bottom: 60px;
+}

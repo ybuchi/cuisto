@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./EditRecipePage.css";
 import { useParams, useNavigate } from "react-router-dom";
 import useFetchRecipeDataForUpdate from "../CustomHooks/useFetchRecipeDataForUpdate";
 import Form from "react-bootstrap/Form";
@@ -132,7 +133,7 @@ function EditRecipePage(){
     const mappedIngredientInputs = recipeData.ingredients ? recipeData.ingredients.map((ingredientObject, index) => {
         const ingredients = recipeData.ingredients
         return(
-            
+        
             <Form.Group style={{margin: "20px"}} key={index}>
                 <h4>Ingredient {index + 1}</h4>
                 <Container>
@@ -217,6 +218,7 @@ function EditRecipePage(){
 
     return(
         <>
+        <article id="edit-recipe-article">
             <h1>Edit Recipe</h1>
 
             <Form onSubmit={handleUpdateRecipe}>
@@ -326,7 +328,7 @@ function EditRecipePage(){
                 </Container>
             </Form>
             <div id="update-recipe-snackbar" className={`snackbar ${showSuccessfullyUpdated}`}>Recipe Updated! Redirecting...!</div>
-
+        </article>
         </>
         
     )

@@ -63,11 +63,12 @@ function PublicRecipesPage(){
 
     return(
         <>
-        <h1>Browse Recipes</h1>
-        <Container>
-            {mappedRecipes}
-        </Container>
-        
+        <article id="public-recipe-page">
+            <h1>Browse Recipes</h1>
+            <Container>
+                {mappedRecipes}
+            </Container>
+        </article>
         </>
     )
 }

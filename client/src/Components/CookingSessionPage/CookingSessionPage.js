@@ -139,6 +139,7 @@ function CookingSessionPage(){
 
     return(
         <>
+        <article id="cooking-session-page">
         <h1>{recipeData.recipe_name}</h1>
         <Button onClick={()=>navigate(`/recipe-library/${recipe_id}`)}>Back to Recipe Page</Button>
         <hr/>
@@ -168,6 +169,7 @@ function CookingSessionPage(){
                 <Button variant = "secondary" onClick={() => setShowActivePantrySelection(false)}>Cancel</Button>
             </Modal.Footer>
         </Modal>
+        </article>
         </>
     )
 }

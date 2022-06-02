@@ -92,7 +92,6 @@ function NavBar(){
                                     <Nav.Link href="/dashboard">Dashboard</Nav.Link>
                                     <Nav.Link href="/browse-recipes">Browse Recipes</Nav.Link>
                                     <Nav.Link href="/recipe-library">Library</Nav.Link>
-                                    <Nav.Link href="/clubs">Clubs</Nav.Link>
                                     <SplitButton variant="secondary" title="Pantries" onClick={()=> navigate("/pantries")}>
                                       <Dropdown.Header>Active</Dropdown.Header>
                                         {mappedActivePantries}
