@@ -16,6 +16,7 @@ function UserDashboard(){
 
     return(
         <>
+        <article id="user-dashboard">
         <section id="intro-dash">
             <header>
                 <h1 id="welcome">Welcome, {user.username}</h1>
@@ -93,7 +94,7 @@ function UserDashboard(){
                     <h3>Recommended Recipes</h3>
                 </header>
             </section> */}
-        
+        </article>
         </>
     )
 }

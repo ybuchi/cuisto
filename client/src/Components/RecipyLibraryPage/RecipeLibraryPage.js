@@ -19,7 +19,7 @@ function RecipeLibraryPage(){
 
                 <RecipeCard key={recipeObject.id} recipeObject={recipeObject} backgroundColor="rgb(250, 250, 250, 0.5)">
                 
-                <div className="recipe-tooltip">
+                <div className="recipe-tooltip" id="recipe-head">
                     <Row>
                         <div className="recipe-header" >
                             <h4>{recipeObject.recipe_name}</h4>
@@ -30,7 +30,7 @@ function RecipeLibraryPage(){
                 </div>
                 <div className="recipe-main-content" style={{backgroundImage : `url(${recipeObject.image})`}}>
                 </div>
-                <div className="recipe-tooltip">
+                <div className="recipe-tooltip" id="time-and-cuisine">
                     <Row>
                         <Col lg={6}>
                             <p className="no-margin left-align">{recipeObject.cuisine}</p>
@@ -46,26 +46,28 @@ function RecipeLibraryPage(){
     })
     return(
         <>
-        <header>
-            <h1>Recipe Library</h1>
-        </header>
+        <article id="recipe-library">
+            <header>
+                <h1>Recipe Library</h1>
+            </header>
 
-        <article>
-            <p>Feeling Inspired? <span><Link to="/new-recipe">Create a New Recipe</Link></span> and share it with the world!</p>
-            <p>Or keep it to yourself. We won't tell...</p>
-            
+            <article>
+                <p>Feeling Inspired? <span><Link to="/new-recipe">Create a New Recipe</Link></span> and share it with the world!</p>
+                <p>Or keep it to yourself. We won't tell...</p>
+                
+            </article>
+
+            <section>
+                <Container>
+                <p>You have <strong style={{fontSize: "30px"}}>{mappedRecipeCards.length}</strong> recipes.</p>
+
+                    <Row>
+                        {mappedRecipeCards}
+                    </Row>
+                </Container>
+                
+            </section>
         </article>
-
-        <section>
-            <Container>
-            <p>You have <strong style={{fontSize: "30px"}}>{mappedRecipeCards.length}</strong> recipes.</p>
-
-                <Row>
-                    {mappedRecipeCards}
-                </Row>
-            </Container>
-            
-        </section>
         </>
 
     )
