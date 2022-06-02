@@ -1,8 +1,12 @@
 .dashboard-item{
     border: 1px black solid;
     margin: 20px;
-    padding: 20px;
+    padding: 10px;
     border-radius: 2px;
+}
+#dashboard-menu{
+    padding-top: 40px;
+    padding-bottom: 40px;
 }
 .dashboard-item:hover{
     cursor: pointer;
@@ -12,7 +16,11 @@
     position:relative;
     height: 80%;
     width: 80%;
-    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 80px;
 }
 .menu-card:hover .menu-card-label header{
     background-color: rgba(255,255,255, 0.9);
@@ -27,7 +35,6 @@
     top: 0;
     width: 100%;
     height: auto;
-    z-index: -1;
     transition: transform 1s;
 }
 .dashboard-item{
@@ -35,7 +42,11 @@
 }
 .menu-card-label header{
     /* border: 1px solid black; */
+    position: absolute;
+    top: 50%;
+    left: 50%;
     padding: 10px;
+    transform: translate(-50%, -50%);
     background-color: rgba(255, 255, 255, 0.5);
     transition: background-color 1s ease-out;
 }
@@ -48,4 +59,57 @@ header h1 {
 }
 article header{
     font-family: "Libre Baskerville", serif;
+}
+#welcome{
+    margin: 30px;
+    text-align: left;
+}
+#meals-cooked{
+    font-size: 30px;
+    margin-top: 20px;
+}
+#meals-cooked strong{
+    background-color: yellow;
+    height: 100px;
+    width: 100px;
+    border-radius: 100%;
+    padding: 5px;
+}
+#intro-dash{
+    background-color: #ECFBFC;
+    padding: 20px;
+    border-bottom: 1px solid black;
+}
+#profile-pic-container{
+    width: 200px;
+    height: 200px;
+    background-color: lightgray;
+    background-position: center;
+    margin: auto;
+    border: 1px black solid;
+    border-radius: 50%;
+    position: relative;
+}
+#ribbon{
+    position: absolute;
+    width: 200px;
+    top: 80%;
+    left: 50%;
+    transform: translateX(-50%)
+}
+
+#chef-hat{
+    position: absolute;
+    width: 100px;
+    top: -40%;
+    lef: 50%;
+    transform: translateX(-50%)
+}
+
+#ribbon-text{
+    position: absolute;
+    top: 83%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
 }

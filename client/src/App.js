@@ -19,6 +19,7 @@ import PantryPage from './Components/PantryPage/PantryPage';
 import CookingSessionPage from './Components/CookingSessionPage/CookingSessionPage';
 import PublicRecipesPage from './Components/PublicRecipesPage/PublicRecipesPage';
 import EditRecipePage from './Components/EditRecipePage/EditRecipePage';
+import Footer from './Components/Footer/Footer';
 
 function App() {
   useLoginState();
@@ -46,6 +47,7 @@ function App() {
           <Route path="clubs" element={<ClubsPage/>}/>
           <Route path="profile" element={<ProfilePage />}/>
         </Routes>
+        <Footer/>
       </UserProvider>
     </div>
   );

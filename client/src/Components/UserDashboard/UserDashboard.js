@@ -6,6 +6,8 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import recipeBg from "../Images/Backgrounds/create-recipe2.jpg";
+import ribbon from "../Images/Logos/ribbon.png";
+import hat from "../Images/Logos/chef-hat3.png";
 
 function UserDashboard(){
     const { user } = useContext(UserContext);
@@ -13,14 +15,21 @@ function UserDashboard(){
 
     return(
         <>
-        <header>
-            <h1>Welcome {user.first_name}!</h1>
-            <p>User profile picture here.</p>
-            {/* <p>{user.recipes_cooked === 0 || user.recipes_cooked === undefined ? null : `${user.recipes_cooked} recipes cooked`}</p> */}
-            <p>{user.recipes_cooked} meals cooked!</p>
-        </header>
-
-        <hr/>
+        <section id="intro-dash">
+            <header>
+                <h1 id="welcome">Welcome, {user.username}</h1>
+                <div id="profile-pic-container">
+                    <img id="chef-hat" src={hat} alt="hat"/>
+                    <img id="ribbon" src={ribbon} alt="ribbon"/>
+                    <p id="ribbon-text">Chef {user.first_name} </p>
+                </div>
+                {/* <p>{user.recipes_cooked === 0 || user.recipes_cooked === undefined ? null : `${user.recipes_cooked} recipes cooked`}</p> */}
+                
+            </header>
+            <article>
+                <p id="meals-cooked"><strong>{user.recipes_cooked}</strong> meals cooked!</p>
+            </article>
+        </section>
 
         <section id="dashboard-menu">
         <Container style={{textAlign: "center"}}>
@@ -77,14 +86,12 @@ function UserDashboard(){
            </Row>
         </Container>
         </section>
-        <hr/>
 
-            <section id="recommended-recipes">
+            {/* <section id="recommended-recipes">
                 <header>
                     <h3>Recommended Recipes</h3>
-                    {/* Insert recommended recipes as cards here */}
                 </header>
-            </section>
+            </section> */}
         
         </>
     )

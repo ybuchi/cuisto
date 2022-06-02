@@ -1,0 +1,41 @@
+.row .profile-photo{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 1px black solid;
+    background-color: lightgray;
+    margin: auto;
+    transition: border 0.3s ease;
+    position: relative;
+    background-position: center;
+    background-size: cover;
+}
+.profile-photo:hover{
+    border: 3px gold solid;
+    cursor: pointer;
+}
+.profile-photo:hover .edit-label{
+    opacity: 1;
+}
+
+#user-account-info{
+    transform: translateY(25%);
+    margin-bottom: 50px;
+}
+
+#account-info{
+    margin: 40px;
+}
+
+.edit-label{
+    background-color: black;
+    color: white;
+    margin: auto;
+    position: absolute;
+    width: 100%;
+    bottom:10%;
+    left: 50%; 
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 1s ease;
+}
