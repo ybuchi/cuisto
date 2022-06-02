@@ -16,6 +16,7 @@ function UserDashboard(){
 
     return(
         <>
+        <article id="user-dashboard">
         <section id="intro-dash">
             <header>
                 <h1 id="welcome">Welcome, {user.username}</h1>
@@ -35,7 +36,7 @@ function UserDashboard(){
         <section id="dashboard-menu">
         <Container style={{textAlign: "center"}}>
             <Row>
-                <Col sm={12} md={12}>
+                <Col sm={12} md={6}>
                     <div className="menu-card dashboard-item">
                     <img className="menu-card-bg"
                          src="https://media-cldnry.s-nbcnews.com/image/upload/t_focal-758x379,f_auto,q_auto:best/rockcms/2022-03/plant-based-food-mc-220323-02-273c7b.jpg"
@@ -48,7 +49,7 @@ function UserDashboard(){
                     </article>
                     </div>
                 </Col>
-                <Col sm={12} md={12}>
+                <Col sm={12} md={6}>
                     <div className="menu-card dashboard-item">
                     <img className="menu-card-bg" 
                          src="https://thumbs.dreamstime.com/b/bucharest-romania-may-famous-cook-recipe-books-sale-library-book-store-famous-cook-recipe-books-sale-library-book-99222208.jpg"
@@ -76,14 +77,6 @@ function UserDashboard(){
                     </article>
                     </div>
                 </Col>
-                {/* <Col sm={12} md={6}>
-                    <article id="cooking-club-article" className="dashboard-item">
-                            <header>
-                                <h3>Cooking Club </h3>
-                                <p>Coming Soon!</p>
-                            </header>
-                    </article>
-               </Col> */}
            </Row>
         </Container>
         </section>
@@ -93,7 +86,7 @@ function UserDashboard(){
                     <h3>Recommended Recipes</h3>
                 </header>
             </section> */}
-        
+        </article>
         </>
     )
 }

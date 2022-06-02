@@ -17,6 +17,9 @@
 .profile-photo:hover .edit-label{
     opacity: 1;
 }
+.hidden{
+    visibility: hidden;
+}
 
 #user-account-info{
     transform: translateY(25%);

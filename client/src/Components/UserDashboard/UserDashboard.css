@@ -115,4 +115,7 @@ article header{
     transform: translateX(-50%);
     color: white;
 }
+#user-dashboard{
+    margin-bottom: 50px;
+}
 

@@ -79,7 +79,8 @@ function UserPantryPage(){
     const mappedPantries = userPantries.map((pantryObject, index)=>{
         return(
             <RecipeCard key={pantryObject.id} pantryObject={pantryObject}>
-                    <header>
+ 
+                    <header className="pantry-header">
                         <h2>{pantryObject.pantry_name}</h2>
                         <h3>
                             <Form onClick={(e)=>e.stopPropagation()}>
@@ -94,13 +95,15 @@ function UserPantryPage(){
                     <section>
                         <p>{pantryObject.pantry_description}</p>
                     </section>
+
             </RecipeCard>
         )
     })
 
 
     return(
-        <>
+
+        <div id="user-pantry-page">
         <h1>Pantries</h1>
         <hr/>
         <Container>
@@ -145,7 +148,8 @@ function UserPantryPage(){
                 </Form>
             </Modal.Body>
         </Modal>
-        </>
+        </div>
+
     )
 }
 

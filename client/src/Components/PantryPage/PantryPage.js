@@ -227,6 +227,7 @@ function PantryPage(){
                                 pantryIngredients={pantryIngredients}
                                 revealPantryIngrRemovedSnackBar={revealPantryIngrRemovedSnackBar}
                                 backgroundColor="#EFF8FF">
+                        <section id="pantry-content">
                         <img src={restockLogo} alt="restock!" id="restock-logo" style={{visibility : ingredientObject.pantry_ingredients[0].needs_restock ? "visible" : "hidden"}}/>
                         <h3><strong>{ingredientObject.ingredient_name}</strong></h3>
                         <hr/>
@@ -238,7 +239,7 @@ function PantryPage(){
                         <p>{ingredientAttributes.metric}</p>
                         <p style={{backgroundColor: typeLabel(ingredientObject), color: typeLabelFontColor(ingredientObject), borderRadius: "5px", padding: "5px"}}>{ingredientObject.ingredient_type}</p>
                         {ingredientObject.pantry_ingredients[0].needs_restock ? <Button variant="success" onClick={(e)=>handleIngrRestock(e, ingredientObject)}>Restocked</Button> : <Button variant="secondary" onClick={(e)=>handleIngrRestock(e, ingredientObject)}>Restock!</Button> }
-
+                        </section>
                     </RecipeCard>
                 </Col>)
             })
@@ -250,6 +251,7 @@ function PantryPage(){
 
     return(
         <>
+        <section id="pantry-page">
         <article>
             <header>
                 <h1>{pantryData ? pantryData.pantry_name :  "Loading..."}</h1>
@@ -320,7 +322,7 @@ function PantryPage(){
     </Modal>
     <div className={`snackbar ${showSnackBar}`}>Ingredient Added to Pantry!</div>
     <div className={`snackbar ${showSnackBarRemovePantryIngr}`}>Ingredient Removed from Pantry!</div>
-
+    </section>
     </>
         
     )

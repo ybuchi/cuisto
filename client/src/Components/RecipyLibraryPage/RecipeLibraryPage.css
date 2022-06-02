@@ -28,3 +28,20 @@
     min-height: 250px;
     color: white;
 }
+
+#recipe-library{
+    margin-bottom: 50px;
+}
+.recipe-header{
+    font-family: "Libre Baskerville", serif;
+    font-weight: bold;
+    transform: translateY(25%);
+}
+
+#recipe-head{
+    background-color: #534E52;
+    color: white;
+}
+#time-and-cuisine{
+    background-color: #C7956D
+}

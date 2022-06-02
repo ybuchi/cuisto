@@ -12,14 +12,17 @@ function ProfilePage(){
     const { user, setUser } = useContext(UserContext);
     console.log("USER", user)
     const [recipeImage, setRecipeImage] = useState("");
+    const [showSubmitImage, setShowSubmitImage] = useState("hidden");
 
     function uploadProfilePic(e){
         const file = e.target.files[0];
         setRecipeImage(file);
+        setShowSubmitImage("");
     }
 
     function handleImageSubmit(e){
         e.preventDefault();
+        setShowSubmitImage("hidden")
         const formData = new FormData();
         formData.append("file", recipeImage);
         formData.append("upload_preset", "o49cfbqa" );
@@ -66,8 +69,8 @@ function ProfilePage(){
                                     <Button variant="link" id="submit-prof-pic" style={{textDecoration:"none", color: "white"}} onClick={()=>document.getElementById("fileInput").click()}>Edit Profile Picture</Button>
                                 </div> 
                             </div>
-                            <Form.Control type="file" id="fileInput" onChange={uploadProfilePic}></Form.Control>
-                            <Button onClick={handleImageSubmit}>Submit</Button>
+                            <Form.Control style={{visibility: "hidden"}} type="file" id="fileInput" onChange={uploadProfilePic}></Form.Control>
+                            <Button onClick={handleImageSubmit} className={showSubmitImage}>Submit</Button>
 
 
                         </Col>
