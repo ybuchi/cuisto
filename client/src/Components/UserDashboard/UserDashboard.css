@@ -114,6 +114,7 @@ article header{
     left: 50%;
     transform: translateX(-50%);
     color: white;
+    font-size: 15px;
 }
 #user-dashboard{
     margin-bottom: 50px;
