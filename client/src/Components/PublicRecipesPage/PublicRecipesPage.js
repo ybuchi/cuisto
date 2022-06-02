@@ -11,11 +11,33 @@ import useFetchUserLibrary from "../CustomHooks/useFetchUserRecipes";
 
 function PublicRecipesPage(){
     const { user } = useContext(UserContext)
-    const [userLibrary] = useFetchUserLibrary();
+    const [userLibrary, setUserLibrary] = useFetchUserLibrary();
 
     const [publicRecipes] = useFetchPublicRecipes()
     console.log("Public Recipes: ", publicRecipes )
     console.log("USER LIBRARY", userLibrary)
+
+    function handleAddToLibrary(e, recipeObject){
+        e.stopPropagation()
+
+        const configObj ={
+            method : "POST",
+            headers : {
+                "Content-Type" : "application/json",
+                "Accepts" : "application/json"
+            },
+            body : JSON.stringify({
+                recipe_id : recipeObject.id
+            })
+        }
+
+        fetch(`/user_libraries`, configObj)
+        .then(res =>{
+            if(res.ok){
+                res.json().then(userRecipe => setUserLibrary([...userLibrary, recipeObject]))
+            }
+        })
+    }
 
     //Map public recipes
     const mappedRecipes = publicRecipes.map(recipeObject => {
@@ -33,7 +55,7 @@ function PublicRecipesPage(){
         return(
         <RecipeCard key={recipeObject.id} recipeObject={recipeObject}>
             <div className="recipe-card-content">
-            {recipeIsInLibrary() ? <p style={{fontStyle : "italic"}}>Recipe Is In Library</p> : <Button><strong>+</strong> Add To Library</Button>}
+            {recipeIsInLibrary() ? <p style={{fontStyle : "italic"}}>Recipe Is In Library</p> : <Button onClick={(e)=>handleAddToLibrary(e, recipeObject)}><strong>+</strong> Add To Library</Button>}
             <hr/>
             <Row>
                 <Col md={3}>
