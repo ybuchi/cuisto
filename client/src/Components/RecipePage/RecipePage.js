@@ -63,7 +63,7 @@ function RecipePage(){
         const configObj={
             method: "DELETE"
         }
-        fetch(`/recipes/${recipe_id}`, configObj)
+        fetch(`/library_remove/${recipe_id}`, configObj)
         .then(res => {
             if(res.ok){
                 revealSnackBar()

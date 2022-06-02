@@ -30,6 +30,7 @@ Rails.application.routes.draw do
 
 
   delete "/recipe/:id", to: "users#remove_recipe_from_library"
+  delete "/library_remove/:id", to: "user_libraries#remove_from_library"
 
   patch "/user_pantries/:id/activate", to: "user_pantries#handle_activate_pantry"
   patch "/add_times_cooked/:id", to: "user_libraries#update"
