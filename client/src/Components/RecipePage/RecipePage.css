@@ -2,6 +2,7 @@
   background-image: url("https://media.istockphoto.com/photos/wood-table-top-on-blur-kitchen-counter-background-picture-id1162090981?k=20&m=1162090981&s=170667a&w=0&h=vCe7N_OdsDs6EpgGdbIF48ViAMhuZ_Np4svIe68Qsw4=");
   background-position: center;
   background-size: cover;
+  margin-bottom: 40px;
 }
 .ingredient-list{
     list-style: square;

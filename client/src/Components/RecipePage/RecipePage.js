@@ -182,7 +182,7 @@ function RecipePage(){
 
                 {/* STRETCHGOAL: If the user is the author of the recipe, give them the option to delete the recipe permanently */}
             </Container>
-        </article>
+        
 
         {/* Modal for deleting a recipe */}
         <Modal show={showDeleteModal} onHide={()=>setShowDeleteModal(false)} backdrop="static" keyboard={false}>
@@ -199,7 +199,7 @@ function RecipePage(){
         </Modal>
         <div className={`snackbar ${showSnackBar}`}>Recipe removed from your Library! Redirecting you shortly...</div>
         <div id="hard-delete-sb" className={`${showHardDeleteSb}`}>Recipe removed from your Library! Redirecting you shortly...</div>
-
+        </article>
         </>
     )
 }
