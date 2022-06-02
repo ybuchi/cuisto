@@ -6,6 +6,9 @@ import logo from "../Images/Logos/3.png"
 import Form from 'react-bootstrap/Form';
 import Button from "react-bootstrap/Button";
 import useLoginState from "../CustomHooks/useLoginState";
+import Container from "react-bootstrap/Container";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 
 function Login(){
     useLoginState();
@@ -100,15 +103,24 @@ function Login(){
                 <h1>Login</h1>
             </header>
             <Form onSubmit={handleLoginSubmit}>
-                <Form.Group>
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control type="text" name="username" value={loginForm.username} onChange={handleLoginFormChange}></Form.Control>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" name="password" value={loginForm.password} onChange={handleLoginFormChange}></Form.Control>
-                </Form.Group>
-                <Button type="submit">Log In</Button>
+                <Container>
+                    <Row>
+                        <Col>
+                            <Form.Group>
+                                <Form.Label>Username</Form.Label>
+                                <Form.Control type="text" name="username" value={loginForm.username} onChange={handleLoginFormChange}></Form.Control>
+                            </Form.Group>
+                        </Col>
+                        <Col>
+                            <Form.Group>
+                                <Form.Label>Password</Form.Label>
+                                <Form.Control type="password" name="password" value={loginForm.password} onChange={handleLoginFormChange}></Form.Control>
+                            </Form.Group>
+                        </Col>
+                        
+                    </Row>
+                    <Button style={{margin: "40px"}} type="submit">Log In</Button>
+                </Container>
             </Form>
         </menu>
 
@@ -118,49 +130,69 @@ function Login(){
                 <h1>Create an Account</h1>
             </header>
             <Form onSubmit={handleNewAccountSubmission}>
-                <Form.Group>
-                    <Form.Label>First Name</Form.Label>
-                    <Form.Control type="text"
-                                  name="first_name"
-                                  value={newAccountForm.first_name}
-                                  onChange={handleNewAccountFormChange}></Form.Control>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Last Name</Form.Label>
-                    <Form.Control type="text"
-                                  name="last_name"
-                                  value={newAccountForm.last_name}
-                                  onChange={handleNewAccountFormChange}></Form.Control>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control type="text"
-                                  name="username"
-                                  value={newAccountForm.username}
-                                  onChange={handleNewAccountFormChange}></Form.Control>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type="email"
-                                  name="email"
-                                  value={newAccountForm.email}
-                                  onChange={handleNewAccountFormChange}></Form.Control>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password"
-                                  name="password"
-                                  value={newAccountForm.password}
-                                  onChange={handleNewAccountFormChange}></Form.Control>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Confirm Password</Form.Label>
-                    <Form.Control type="password"
-                                  name="password_confirmation"
-                                  value={newAccountForm.password_confirmation}
-                                  onChange={handleNewAccountFormChange}></Form.Control>
-                </Form.Group>
-                <Button type="submit"> Create Account </Button>
+                <Container>
+                    <Row>
+                        <Col>
+                            <Form.Group>
+                                <Form.Label>First Name</Form.Label>
+                                <Form.Control type="text"
+                                            name="first_name"
+                                            value={newAccountForm.first_name}
+                                            onChange={handleNewAccountFormChange}></Form.Control>
+                            </Form.Group>
+                        </Col>
+                        <Col>
+                            <Form.Group>
+                                <Form.Label>Last Name</Form.Label>
+                                <Form.Control type="text"
+                                            name="last_name"
+                                            value={newAccountForm.last_name}
+                                            onChange={handleNewAccountFormChange}></Form.Control>
+                            </Form.Group>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <Form.Group>
+                                <Form.Label>Username</Form.Label>
+                                <Form.Control type="text"
+                                            name="username"
+                                            value={newAccountForm.username}
+                                            onChange={handleNewAccountFormChange}></Form.Control>
+                            </Form.Group>
+                        </Col>
+                        <Col>
+                            <Form.Group>
+                                <Form.Label>Email</Form.Label>
+                                <Form.Control type="email"
+                                            name="email"
+                                            value={newAccountForm.email}
+                                            onChange={handleNewAccountFormChange}></Form.Control>
+                            </Form.Group>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <Form.Group>
+                                <Form.Label>Password</Form.Label>
+                                <Form.Control type="password"
+                                            name="password"
+                                            value={newAccountForm.password}
+                                            onChange={handleNewAccountFormChange}></Form.Control>
+                            </Form.Group>
+                        </Col>
+                        <Col>
+                            <Form.Group>
+                                <Form.Label>Confirm Password</Form.Label>
+                                <Form.Control type="password"
+                                            name="password_confirmation"
+                                            value={newAccountForm.password_confirmation}
+                                            onChange={handleNewAccountFormChange}></Form.Control>
+                            </Form.Group>
+                        </Col>
+                    </Row>
+                    <Button style={{margin: "40px"}} type="submit"> Create Account </Button>
+                </Container>
             </Form>
         </menu>
         </>
