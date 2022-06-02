@@ -8,3 +8,14 @@
 #user-pantry-page{
     margin-bottom: 60px;
 }
+.title-header{
+    font-family: "Libre Baskerville", serif;
+    padding: 40px;
+    background-image : url("../Images/Backgrounds/veggy-storage.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+
+}
+.title-label{
+    background-color: rgb(250, 250, 250, 0.7)
+}

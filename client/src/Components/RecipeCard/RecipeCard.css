@@ -18,6 +18,13 @@
   padding: 5px;
 }
 
+#rec-recipes-container{
+  padding: 20px;
+}
+#missing-pantry-ing{
+  padding: 10px;
+}
+
 
 #updateIngrSb{
     visibility: hidden; /* Hidden by default. Visible on click */

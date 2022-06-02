@@ -253,11 +253,10 @@ function PantryPage(){
         <>
         <section id="pantry-page">
         <article>
-            <header>
+            <header id="pantry-page-titles">
                 <h1>{pantryData ? pantryData.pantry_name :  "Loading..."}</h1>
                 <h3>{pantryData ? pantryData.pantry_description : "Loading..." }</h3>
             </header>
-            <hr/>
             <section>
                 <Container>
                     <p><strong style={{fontSize: "30px"}}>{mappedIngredients().length >= 1 ? mappedIngredients().length : 0}</strong> ingredients in your pantry.</p>

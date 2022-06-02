@@ -47,7 +47,7 @@ function RecipeLibraryPage(){
     return(
         <>
         <article id="recipe-library">
-            <header>
+            <header className="title-header-rec-lib">
                 <h1>Recipe Library</h1>
             </header>
 
@@ -60,7 +60,7 @@ function RecipeLibraryPage(){
             <section>
                 <Container>
                 <p>You have <strong style={{fontSize: "30px"}}>{mappedRecipeCards.length}</strong> recipes.</p>
-
+                    <hr/>
                     <Row>
                         {mappedRecipeCards}
                     </Row>

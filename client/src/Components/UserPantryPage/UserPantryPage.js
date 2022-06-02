@@ -104,8 +104,10 @@ function UserPantryPage(){
     return(
 
         <div id="user-pantry-page">
-        <h1>Pantries</h1>
-        <hr/>
+        <div className="title-header">
+            <h1 className="title-label">Pantries</h1>
+        </div>
+
         <Container>
         <Button id="add-pantry-button" variant="secondary" onClick={() => setShow(true)}><strong>+</strong> Add new Pantry</Button>
 

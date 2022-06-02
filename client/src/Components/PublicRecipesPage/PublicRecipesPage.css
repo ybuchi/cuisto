@@ -1,3 +1,10 @@
 #public-recipe-page{
     margin-bottom: 60px;
 }
+.article-header{
+    font-family: "Libre Baskerville", serif;
+    padding: 40px;
+}
+.recipe-card-content{
+    padding: 10px;
+}

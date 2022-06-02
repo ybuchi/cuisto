@@ -21,9 +21,9 @@ function RecipeCard(props){
     const mapPantriesWithMissingIngredients = missingIngredientsArray ? missingIngredientsArray.map(pantry => {
         const mappedMissingIngr = pantry.missing_ingredients.map((ingredient, index) => {return index === pantry.missing_ingredients.length - 1 ? <strong key={index}>{ ingredient } </strong> : <strong key={index}>{ ingredient }, </strong> })
         return(
-            <>
-            {mappedMissingIngr.length > 0 ? <p className="missing-ingredients" key={pantry.pantry_id}><strong>{pantry.pantry_name}</strong> pantry : <strong>{mappedMissingIngr.length}</strong> ingredients missing ({mappedMissingIngr})</p> : <p className="missing-ingredients" key={pantry.pantry_id}><strong>{pantry.pantry_name}</strong> has all the ingredients!</p>}
-            </>
+            <div id="missing-pantry-ing">
+                {mappedMissingIngr.length > 0 ? <p className="missing-ingredients" key={pantry.pantry_id}><strong>{pantry.pantry_name}</strong> pantry : <strong>{mappedMissingIngr.length}</strong> ingredients missing ({mappedMissingIngr})</p> : <p className="missing-ingredients" key={pantry.pantry_id}><strong>{pantry.pantry_name}</strong> has all the ingredients!</p>}
+            </div>
         )
     }) : null
 
@@ -58,10 +58,12 @@ function RecipeCard(props){
         if(props.pantryObject){
             return(
                 <>
-                <p>Recommended Recipes Based on {props.pantryObject.pantry_name} pantry ingredients:</p>
-                <ol>
-                    {mapRecommendedRecipes()}
-                </ol>
+                <div id="rec-recipes-container">
+                    <p>Recommended Recipes Based on {props.pantryObject.pantry_name} pantry ingredients:</p>
+                    <ol>
+                        {mapRecommendedRecipes()}
+                    </ol>
+                </div>
                 </>
             )
         }else{

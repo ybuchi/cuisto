@@ -32,6 +32,7 @@ function PublicRecipesPage(){
 
         return(
         <RecipeCard key={recipeObject.id} recipeObject={recipeObject}>
+            <div className="recipe-card-content">
             {recipeIsInLibrary() ? <p style={{fontStyle : "italic"}}>Recipe Is In Library</p> : <Button><strong>+</strong> Add To Library</Button>}
             <hr/>
             <Row>
@@ -57,6 +58,8 @@ function PublicRecipesPage(){
                     <p>{recipeObject.author}</p>
                 </Col>
             </Row>
+            </div>
+            <hr/>
         </RecipeCard>)
         
     })
@@ -64,7 +67,10 @@ function PublicRecipesPage(){
     return(
         <>
         <article id="public-recipe-page">
-            <h1>Browse Recipes</h1>
+            <div className="article-header">
+                <h1>Browse Recipes</h1>
+            </div>
+
             <Container>
                 {mappedRecipes}
             </Container>

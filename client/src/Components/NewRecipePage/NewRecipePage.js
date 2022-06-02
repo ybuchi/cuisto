@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./NewRecipePage.css"
 import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
@@ -246,6 +247,7 @@ function NewRecipePage(){
     })
     return(
         <>
+        <article id="new-recipe-page">
         <h1>Create a New Recipe</h1>
         <Form onSubmit={handleNewRecipeSubmission}>
             <Container>
@@ -374,6 +376,7 @@ function NewRecipePage(){
             </Container>
         </Form>
         <div id="new-recipe-snackbar" className={`snackbar ${showSuccessfullySubmited}`}>New Recipe Created and Added to Library!</div>
+        </article>
         </>
     )
 }
