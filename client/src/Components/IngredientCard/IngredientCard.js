@@ -173,6 +173,7 @@ function IngredientCard({ingredientObject, pantry_id, pantryIngredients, setPant
             }
         }
 
+    //Two functions to toggle between read / edit mode
     function handleEditIngredient(e){
         e.stopPropagation();
         console.log("Fire!")
@@ -190,6 +191,12 @@ function IngredientCard({ingredientObject, pantry_id, pantryIngredients, setPant
         })
     }
 
+    //A function to make the PATCH call
+    function handlePatchIngredient(e){
+        e.preventDefault();
+        console.log("PATCH!")
+    }
+
     function handleInputChange(e){
         setEditIngrForm({...editIngrForm, [e.target.name] : e.target.value})
     }
@@ -201,8 +208,9 @@ function IngredientCard({ingredientObject, pantry_id, pantryIngredients, setPant
                 <img src={restockLogo} alt="restock!" id="restock-logo" style={{visibility : ingredientObject.pantry_ingredients[0].needs_restock ? "visible" : "hidden"}}/>
        
                 <h3 >
-                    {editMode.edit_name ?  <InputGroup>
-                                                <Button variant="outline-primary" id="button-addon1">
+                    {editMode.edit_name ?  <Form onSubmit={handlePatchIngredient}>
+                                            <InputGroup >
+                                                <Button variant="outline-primary" id="button-addon1" type="submit">
                                                         Save
                                                 </Button>
                                                 <Form.Control type="text"
@@ -214,7 +222,9 @@ function IngredientCard({ingredientObject, pantry_id, pantryIngredients, setPant
                                                 <Button variant="outline-warning" name="edit_name" id="button-addon1" onClick={handleExitEdit}>
                                                     X
                                                 </Button>
-                                            </InputGroup> : <strong className="edit" id="edit_name" onDoubleClick={handleEditIngredient}>{ingredientObject.ingredient_name}</strong>}
+                                            </InputGroup>
+                                            </Form> : <strong className="edit" id="edit_name" onDoubleClick={handleEditIngredient}>{ingredientObject.ingredient_name}</strong>}
+                                            
                 </h3>
 
                 <hr/>
