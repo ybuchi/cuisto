@@ -17,6 +17,13 @@ function IngredientCard({ingredientObject, pantry_id, pantryIngredients, setPant
         edit_amount: false,
         edit_metric: false
     })
+
+    const [editIngrForm, setEditIngrForm] = useState({
+        ingredient_name : ingredientObject.ingredient_name,
+        ingredient_type : ingredientObject.ingredient_type,
+        amount : ingredientObject.pantry_ingredients[0].amount,
+        metric : ingredientObject.pantry_ingredients[0].metric
+    })
        //Function to handle whether an ingredient needs to be restocked in the backend
        function handleIngrRestock(e, ingredientObject){
         e.stopPropagation()
@@ -165,32 +172,50 @@ function IngredientCard({ingredientObject, pantry_id, pantryIngredients, setPant
                     return "white";
             }
         }
-function handleEditIngredient(e){
-    e.stopPropagation();
-    console.log("Fire!")
-    console.log(e.target.name)
-    setEditMode({
-        ...editMode,
-        [e.target.id] : true
-    })
-}
+
+    function handleEditIngredient(e){
+        e.stopPropagation();
+        console.log("Fire!")
+        console.log(e.target.name)
+        setEditMode({
+            ...editMode,
+            [e.target.id] : true
+        })
+    }
+    function handleExitEdit(e){
+        e.stopPropagation();
+        setEditMode({
+            ...editMode,
+            [e.target.name] : false
+        })
+    }
+
+    function handleInputChange(e){
+        setEditIngrForm({...editIngrForm, [e.target.name] : e.target.value})
+    }
+
     return(
         <> 
             <section id="ingredient-content">
 
                 <img src={restockLogo} alt="restock!" id="restock-logo" style={{visibility : ingredientObject.pantry_ingredients[0].needs_restock ? "visible" : "hidden"}}/>
        
-                <h3 className="edit" id="edit_name" onDoubleClick={handleEditIngredient}>
+                <h3 >
                     {editMode.edit_name ?  <InputGroup>
+                                                <Button variant="outline-primary" id="button-addon1">
+                                                        Save
+                                                </Button>
                                                 <Form.Control type="text"
                                                     name="ingredient_name"
+                                                    value={editIngrForm.ingredient_name}
+                                                    onChange={handleInputChange}
                                                     />
-
-                                                <Button variant="outline-secondary" id="button-addon1">
-                                                Save
+                                                    
+                                                <Button variant="outline-warning" name="edit_name" id="button-addon1" onClick={handleExitEdit}>
+                                                    X
                                                 </Button>
-                                            </InputGroup> : ingredientObject.ingredient_name}
-                        </h3>
+                                            </InputGroup> : <strong className="edit" id="edit_name" onDoubleClick={handleEditIngredient}>{ingredientObject.ingredient_name}</strong>}
+                </h3>
 
                 <hr/>
 
