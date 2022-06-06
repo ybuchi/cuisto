@@ -20,15 +20,27 @@ function PantryPage(){
     const [pantryData] = useFetchPantryData(pantry_id)
     const [pantryIngredients, setPantryIngredients] = useFetchPantryIngredients(pantry_id)
     const [show, setShow] = useState(false);
+
+    //A state to handle Edit Ingredient Mode
+    const [editMode, setEditMode] = useState({
+        edit_name : false,
+        edit_amount: false,
+        edit_type: false,
+        edit_metric: false
+    });
+
+    //Handles the Edit Ingredient Form  
     const [newIngredientForm, setNewIngredientForm] = useState({
         ingredient_name: pantryIngredients.ingredient_name,
         ingredient_type: pantryIngredients.ingredient_type,
         amount: pantryIngredients.amount,
         metric: pantryIngredients.metric
     });
-    const [showSnackBar, setShowSnackBar] = useState("")
+
     // Handling Various SnackBars being displayed
+    const [showSnackBar, setShowSnackBar] = useState("")
     const [showSnackBarRemovePantryIngr, setShowSnackBarRemovePantryIngr] = useState("")
+
     function revealPantryIngrRemovedSnackBar(){
         setShowSnackBarRemovePantryIngr("show")
         setTimeout(()=>setShowSnackBarRemovePantryIngr(""), 3000)
@@ -94,6 +106,10 @@ function PantryPage(){
             default:
                 return "gray";
         }
+    }
+    function handleDoubleClick(e){
+        e.stopPropagation();
+        console.log('Fire!')
     }
     const typeLabelFontColor = (ingredientObject)=> {
         switch(ingredientObject.ingredient_type){
@@ -232,7 +248,19 @@ function PantryPage(){
                         <section id="pantry-content">
 
                             <img src={restockLogo} alt="restock!" id="restock-logo" style={{visibility : ingredientObject.pantry_ingredients[0].needs_restock ? "visible" : "hidden"}}/>
-                            <h3><strong>{ingredientObject.ingredient_name}</strong></h3>
+                            {editMode.edit_name ? <h3>
+                                                        <Form.Group>
+                                                            <Form.Label>Ingredient Name:</Form.Label>
+                                                            <Form.Control type="text"
+                                                                name="ingredient_name"
+                                                                value={newIngredientForm.ingredient_name}
+                                                                onChange={handleNewIngredientFormChange}/>
+                                                        </Form.Group> 
+                                                      </h3>
+                                                    : 
+                                                    <h3 className="edit" onDoubleClick={handleDoubleClick}>
+                                                    <strong>{ingredientObject.ingredient_name}</strong>
+                                                    </h3>}
 
                             <hr/>
 

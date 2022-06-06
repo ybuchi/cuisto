@@ -36,3 +36,6 @@
     background-repeat: no-repeat;
     color: white;
 }
+.edit:hover{
+    cursor: text;
+}

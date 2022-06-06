@@ -104,7 +104,8 @@ function RecipeCard(props){
         }else if(props.pantryObject){
             navigate(`${props.pantryObject.id}`)
         }else if(props.ingredientObject){
-            setShow(true)
+            // setShow(true)
+            console.log("notnow")
         }
         console.log("This is props", props.recipeObject)
     }
