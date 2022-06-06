@@ -14,13 +14,13 @@
 .menu-card{
     overflow:hidden;
     position:relative;
-    height: 80%;
+
     width: 80%;
     margin-top: 10px;
     margin-bottom: 10px;
     margin-left: auto;
     margin-right: auto;
-    min-height: 80px;
+    min-height: 150px;
 }
 .menu-card:hover .menu-card-label header{
     background-color: rgba(255,255,255, 0.9);
