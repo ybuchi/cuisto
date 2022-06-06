@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import "./IngredientCard.css";
 import restockLogo from "../Images/Logos/restock_logo.png";
 import {PlusCircle} from "react-bootstrap-icons";
 import {DashCircle} from "react-bootstrap-icons";
 import InputGroup from 'react-bootstrap/InputGroup';
 import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 
 function IngredientCard({ingredientObject, pantry_id, pantryIngredients, setPantryIngredients, revealPantryIngrRemovedSnackBar}){
+
+    //A state to handle Edit Ingredient
+    const [editMode, setEditMode] = useState({
+        edit_name: false,
+        edit_type: false,
+        edit_amount: false,
+        edit_metric: false
+    })
        //Function to handle whether an ingredient needs to be restocked in the backend
        function handleIngrRestock(e, ingredientObject){
         e.stopPropagation()
@@ -156,15 +165,32 @@ function IngredientCard({ingredientObject, pantry_id, pantryIngredients, setPant
                     return "white";
             }
         }
+function handleEditIngredient(e){
+    e.stopPropagation();
+    console.log("Fire!")
+    console.log(e.target.name)
+    setEditMode({
+        ...editMode,
+        [e.target.id] : true
+    })
+}
     return(
         <> 
             <section id="ingredient-content">
 
                 <img src={restockLogo} alt="restock!" id="restock-logo" style={{visibility : ingredientObject.pantry_ingredients[0].needs_restock ? "visible" : "hidden"}}/>
        
-                <h3 className="edit" >
-                <strong>{ingredientObject.ingredient_name}</strong>
-                </h3>
+                <h3 className="edit" id="edit_name" onDoubleClick={handleEditIngredient}>
+                    {editMode.edit_name ?  <InputGroup>
+                                                <Form.Control type="text"
+                                                    name="ingredient_name"
+                                                    />
+
+                                                <Button variant="outline-secondary" id="button-addon1">
+                                                Save
+                                                </Button>
+                                            </InputGroup> : ingredientObject.ingredient_name}
+                        </h3>
 
                 <hr/>
 
@@ -180,19 +206,7 @@ function IngredientCard({ingredientObject, pantry_id, pantryIngredients, setPant
             </section>
         </>
     
-        // <h3>
-        //     <InputGroup>
 
-        //         <Form.Control type="text"
-        //             name="ingredient_name"
-        //             value={newIngredientForm.ingredient_name}
-        //             onChange={handleNewIngredientFormChange}/>
-
-        //     <Button variant="outline-secondary" id="button-addon1">
-        //         Save
-        //     </Button>
-        //     </InputGroup> 
-        // </h3>
     
 )}
 
