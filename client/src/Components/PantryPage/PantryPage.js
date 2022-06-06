@@ -21,10 +21,10 @@ function PantryPage(){
     const [pantryIngredients, setPantryIngredients] = useFetchPantryIngredients(pantry_id)
     const [show, setShow] = useState(false);
     const [newIngredientForm, setNewIngredientForm] = useState({
-        ingredient_name: "",
-        ingredient_type: "",
-        amount: "",
-        metric: ""
+        ingredient_name: pantryIngredients.ingredient_name,
+        ingredient_type: pantryIngredients.ingredient_type,
+        amount: pantryIngredients.amount,
+        metric: pantryIngredients.metric
     });
     const [showSnackBar, setShowSnackBar] = useState("")
     // Handling Various SnackBars being displayed
@@ -213,6 +213,8 @@ function PantryPage(){
         })
     }
 
+    //ISSUE #18: EDIT INGREDIENTS:
+    //When a user double clicks on an Ingredients card ingredient name, type, amount and metric, they should be able to edit it with no modal.
     const mappedIngredients = () => {
        if(pantryIngredients && pantryIngredients.length === 0){
             return <p style={{fontSize: "30px", fontStyle : "italic"}}>Your pantry is not stocked yet!</p>
@@ -228,17 +230,21 @@ function PantryPage(){
                                 revealPantryIngrRemovedSnackBar={revealPantryIngrRemovedSnackBar}
                                 backgroundColor="#EFF8FF">
                         <section id="pantry-content">
-                        <img src={restockLogo} alt="restock!" id="restock-logo" style={{visibility : ingredientObject.pantry_ingredients[0].needs_restock ? "visible" : "hidden"}}/>
-                        <h3><strong>{ingredientObject.ingredient_name}</strong></h3>
-                        <hr/>
-                        <p style={{fontSize: "30px"}}>
-                            <span><DashCircle className="add-remove-icon" id="remove-icon" onClick={(e)=>removeOne(e, ingredientObject)}/></span>
-                            {ingredientAttributes.amount}
-                            <span><PlusCircle className="add-remove-icon" id="add-icon" onClick={(e)=>addOne(e, ingredientObject)}/></span>
-                        </p>
-                        <p>{ingredientAttributes.metric}</p>
-                        <p style={{backgroundColor: typeLabel(ingredientObject), color: typeLabelFontColor(ingredientObject), borderRadius: "5px", padding: "5px"}}>{ingredientObject.ingredient_type}</p>
-                        {ingredientObject.pantry_ingredients[0].needs_restock ? <Button variant="success" onClick={(e)=>handleIngrRestock(e, ingredientObject)}>Restocked</Button> : <Button variant="secondary" onClick={(e)=>handleIngrRestock(e, ingredientObject)}>Restock!</Button> }
+
+                            <img src={restockLogo} alt="restock!" id="restock-logo" style={{visibility : ingredientObject.pantry_ingredients[0].needs_restock ? "visible" : "hidden"}}/>
+                            <h3><strong>{ingredientObject.ingredient_name}</strong></h3>
+
+                            <hr/>
+
+                            <p style={{fontSize: "30px"}}>
+                                <span><DashCircle className="add-remove-icon" id="remove-icon" onClick={(e)=>removeOne(e, ingredientObject)}/></span>
+                                {ingredientAttributes.amount}
+                                <span><PlusCircle className="add-remove-icon" id="add-icon" onClick={(e)=>addOne(e, ingredientObject)}/></span>
+                            </p>
+                            <p>{ingredientAttributes.metric}</p>
+                            <p style={{backgroundColor: typeLabel(ingredientObject), color: typeLabelFontColor(ingredientObject), borderRadius: "5px", padding: "5px"}}>{ingredientObject.ingredient_type}</p>
+                            {ingredientObject.pantry_ingredients[0].needs_restock ? <Button variant="success" onClick={(e)=>handleIngrRestock(e, ingredientObject)}>Restocked</Button> : <Button variant="secondary" onClick={(e)=>handleIngrRestock(e, ingredientObject)}>Restock!</Button> }
+                        
                         </section>
                     </RecipeCard>
                 </Col>)
