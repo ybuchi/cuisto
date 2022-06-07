@@ -209,7 +209,7 @@ function IngredientCard({ingredientObject, pantry_id, pantryIngredients, setPant
        
                 <h3 >
                     {editMode.edit_name ?  <Form onSubmit={handlePatchIngredient}>
-                                            <InputGroup >
+                                           <InputGroup >
                                                 <Button variant="outline-primary" id="button-addon1" type="submit">
                                                         Save
                                                 </Button>
@@ -222,7 +222,7 @@ function IngredientCard({ingredientObject, pantry_id, pantryIngredients, setPant
                                                 <Button variant="outline-warning" name="edit_name" id="button-addon1" onClick={handleExitEdit}>
                                                     X
                                                 </Button>
-                                            </InputGroup>
+                                            </InputGroup> 
                                             </Form> : <strong className="edit" id="edit_name" onDoubleClick={handleEditIngredient}>{ingredientObject.ingredient_name}</strong>}
                                             
                 </h3>
@@ -230,11 +230,50 @@ function IngredientCard({ingredientObject, pantry_id, pantryIngredients, setPant
                 <hr/>
 
                 <p style={{fontSize: "30px"}}>
-                    <span><DashCircle className="add-remove-icon" id="remove-icon" onClick={(e)=>removeOne(e, ingredientObject)}/></span>
-                    {ingredientObject.pantry_ingredients[0].amount}
-                    <span><PlusCircle className="add-remove-icon" id="add-icon" onClick={(e)=>addOne(e, ingredientObject)}/></span>
+                    {editMode.edit_amount ? <Form>
+                                                <InputGroup >
+                                                    <Button variant="outline-primary" id="button-addon1" type="submit">
+                                                            Save
+                                                    </Button>
+                                                    <Form.Control type="number"
+                                                        step="0.01"
+                                                        name="amount"
+                                                        value={editIngrForm.amount}
+                                                        onChange={handleInputChange}
+                                                        />
+                                                        
+                                                    <Button variant="outline-warning" name="edit_amount" id="button-addon1" onClick={handleExitEdit}>
+                                                        X
+                                                    </Button>
+                                                </InputGroup> 
+                                            </Form>: 
+                                                    <span>
+                                                        <DashCircle className="add-remove-icon" id="remove-icon" onClick={(e)=>removeOne(e, ingredientObject)}/>
+                                                        <strong className="edit" id="edit_amount" onDoubleClick={handleEditIngredient}>{ingredientObject.pantry_ingredients[0].amount}</strong>
+                                                        <PlusCircle className="add-remove-icon" id="add-icon" onClick={(e)=>addOne(e, ingredientObject)}/>
+                                                    </span>
+                                            }
+                
                 </p>
-                <p>{ingredientObject.pantry_ingredients[0].metric}</p>
+                <p>
+                    {editMode.edit_metric ? <Form>
+                                                <InputGroup>
+                                                    <Button variant="outline-primary" id="button-addon1" type="submit">
+                                                            Save
+                                                    </Button>
+                                                    <Form.Control type="text"
+                                                        step="0.01"
+                                                        name="metric"
+                                                        value={editIngrForm.metric}
+                                                        onChange={handleInputChange}
+                                                        />
+                                                        
+                                                    <Button variant="outline-warning" name="edit_metric" id="button-addon1" onClick={handleExitEdit}>
+                                                        X
+                                                    </Button>
+                                                </InputGroup>
+                                            </Form> : <span className="edit" id="edit_metric" onDoubleClick={handleEditIngredient}>{ingredientObject.pantry_ingredients[0].metric}</span>}
+                </p>
                 <p style={{backgroundColor: typeLabel(ingredientObject), color: typeLabelFontColor(ingredientObject), padding: "5px"}}>{ingredientObject.ingredient_type}</p>
                 {ingredientObject.pantry_ingredients[0].needs_restock ? <Button variant="success" onClick={(e)=>handleIngrRestock(e, ingredientObject)}>Restocked</Button> : <Button variant="secondary" onClick={(e)=>handleIngrRestock(e, ingredientObject)}>Restock!</Button> }
         
