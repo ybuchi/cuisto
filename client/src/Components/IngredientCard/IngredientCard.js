@@ -196,6 +196,11 @@ function IngredientCard({ingredientObject, pantry_id, pantryIngredients, setPant
         e.preventDefault();
         console.log("PATCH!")
 
+        //If the edited ingredient name is not equal to the current name, but is equal to another one in the pantry, notify the user
+        if(ingredientObject.ingredient_name !== editIngrForm.ingredient_name){
+            //Use a divide and conquer search algorithm here?
+        }
+
         const configObj = {
             method : "PATCH",
             headers : {
