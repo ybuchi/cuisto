@@ -15,9 +15,9 @@ class PantryIngredientsController < ApplicationController
     end
 
     def update
-
+        related_ingredient = Ingredient.find_by(ingredient_name: params[:ingredient_name], ingredient_type: params[:ingredient_type])
         #If the ingredient_name and ingredient_type params represent an ingredient that already exsists, link that ingredient to the pantry 
-        if Ingredient.find_by(ingredient_name: params[:ingredient_name], ingredient_type: params[:ingredient_type]).id != @pantryIngredient.ingredient_id
+        if related_ingredient != nil && related_ingredient.id != @pantryIngredient.ingredient_id
             #Link the ingredient to the pantry
             ingredient_id = Ingredient.find_by(ingredient_name: params[:ingredient_name], ingredient_type: params[:ingredient_type]).id
 
@@ -25,7 +25,7 @@ class PantryIngredientsController < ApplicationController
             @pantryIngredient.update!(ingredient_id: ingredient_id)
         
         #If the base Ingredient is still the same, you only need to update the pantry ingredient
-        elsif Ingredient.find_by(ingredient_name: params[:ingredient_name], ingredient_type: params[:ingredient_type]).id == @pantryIngredient.ingredient_id
+        elsif related_ingredient != nil && Ingredient.find_by(ingredient_name: params[:ingredient_name], ingredient_type: params[:ingredient_type]).id == @pantryIngredient.ingredient_id
             @pantryIngredient.update!(amount: params[:amount], metric: params[:metric])
         
         #If the base Ingredient does not yet exists according to the params, create a new ingredient and link it

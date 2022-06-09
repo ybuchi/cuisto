@@ -195,6 +195,23 @@ function IngredientCard({ingredientObject, pantry_id, pantryIngredients, setPant
     function handlePatchIngredient(e){
         e.preventDefault();
         console.log("PATCH!")
+
+        const configObj = {
+            method : "PATCH",
+            headers : {
+                "Content-Type" : "application/json",
+                "Accepts" : "application/json"
+            },
+            body: JSON.stringify(editIngrForm)
+        }
+
+        fetch(`/pantry_ingredients/${pantry_id}`, configObj)
+        .then(res => {
+            if (res.ok){
+                res.json()
+                .then(updatedIngredient => console.log(updatedIngredient))
+            }
+        })
     }
 
     function handleInputChange(e){
