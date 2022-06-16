@@ -1,5 +1,5 @@
 class PantryIngredientsController < ApplicationController
-    before_action :find_pantry, only: [:show, :destroy, :update, :add_one, :remove_one]
+    before_action :find_pantry, only: [:show, :destroy, :update, :add_one, :remove_one, :set_restock]
     
     def index
         all_pantry_ingredients = PantryIngredient.all
@@ -16,6 +16,9 @@ class PantryIngredientsController < ApplicationController
 
     def update
         related_ingredient = Ingredient.find_by(ingredient_name: params[:ingredient_name], ingredient_type: params[:ingredient_type])
+        pantry_ingredient = PantryIngredient.find_by(id: params[:id])
+
+        byebug
         #If the ingredient_name and ingredient_type params represent an ingredient that already exsists, link that ingredient to the pantry 
         if related_ingredient != nil && related_ingredient.id != @pantryIngredient.ingredient_id
             #Link the ingredient to the pantry
@@ -27,15 +30,25 @@ class PantryIngredientsController < ApplicationController
         elsif related_ingredient != nil && related_ingredient.id == @pantryIngredient.ingredient_id
             @pantryIngredient.update!(amount: params[:amount], metric: params[:metric])
             puts "Case 2 hit!"
+
         
-        #If the base Ingredient does not yet exists according to the params, create a new ingredient and link it
-        else 
+        #If the base Ingredient does not yet exists according to the params,
+        #Destroy the link to its current Ingredient
+        #Make a new link
+        else
+            @pantryIngredient.destroy 
             new_ingredient = Ingredient.create!(ingredient_name: params[:ingredient_name], ingredient_type: params[:ingredient_type])
-            @pantryIngredient.update!(ingredient_id: new_ingredient.id, amount: params[:amount], metric: params[:metric])
+            PantryIngredient.create!(ingredient_id: new_ingredient.id, pantry_id: params[:pantry_id], amount: params[:amount], metric: params[:metric])
             puts "Case 3 hit!"
+
         end
 
         # @pantryIngredient.update!(amount: params[:amount], metric: params[:metric], needs_restock: params[:needs_restock])
+        render json: @pantryIngredient
+    end
+
+    def set_restock
+        @pantryIngredient.update!(needs_restock: params[:needs_restock])
         render json: @pantryIngredient
     end
 

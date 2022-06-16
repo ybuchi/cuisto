@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   patch "/add_times_cooked/:id", to: "user_libraries#update"
   patch "/add_one_pantry_ingredients/:id", to: "pantry_ingredients#add_one"
   patch "/remove_one_pantry_ingredients/:id", to: "pantry_ingredients#remove_one"
+  patch "/pantry_ingredients_restock/:id", to: "pantry_ingredients#set_restock"
   
   # Routing logic: fallback requests for React Router.
   # Leave this here to help deploy your app later!

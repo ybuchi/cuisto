@@ -63,6 +63,7 @@ function PantryPage(){
         fetch(`/pantries/${pantry_id}/ingredients`, configObjIngredient)
         .then(res => res.json())
         .then(newPantryIngredients => {
+            console.log("NewPantryIngredients:", newPantryIngredients)
             setPantryIngredients(newPantryIngredients)
             setShow(false);
             revealSnackBar();

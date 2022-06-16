@@ -35,7 +35,7 @@ function IngredientCard({ingredientObject, pantry_id, pantryIngredients, setPant
             }, 
             body: JSON.stringify({...ingredientObject.pantry_ingredients[0], needs_restock : !ingredientObject.pantry_ingredients[0].needs_restock })
         }
-        fetch(`/pantry_ingredients/${ingredientObject.pantry_ingredients[0].id}`, configObj)
+        fetch(`/pantry_ingredients_restock/${ingredientObject.pantry_ingredients[0].id}`, configObj)
         .then(res => res.json())
         .then(updatedIngredient => {
             console.log("UPDATED ING", updatedIngredient)
@@ -192,7 +192,7 @@ function IngredientCard({ingredientObject, pantry_id, pantryIngredients, setPant
     }
 
     //A function to make the PATCH call
-    function handlePatchIngredient(e){
+    function handlePatchIngredient(e, ingredientObject){
         e.preventDefault();
         console.log("PATCH!")
 
@@ -210,7 +210,7 @@ function IngredientCard({ingredientObject, pantry_id, pantryIngredients, setPant
             body: JSON.stringify(editIngrForm)
         }
 
-        fetch(`/pantry_ingredients/${pantry_id}`, configObj)
+        fetch(`/pantry_ingredients/${ingredientObject.pantry_ingredients[0].id}`, configObj)
         .then(res => {
             if (res.ok){
                 res.json()
@@ -253,7 +253,7 @@ function IngredientCard({ingredientObject, pantry_id, pantryIngredients, setPant
 
                 {/* <hr/> */}
 
-                    {editMode.edit_amount ? <Form onSubmit={handlePatchIngredient}>
+                    {editMode.edit_amount ? <Form onSubmit={(e) => handlePatchIngredient(e, ingredientObject)}>
                                                 <InputGroup >
                                                     <Button variant="outline-primary" id="button-addon1" type="submit">
                                                             Save
