@@ -1,5 +1,5 @@
 class PantryIngredientsController < ApplicationController
-    before_action :find_pantry, only: [:show, :destroy, :update]
+    before_action :find_pantry, only: [:show, :destroy, :update, :add_one, :remove_one]
     
     def index
         all_pantry_ingredients = PantryIngredient.all
@@ -36,6 +36,15 @@ class PantryIngredientsController < ApplicationController
         end
 
         # @pantryIngredient.update!(amount: params[:amount], metric: params[:metric], needs_restock: params[:needs_restock])
+        render json: @pantryIngredient
+    end
+
+    def add_one
+        @pantryIngredient.update!(amount: params[:amount])
+        render json: @pantryIngredient
+    end
+    def remove_one
+        @pantryIngredient.update!(amount: params[:amount])
         render json: @pantryIngredient
     end
 

@@ -6,6 +6,7 @@
     position: relative;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px 0px, rgba(0, 0, 0, 0.3) 0px 1px 3px 0px;
     transition: box-shadow 0.2s ease;
+    padding: 20px;
 }
 #ingredient-content:hover{
     cursor: pointer;

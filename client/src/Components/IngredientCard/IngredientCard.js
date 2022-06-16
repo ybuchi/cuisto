@@ -63,7 +63,7 @@ function IngredientCard({ingredientObject, pantry_id, pantryIngredients, setPant
                 }, 
                 body: JSON.stringify({...ingredientObject.pantry_ingredients[0], amount : ingredientObject.pantry_ingredients[0].amount - 1 })
             }
-            fetch(`/pantry_ingredients/${ingredientObject.pantry_ingredients[0].id}`, configObj)
+            fetch(`/remove_one_pantry_ingredients/${ingredientObject.pantry_ingredients[0].id}`, configObj)
             .then(res => res.json())
             .then(updatedIngredient => {
                 console.log("UPDATED ING", updatedIngredient)
@@ -92,7 +92,7 @@ function IngredientCard({ingredientObject, pantry_id, pantryIngredients, setPant
             }, 
             body: JSON.stringify({...ingredientObject.pantry_ingredients[0], amount : ingredientObject.pantry_ingredients[0].amount + 1 })
         }
-        fetch(`/pantry_ingredients/${ingredientObject.pantry_ingredients[0].id}`, configObj)
+        fetch(`/add_one_pantry_ingredients/${ingredientObject.pantry_ingredients[0].id}`, configObj)
         .then(res => res.json())
         .then(updatedIngredient => {
             console.log("UPDATED ING", updatedIngredient)
@@ -231,7 +231,7 @@ function IngredientCard({ingredientObject, pantry_id, pantryIngredients, setPant
 
                 <img src={restockLogo} alt="restock!" id="restock-logo" style={{visibility : ingredientObject.pantry_ingredients[0].needs_restock ? "visible" : "hidden"}}/>
        
-                <h3 >
+                <h3>
                     {editMode.edit_name ?  <Form onSubmit={handlePatchIngredient}>
                                            <InputGroup >
                                                 <Button variant="outline-primary" id="button-addon1" type="submit">
@@ -251,7 +251,7 @@ function IngredientCard({ingredientObject, pantry_id, pantryIngredients, setPant
                                             
                 </h3>
 
-                <hr/>
+                {/* <hr/> */}
 
                     {editMode.edit_amount ? <Form onSubmit={handlePatchIngredient}>
                                                 <InputGroup >
