@@ -3,6 +3,9 @@ import "./IngredientCard.css";
 import restockLogo from "../Images/Logos/restock_logo.png";
 import {PlusCircle} from "react-bootstrap-icons";
 import {DashCircle} from "react-bootstrap-icons";
+import { Trash3 } from "react-bootstrap-icons";
+import { CartPlus } from "react-bootstrap-icons";
+import { CheckCircle } from "react-bootstrap-icons";
 import InputGroup from 'react-bootstrap/InputGroup';
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -336,7 +339,8 @@ function IngredientCard({ingredientObject, pantry_id, pantryIngredients, setPant
                 }
                                 
                 
-                {ingredientObject.pantry_ingredients[0].needs_restock ? <Button variant="success" onClick={(e)=>handleIngrRestock(e, ingredientObject)}>Restocked</Button> : <Button variant="secondary" onClick={(e)=>handleIngrRestock(e, ingredientObject)}>Restock!</Button> }
+                {ingredientObject.pantry_ingredients[0].needs_restock ? <Button variant="success" onClick={(e)=>handleIngrRestock(e, ingredientObject)}><CheckCircle/> Restocked</Button> : <Button variant="info" onClick={(e)=>handleIngrRestock(e, ingredientObject)}><CartPlus/></Button> }
+                <Button variant="danger"><Trash3/></Button>
         
             </section>
         </>
