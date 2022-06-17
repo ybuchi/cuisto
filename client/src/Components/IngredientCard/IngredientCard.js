@@ -177,7 +177,7 @@ function IngredientCard({ingredientObject, pantry_id, pantryIngredients, setPant
     function handleEditIngredient(e){
         e.stopPropagation();
         console.log("Fire!")
-        console.log(e.target.name)
+        console.log(e.target.id)
         setEditMode({
             ...editMode,
             [e.target.id] : true
@@ -286,7 +286,7 @@ function IngredientCard({ingredientObject, pantry_id, pantryIngredients, setPant
                                                         <PlusCircle className="add-remove-icon" id="add-icon" onClick={(e)=>addOne(e, ingredientObject)}/>
                                                     </span>
                                                     </p>
-                                            }
+                    }
         
                     {editMode.edit_metric ? <Form onSubmit={(e)=>handlePatchIngredient(e, ingredientObject)}>
                                                 <InputGroup>
@@ -307,10 +307,35 @@ function IngredientCard({ingredientObject, pantry_id, pantryIngredients, setPant
                                             </Form> : 
                                                 <p>
                                                     <span className="edit" id="edit_metric" onDoubleClick={handleEditIngredient}>{ingredientObject.pantry_ingredients[0].metric}</span>
-                                                </p>}
+                                                </p>
+                    }
                                                 
 
-                <p style={{backgroundColor: typeLabel(ingredientObject), color: typeLabelFontColor(ingredientObject), padding: "5px"}}>{ingredientObject.ingredient_type}</p>
+                {editMode.edit_type ? <Form onSubmit={(e)=>handlePatchIngredient(e, ingredientObject)}>
+                                        <Form.Group>
+                                        <Button variant="outline-primary" id="button-addon1" type="submit">
+                                            Save
+                                        </Button>
+                                            <Form.Select type="text"
+                                                        name="ingredient_type" 
+                                                        value={editIngrForm.ingredient_type}
+                                                        onChange={handleInputChange}>
+                                                <option>Eggs and Dairy</option>  
+                                                <option>Fats and Oils</option>
+                                                <option>Fruits</option>
+                                                <option>Grain, Nuts and Baking Products</option> 
+                                                <option>Herbs and Spices</option>         
+                                                <option>Meats and Fish</option>
+                                                <option>Pasta, Rice and Pulses</option>
+                                                <option>Vegetables</option>
+                                                <option>Other</option>
+                                            </Form.Select>
+                                        </Form.Group>
+                                    </Form>
+                                    : <p onDoubleClick={handleEditIngredient} className="edit" id="edit_type" style={{backgroundColor: typeLabel(ingredientObject), color: typeLabelFontColor(ingredientObject), padding: "5px"}}>{ingredientObject.ingredient_type}</p>
+                }
+                                
+                
                 {ingredientObject.pantry_ingredients[0].needs_restock ? <Button variant="success" onClick={(e)=>handleIngrRestock(e, ingredientObject)}>Restocked</Button> : <Button variant="secondary" onClick={(e)=>handleIngrRestock(e, ingredientObject)}>Restock!</Button> }
         
             </section>
