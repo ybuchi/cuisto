@@ -113,68 +113,83 @@ function IngredientCard({ingredientObject, pantry_id, pantryIngredients, setPant
         })
     }
 
-        //Configure this to change the colors of the ingredient type labels in the pantry
-        const typeLabel = (ingredientObject)=> {
-            switch(ingredientObject.ingredient_type){
-                
-                case "Eggs and Dairy":
-                    return "#FDFCE5";
-    
-                case "Fats and Oils":
-                    return "#FDE49C";
-                
-                case "Fruits":
-                    return "#A03C78";
-                case "Grain, Nuts and Baking Products":
-                    return "#D8B384"
-                case "Herbs and Spices":
-                    return "#1EAE98"
-                
-                case "Meats and Fish":
-                    return "#CF0000"
-                
-                case "Pasta, Rice and Pulses":
-                    return "#F0C929"
-                
-                case "Vegetables":
-                    return "#1E6F5C";
-    
-                default:
-                    return "gray";
-            }
+    //Configure this to change the colors of the ingredient type labels in the pantry
+    const typeLabel = (ingredientObject)=> {
+        switch(ingredientObject.ingredient_type){
+            
+            case "Eggs and Dairy":
+                return "#FDFCE5";
+
+            case "Fats and Oils":
+                return "#FDE49C";
+            
+            case "Fruits":
+                return "#A03C78";
+            case "Grain, Nuts and Baking Products":
+                return "#D8B384"
+            case "Herbs and Spices":
+                return "#1EAE98"
+            
+            case "Meats and Fish":
+                return "#CF0000"
+            
+            case "Pasta, Rice and Pulses":
+                return "#F0C929"
+            
+            case "Vegetables":
+                return "#1E6F5C";
+
+            default:
+                return "gray";
         }
-    
-        const typeLabelFontColor = (ingredientObject)=> {
-            switch(ingredientObject.ingredient_type){
-                
-                case "Eggs and Dairy":
-                    return "black";
-    
-                case "Fats and Oils":
-                    return "black";
-                
-                case "Fruits":
-                    return "white";
-    
-                case "Grain, Nuts and Baking Products":
-                    return "white"
-    
-                case "Herbs and Spices":
-                    return "white"
-                
-                case "Meats and Fish":
-                    return "white"
-                
-                case "Pasta, Rice and Pulses":
-                    return "black"
-                
-                case "Vegetables":
-                    return "white";
-    
-                default:
-                    return "white";
-            }
+    }
+
+    const typeLabelFontColor = (ingredientObject)=> {
+        switch(ingredientObject.ingredient_type){
+            
+            case "Eggs and Dairy":
+                return "black";
+
+            case "Fats and Oils":
+                return "black";
+            
+            case "Fruits":
+                return "white";
+
+            case "Grain, Nuts and Baking Products":
+                return "white"
+
+            case "Herbs and Spices":
+                return "white"
+            
+            case "Meats and Fish":
+                return "white"
+            
+            case "Pasta, Rice and Pulses":
+                return "black"
+            
+            case "Vegetables":
+                return "white";
+
+            default:
+                return "white";
         }
+    }
+
+    function handleRemoveIngredient(){
+        const pantryIngredientObj = ingredientObject.pantry_ingredients[0]
+        const configObj = {
+            method : "DELETE"
+        }
+
+        fetch(`/pantry_ingredients/${pantryIngredientObj.id}`, configObj)
+        .then(res => {
+            if (res.ok){
+                setPantryIngredients(pantryIngredients.filter(ingredientObj=>ingredientObj.pantry_ingredients[0].id !== pantryIngredientObj.id))
+            }
+        })
+
+    }
 
     //Two functions to toggle between read / edit mode
     function handleEditIngredient(e){
@@ -339,8 +354,8 @@ function IngredientCard({ingredientObject, pantry_id, pantryIngredients, setPant
                 }
                                 
                 
-                {ingredientObject.pantry_ingredients[0].needs_restock ? <Button variant="success" onClick={(e)=>handleIngrRestock(e, ingredientObject)}><CheckCircle/> Restocked</Button> : <Button variant="info" onClick={(e)=>handleIngrRestock(e, ingredientObject)}><CartPlus/></Button> }
-                <Button variant="danger"><Trash3/></Button>
+                {ingredientObject.pantry_ingredients[0].needs_restock ? <Button style={{margin: "5px"}} variant="success" onClick={(e)=>handleIngrRestock(e, ingredientObject)}><CheckCircle/> Restocked</Button> : <Button style={{margin: "5px"}} variant="info" onClick={(e)=>handleIngrRestock(e, ingredientObject)}><CartPlus/></Button> }
+                <Button style={{margin: "5px"}} variant="danger" onClick={handleRemoveIngredient}><Trash3/></Button>
         
             </section>
         </>
