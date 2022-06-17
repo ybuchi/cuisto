@@ -20,7 +20,7 @@ function PantryPage(){
     const [pantryIngredients, setPantryIngredients] = useFetchPantryIngredients(pantry_id)
     const [show, setShow] = useState(false);
 
-  
+console.log("PantryIngredients", pantryIngredients);
 
     //Handles the New Ingredient Form  
     const [newIngredientForm, setNewIngredientForm] = useState({

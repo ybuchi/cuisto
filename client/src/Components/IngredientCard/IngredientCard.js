@@ -196,10 +196,10 @@ function IngredientCard({ingredientObject, pantry_id, pantryIngredients, setPant
         e.preventDefault();
         console.log("PATCH!")
 
-        //If the edited ingredient name is not equal to the current name, but is equal to another one in the pantry, notify the user
-        if(ingredientObject.ingredient_name !== editIngrForm.ingredient_name){
-            //Use a divide and conquer search algorithm here?
-        }
+        // //If the edited ingredient name is not equal to the current name, but is equal to another one in the pantry, notify the user
+        // if(ingredientObject.ingredient_name !== editIngrForm.ingredient_name){
+        //     //Use a divide and conquer search algorithm here?
+        // }
 
         const configObj = {
             method : "PATCH",
@@ -214,7 +214,16 @@ function IngredientCard({ingredientObject, pantry_id, pantryIngredients, setPant
         .then(res => {
             if (res.ok){
                 res.json()
-                .then(updatedIngredient => console.log(updatedIngredient))
+                // Note that the the backend sends back all of the ingredients in the pantry
+                .then(pantryIngredients => {
+                    setPantryIngredients(pantryIngredients)
+                    setEditMode({
+                        edit_name: false,
+                        edit_type: false,
+                        edit_amount: false,
+                        edit_metric: false
+                    })
+                })
             }
         })
     }
@@ -232,7 +241,7 @@ function IngredientCard({ingredientObject, pantry_id, pantryIngredients, setPant
                 <img src={restockLogo} alt="restock!" id="restock-logo" style={{visibility : ingredientObject.pantry_ingredients[0].needs_restock ? "visible" : "hidden"}}/>
        
                 <h3>
-                    {editMode.edit_name ?  <Form onSubmit={handlePatchIngredient}>
+                    {editMode.edit_name ?  <Form onSubmit={(e)=>handlePatchIngredient(e, ingredientObject)}>
                                            <InputGroup >
                                                 <Button variant="outline-primary" id="button-addon1" type="submit">
                                                         Save
@@ -279,7 +288,7 @@ function IngredientCard({ingredientObject, pantry_id, pantryIngredients, setPant
                                                     </p>
                                             }
         
-                    {editMode.edit_metric ? <Form onSubmit={handlePatchIngredient}>
+                    {editMode.edit_metric ? <Form onSubmit={(e)=>handlePatchIngredient(e, ingredientObject)}>
                                                 <InputGroup>
                                                     <Button variant="outline-primary" id="button-addon1" type="submit">
                                                             Save
