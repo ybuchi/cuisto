@@ -13,8 +13,18 @@ import useRecommendRecipeInPantry from "../CustomHooks/useRecommendRecipeInPantr
 function RecipeCard(props){
     const navigate = useNavigate()
 
-    const[editMode, setEditMode] = useState(false);
+
     const [showUpdateIngrSb, setShowUpdateIngrSb] = useState("");
+
+    // const[editMode, setEditMode] = useState(false);
+
+      //A state to handle Edit Ingredient Mode
+      const [editMode, setEditMode] = useState({
+        edit_name : false,
+        edit_amount: false,
+        edit_type: false,
+        edit_metric: false
+    });
 
     // For RecipeCards showing recipe information (as opposed to Pantry information)
     const missingIngredientsArray = useComparePantryToRecipe(props.recipeObject);
@@ -104,7 +114,8 @@ function RecipeCard(props){
         }else if(props.pantryObject){
             navigate(`${props.pantryObject.id}`)
         }else if(props.ingredientObject){
-            setShow(true)
+            // setShow(true)
+            console.log("notnow")
         }
         console.log("This is props", props.recipeObject)
     }
@@ -225,7 +236,7 @@ function RecipeCard(props){
                                     <Col>
                                         <Form.Group>
                                             <Form.Label>Metric:</Form.Label>
-                                            <Form.Control type="text" step="0.01"
+                                            <Form.Control type="text" 
                                                         name="metric"
                                                         value={updateIngredientForm.metric}
                                                         onChange={handleUpdateFormChange}/>

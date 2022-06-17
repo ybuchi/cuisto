@@ -17,30 +17,37 @@ function useRecommendRecipeInPantry(pantryObject){
             let ingredientsIncludedInPantry = []
             let ingredientsNotIncludedInPantry = []
             let hashMap = {}
-            
-            //Create a dictionary of recipe ingredients
-            for (let i = 0; i < recipeIngredients.length; i++){
-                if(hashMap[recipeIngredients[i].ingredient_name.toLowerCase()]){
-                     hashMap[recipeIngredients[i].ingredient_name.toLowerCase()] = hashMap[recipeIngredients[i].ingredient_name.toLowerCase()] += 1
-                }else{
-                 hashMap[recipeIngredients[i].ingredient_name.toLowerCase()] = 1
-                }
-            }
-            
-            //If the pantry ingredient d
-            for (let j = 0; j < pantryIngredients.length; j++){
-                if(hashMap[pantryIngredients[j].ingredient_name.toLowerCase()]){
-                    ingredientsIncludedInPantry.push(pantryIngredients[j].ingredient_name)
-                }else{
-                    ingredientsNotIncludedInPantry.push(pantryIngredients[j].ingredient_name)
-                }
-            }
-            //TO DO:
-            //Use the length of missingPantryIngredients Array to determine whehter the recipe should be recommended.
-            if (ingredientsIncludedInPantry.length > 0){
-                //Push into a potential recommended recipes array
 
+       
+                //Create a dictionary of recipe ingredients
+            for (let i = 0; i < recipeIngredients.length; i++){
+
+                if(recipeIngredients[i].ingredient_name){
+
+                    if(hashMap[recipeIngredients[i].ingredient_name.toLowerCase()]){
+                        hashMap[recipeIngredients[i].ingredient_name.toLowerCase()] = hashMap[recipeIngredients[i].ingredient_name.toLowerCase()] += 1
+                    }else{
+                    hashMap[recipeIngredients[i].ingredient_name.toLowerCase()] = 1
+                    }
+                }
+                
             }
+            
+            for (let j = 0; j < pantryIngredients.length; j++){
+
+                if(pantryIngredients[j].ingredient_name){
+                    
+                    if(hashMap[pantryIngredients[j].ingredient_name.toLowerCase()]){
+                        ingredientsIncludedInPantry.push(pantryIngredients[j].ingredient_name)
+                    }else{
+                        ingredientsNotIncludedInPantry.push(pantryIngredients[j].ingredient_name)
+                    }
+                }
+                
+            }
+
+            
+
             //Return essential recipe metadata as well as the missing pantry ingredients
             return {
                 recipe_id: recipeObject.id,
