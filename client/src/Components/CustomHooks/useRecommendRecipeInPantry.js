@@ -1,25 +1,26 @@
 import useFetchUserRecipes from "./useFetchUserRecipes";
 
 function useRecommendRecipeInPantry(pantryObject){
-     //Fetch a user's recipe library
+     //Fetch all of the user's recipes in the user's library
     const [userLibrary] = useFetchUserRecipes()
-    console.log("USER LIBRARY!", userLibrary)
+    console.log("USER LIBRARY: ", userLibrary)
 
     //If a props.pantryObjet exists and was passed
     if (pantryObject){
-       console.log("PANTRY OBJECT", pantryObject)
+
+        //Ingredients located in the pantry
        const pantryIngredients = pantryObject.ingredients
 
        function retrieveIncludedIngredients(){
 
+        //Map through the user's recipe library
         const mappedRecipeIngredientsArray = userLibrary.map(recipeObject => {
             const recipeIngredients = recipeObject.ingredients
             let ingredientsIncludedInPantry = []
             let ingredientsNotIncludedInPantry = []
             let hashMap = {}
-
        
-                //Create a dictionary of recipe ingredients
+            //Create a dictionary of recipe ingredients for each recipe
             for (let i = 0; i < recipeIngredients.length; i++){
 
                 if(recipeIngredients[i].ingredient_name){
@@ -33,6 +34,7 @@ function useRecommendRecipeInPantry(pantryObject){
                 
             }
             
+            //Cross-check the dictionary of recipe ingredients with the ingredients in the pantry
             for (let j = 0; j < pantryIngredients.length; j++){
 
                 if(pantryIngredients[j].ingredient_name){
