@@ -6,7 +6,6 @@ import "./PantryPage.css"
 import Button from "react-bootstrap/Button";
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import RecipeCard from "../RecipeCard/RecipeCard";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -24,10 +23,10 @@ console.log("PantryIngredients", pantryIngredients);
 
     //Handles the New Ingredient Form  
     const [newIngredientForm, setNewIngredientForm] = useState({
-        ingredient_name: pantryIngredients.ingredient_name,
-        ingredient_type: pantryIngredients.ingredient_type,
-        amount: pantryIngredients.amount,
-        metric: pantryIngredients.metric
+        ingredient_name: "",
+        ingredient_type: "Herbs and Spices",
+        amount: 0,
+        metric: ""
     });
 
     // Handling Various SnackBars being displayed
@@ -65,6 +64,12 @@ console.log("PantryIngredients", pantryIngredients);
         .then(newPantryIngredients => {
             console.log("NewPantryIngredients:", newPantryIngredients)
             setPantryIngredients(newPantryIngredients)
+            setNewIngredientForm({
+                ingredient_name: "",
+                ingredient_type: "Herbs and Spices",
+                amount: 0,
+                metric: ""
+            })
             setShow(false);
             revealSnackBar();
         })
@@ -118,11 +123,12 @@ console.log("PantryIngredients", pantryIngredients);
             </section>
         </article>
 
-        <Modal show={show} fullscreen={true} onHide={() => setShow(false)}>
+        <Modal show={show} onHide={() => setShow(false)}>
         <Modal.Header>
             <Modal.Title closeButton>New Ingredient</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+            <Container>
             <Form onSubmit={handleNewIngredientSubmission}>
                 <Form.Group>
                     <Form.Label>Ingredient Name:</Form.Label>
@@ -149,26 +155,38 @@ console.log("PantryIngredients", pantryIngredients);
                     </Form.Select>
                 </Form.Group>
                 {/* Stretch Goal: Add an image for a pantry */}
-                <Form.Group>
-                    <Form.Label>Amount:</Form.Label>
-                    <Form.Control type="number"
-                                  name="amount"
-                                  value={newIngredientForm.amount}
-                                  onChange={handleNewIngredientFormChange}/>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Metric:</Form.Label>
-                    <Form.Control type="text"
-                                  name="metric"
-                                  value={newIngredientForm.metric}
-                                  onChange={handleNewIngredientFormChange}/>
-                </Form.Group>
-                <Button type="submit">Add Ingredient</Button>
-                <Button variant="secondary" onClick={()=>setShow(false)}>Cancel</Button>
+                <Row>
+                    <Col sm={6}>
+                        <Form.Group>
+                            <Form.Label>Amount:</Form.Label>
+                            <Form.Control type="number"
+                                        name="amount"
+                                        value={newIngredientForm.amount}
+                                        onChange={handleNewIngredientFormChange}/>
+                        </Form.Group>
+                    </Col>
+
+                    <Col sm={6}>
+                        <Form.Group>
+                            <Form.Label>Metric:</Form.Label>
+                            <Form.Control type="text"
+                                        name="metric"
+                                        value={newIngredientForm.metric}
+                                        onChange={handleNewIngredientFormChange}/>
+                        </Form.Group>
+                    </Col>
+                    
+                </Row>
+                
+                <Modal.Footer>
+                    <Button className="form-btn" variant="success" type="submit">+ Add Ingredient</Button>
+                    <Button className="form-btn" variant="secondary" onClick={()=>setShow(false)}>Cancel</Button>
+                </Modal.Footer>
             </Form>
+            </Container>
         </Modal.Body>
     </Modal>
-    <div className={`snackbar ${showSnackBar}`}>Ingredient Added to Pantry!</div>
+    <div className={`snackbar ${showSnackBar}`} style={{backgroundColor: "green"}}>Ingredient Added to Pantry!</div>
     <div className={`snackbar ${showSnackBarRemovePantryIngr}`}>Ingredient Removed from Pantry!</div>
     </section>
     </>

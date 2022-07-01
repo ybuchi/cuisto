@@ -42,7 +42,8 @@
   }
   
   #updateIngrSb.show{
-    visibility: visible; /* Show the snackbar */
+    visibility: visible;
+    background-color: white; /* Show the snackbar */
     /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
     However, delay the fade out process for 2.5 seconds */
     -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;

@@ -40,6 +40,7 @@ function RecipeCard(props){
    
     
     // For RecipeCards showing pantry information
+    console.log("PROPSPANTRYOBJ ", props.pantryObject )
     const recommendedRecipesArray = useRecommendRecipeInPantry(props.pantryObject)
     const mapRecommendedRecipes = ()=>{
         if(recommendedRecipesArray){

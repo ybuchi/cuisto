@@ -75,7 +75,7 @@ function UserPantryPage(){
             }))
         })
     }
-
+    console.log("Pantry Object", userPantries)
     const mappedPantries = userPantries.map((pantryObject, index)=>{
         return(
             <RecipeCard key={pantryObject.id} pantryObject={pantryObject}>

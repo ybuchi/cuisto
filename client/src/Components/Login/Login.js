@@ -29,6 +29,21 @@ function Login(){
 
     const navigate = useNavigate();
 
+    const [showLoginSnackBar, setShowLoginSnackBar] = useState("")
+
+    function revealLoginSnackBar(){
+        setShowLoginSnackBar("showLoginSnackbar")
+        setTimeout(()=>setShowLoginSnackBar(""), 3000)
+        setTimeout(()=>navigate("/dashboard"), 3000)
+    }
+
+    const[showNewAccountSuccessSb, setShowNewAccountSuccessSb] = useState("")
+
+    function revealShowNewAccountSuccessSb(){
+        console.log("reveal!")
+        setShowNewAccountSuccessSb("showNewAccountSuccessSb")
+        setTimeout(()=>setShowNewAccountSuccessSb(""), 3000)
+    }
 
     // Handle Login Submission
     function handleLoginSubmit(e){ 
@@ -47,8 +62,8 @@ function Login(){
             if (res.ok){
                 res.json().then(loginResponse => {
                     console.log("Login Response", loginResponse)
-                    setIsLoggedIn(true)
-                    navigate('/dashboard')
+                    setIsLoggedIn(true);
+                    revealLoginSnackBar()
                 })
             }else{
                 //Throw a Modal or something to indicate unsuccessful Login
@@ -57,6 +72,7 @@ function Login(){
         })
         setLoginForm({username:"",password:""});
     }
+
     // Handle Login Controlled Form
     function handleLoginFormChange(e){
         console.log(e.target.name);
@@ -81,6 +97,7 @@ function Login(){
         .then(res => {
             if(res.ok){
                 res.json().then(response=> console.log(response))
+                revealShowNewAccountSuccessSb();
                 setNewAccountForm({
                     first_name: "",
                     last_name: "",
@@ -90,29 +107,29 @@ function Login(){
                     email: ""
                 });
             }})
-        //STRETCH GOAL: Get the user to confirm email.
-
-
-        
+        //STRETCH GOAL: Get the user to confirm email.     
     }
     return(
         <>
-        <menu>
+        
+        <Container id="background">
+            <Row>
+            <Col lg={6}>
+            <menu>
             <header>
-                <img id="login-logo" src={logo} alt="logo"></img>
                 <h1>Login</h1>
             </header>
             <Form onSubmit={handleLoginSubmit}>
                 <Container>
                     <Row>
-                        <Col>
-                            <Form.Group>
+                        <Col lg={12}>
+                            <Form.Group className="form-group">
                                 <Form.Label>Username</Form.Label>
                                 <Form.Control type="text" name="username" value={loginForm.username} onChange={handleLoginFormChange}></Form.Control>
                             </Form.Group>
                         </Col>
-                        <Col>
-                            <Form.Group>
+                        <Col lg={12}>
+                            <Form.Group className="form-group">
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control type="password" name="password" value={loginForm.password} onChange={handleLoginFormChange}></Form.Control>
                             </Form.Group>
@@ -123,17 +140,18 @@ function Login(){
                 </Container>
             </Form>
         </menu>
+            </Col>
 
-        <menu>
+            <Col lg={6}>
+            <menu>
             <header>
-                <h3> Don't have an account? </h3>
                 <h1>Create an Account</h1>
             </header>
             <Form onSubmit={handleNewAccountSubmission}>
                 <Container>
                     <Row>
-                        <Col>
-                            <Form.Group>
+                        <Col lg={12}> 
+                            <Form.Group className="form-group">
                                 <Form.Label>First Name</Form.Label>
                                 <Form.Control type="text"
                                             name="first_name"
@@ -141,8 +159,8 @@ function Login(){
                                             onChange={handleNewAccountFormChange}></Form.Control>
                             </Form.Group>
                         </Col>
-                        <Col>
-                            <Form.Group>
+                        <Col lg={12}>
+                            <Form.Group className="form-group">
                                 <Form.Label>Last Name</Form.Label>
                                 <Form.Control type="text"
                                             name="last_name"
@@ -153,7 +171,7 @@ function Login(){
                     </Row>
                     <Row>
                         <Col>
-                            <Form.Group>
+                            <Form.Group className="form-group">
                                 <Form.Label>Username</Form.Label>
                                 <Form.Control type="text"
                                             name="username"
@@ -161,19 +179,10 @@ function Login(){
                                             onChange={handleNewAccountFormChange}></Form.Control>
                             </Form.Group>
                         </Col>
-                        <Col>
-                            <Form.Group>
-                                <Form.Label>Email</Form.Label>
-                                <Form.Control type="email"
-                                            name="email"
-                                            value={newAccountForm.email}
-                                            onChange={handleNewAccountFormChange}></Form.Control>
-                            </Form.Group>
-                        </Col>
                     </Row>
                     <Row>
-                        <Col>
-                            <Form.Group>
+                        <Col lg={12}>
+                            <Form.Group className="form-group">
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control type="password"
                                             name="password"
@@ -181,8 +190,8 @@ function Login(){
                                             onChange={handleNewAccountFormChange}></Form.Control>
                             </Form.Group>
                         </Col>
-                        <Col>
-                            <Form.Group>
+                        <Col lg={12}>
+                            <Form.Group className="form-group">
                                 <Form.Label>Confirm Password</Form.Label>
                                 <Form.Control type="password"
                                             name="password_confirmation"
@@ -195,6 +204,15 @@ function Login(){
                 </Container>
             </Form>
         </menu>
+            </Col>
+            </Row>
+        </Container>
+
+        
+
+        <div id="login-snackbar" className={`snackbar ${showLoginSnackBar}`}>Logged In Successfully! Redirecting...</div>
+        <div id="new-account-success-snackbar" className={`snackbar ${showNewAccountSuccessSb}`}>New Account Successfully Created!</div>
+
         </>
     )
 }
