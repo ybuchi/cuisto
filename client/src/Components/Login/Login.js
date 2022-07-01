@@ -37,6 +37,14 @@ function Login(){
         setTimeout(()=>navigate("/dashboard"), 3000)
     }
 
+    const[showNewAccountSuccessSb, setShowNewAccountSuccessSb] = useState("")
+
+    function revealShowNewAccountSuccessSb(){
+        console.log("reveal!")
+        setShowNewAccountSuccessSb("showNewAccountSuccessSb")
+        setTimeout(()=>setShowNewAccountSuccessSb(""), 3000)
+    }
+
     // Handle Login Submission
     function handleLoginSubmit(e){ 
         e.preventDefault();
@@ -89,6 +97,7 @@ function Login(){
         .then(res => {
             if(res.ok){
                 res.json().then(response=> console.log(response))
+                revealShowNewAccountSuccessSb();
                 setNewAccountForm({
                     first_name: "",
                     last_name: "",
@@ -105,7 +114,7 @@ function Login(){
         
         <Container id="background">
             <Row>
-            <Col lg={5}>
+            <Col lg={6}>
             <menu>
             <header>
                 <h1>Login</h1>
@@ -132,17 +141,10 @@ function Login(){
             </Form>
         </menu>
             </Col>
-            <Col lg={2}>
 
-                    <img id="login-logo" src={logo} alt="logo"></img>
-
-                
-            </Col>
-            <Col lg={5}>
+            <Col lg={6}>
             <menu>
             <header>
-                <h3 style={{fontStyle: "italic"}}>Sacrebleu! </h3>
-                <h3>Don't have an account? </h3>
                 <h1>Create an Account</h1>
             </header>
             <Form onSubmit={handleNewAccountSubmission}>
@@ -209,6 +211,7 @@ function Login(){
         
 
         <div id="login-snackbar" className={`snackbar ${showLoginSnackBar}`}>Logged In Successfully! Redirecting...</div>
+        <div id="new-account-success-snackbar" className={`snackbar ${showNewAccountSuccessSb}`}>New Account Successfully Created!</div>
 
         </>
     )

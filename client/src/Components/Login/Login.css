@@ -23,7 +23,13 @@ menu {
     -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
     animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
+#new-account-success-snackbar.showNewAccountSuccessSb{
+    visibility: visible; /* Show the snackbar */
+    background-color: green;
 
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
 label.form-label{
     margin-bottom: 0px;
 }
