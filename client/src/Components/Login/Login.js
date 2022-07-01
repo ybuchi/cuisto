@@ -37,7 +37,6 @@ function Login(){
         setTimeout(()=>navigate("/dashboard"), 3000)
     }
 
-
     // Handle Login Submission
     function handleLoginSubmit(e){ 
         e.preventDefault();
@@ -57,7 +56,6 @@ function Login(){
                     console.log("Login Response", loginResponse)
                     setIsLoggedIn(true);
                     revealLoginSnackBar()
-                    // navigate('/dashboard');
                 })
             }else{
                 //Throw a Modal or something to indicate unsuccessful Login
