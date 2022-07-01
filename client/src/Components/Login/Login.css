@@ -1,9 +1,55 @@
 menu {
     padding: 40px;
+    margin: auto auto 60px auto;
+    border: 1px solid black;
+    border-radius: 3px;
+    width: 400px;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    font-family: "Libre Baskerville", serif;
+    text-align: left;
+    background-color: white;
+    
+}
+#background{
+    /* background-image: url('../Images/Backgrounds/vertical_cloth.png'); */
+    padding-top: 20px;
+   
+}
+
+#login-snackbar.showLoginSnackbar{
+    visibility: visible; /* Show the snackbar */
+    background-color: green;
+
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+label.form-label{
+    margin-bottom: 0px;
+}
+.form-group{
+    margin-top: 10px;
+    margin-bottom:10px;
 }
 menu header {
-    text-align: center
+    text-align: center;
+    
+}
+
+menu header h1{
+    font-family: "Reenie Beanie", cursive;
+    font-size: 60px;
+}
+menu header h3{
+    font-family: "Reenie Beanie", cursive;
+    font-size: 30px;
+    
 }
 #login-logo{
     width: 200px;
+}
+
+.image-wrapper{
+    height: 100%;
+    margin-top: auto;
 }
