@@ -48,7 +48,7 @@ function RecipeLibraryPage(){
         <>
         <article id="recipe-library">
             <header className="title-header-rec-lib">
-                <h1>Recipe Library</h1>
+                <h1>Library</h1>
             </header>
 
             <article>

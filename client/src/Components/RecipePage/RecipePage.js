@@ -97,70 +97,101 @@ function RecipePage(){
     }
     
     const uniqueTypesArray = retrieveUniqueIngredientTypes();
-    const mappedRecipeSteps = recipeData.steps ? recipeData.steps.map((step, index) => {return <li className="recipe-step" key={index}>{step}</li>}) : "Loading..."
+    const mappedRecipeSteps = recipeData.steps ? recipeData.steps.map((step, index) => {return <li className="recipe-step-rp" key={index}>{step}</li>}) : "Loading..."
     
-    const mappedRecipeIngredients = () => {
+    // const mappedRecipeIngredients = () => {
+    //     if(uniqueTypesArray){
+    //         console.log(uniqueTypesArray);
+    //         const mappedList = uniqueTypesArray.map((ingrType,index)=>{
+    //             const filteredIngredients = recipeIngredients.filter(ingrObject => ingrObject.ingredient_type === ingrType)
+    //             const mappedIngredients = filteredIngredients.map((ingrObject, index)=>{
+    //                 const ingredientInfo = ingrObject.recipe_ingredients[0]
+    //                 return(
+    //                     <li key={index}>
+    //                         <p><strong>{ingrObject.ingredient_name}</strong>: {ingredientInfo.amount === null ? "not set" : ingredientInfo.amount} <span>{ingredientInfo.metric}</span></p>
+    //                     </li>
+    //                 )
+    //             })
+    //             return(
+    //                 <Col md={2} className="list-container" key={index}>
+    //                     <h4 style={{fontStyle: "italic", fontSize: "15px"}}>{ingrType}</h4>
+    //                     <ul className="ingredient-list">
+    //                         {mappedIngredients}
+    //                     </ul>
+    //                 </Col>
+    //             )
+    //         })
+    //         return mappedList
+    //     }else{
+    //         return "Loading"
+    //     }
+    // }
+
+    const mappedRecipeIngredients = () =>{
         if(uniqueTypesArray){
-            console.log(uniqueTypesArray);
-            const mappedList = uniqueTypesArray.map((ingrType,index)=>{
-                const filteredIngredients = recipeIngredients.filter(ingrObject => ingrObject.ingredient_type === ingrType)
-                const mappedIngredients = filteredIngredients.map((ingrObject, index)=>{
-                    const ingredientInfo = ingrObject.recipe_ingredients[0]
-                    return(
-                        <li key={index}>
-                            <p><strong>{ingrObject.ingredient_name}</strong>: {ingredientInfo.amount === null ? "not set" : ingredientInfo.amount} <span>{ingredientInfo.metric}</span></p>
-                        </li>
-                    )
-                })
+            const mappedIngredients = recipeIngredients.map((ingredient) => {
+                console.log("INGR:", ingredient)
                 return(
-                    <Col md={2} className="list-container" key={index}>
-                        <h4 style={{fontStyle: "italic"}}>{ingrType}</h4>
-                        <ul className="ingredient-list">
-                            {mappedIngredients}
-                        </ul>
-                    </Col>
+                    <li><span style={{fontWeight: "bold"}}>{ingredient.recipe_ingredients[0].amount + " "} {ingredient.recipe_ingredients[0].metric + ": "}</span>{ingredient.ingredient_name}</li>
                 )
             })
-            return mappedList
-        }else{
-            return "Loading"
+
+            return(
+                <ul>
+                    {mappedIngredients}
+                </ul>
+            )
+
+            
         }
     }
         
-
+console.log("RecipeData", recipeData)
     
     return(
         <>
         <article id="recipe-page">
             <Container style={{fontFamily: "'Bitter', serif"}}>
-                <Container className="recipe-meta" >
+                <div id="recipe-bg" style={{backgroundImage: `url(${recipeData.image})`}}>
+                <Container className="recipe-meta">
                     <Row>
                         <Col>
                             <Button variant="secondary" href="/recipe-library"><ArrowLeftCircle/> Back to Recipe Library</Button>
                             {recipeData.author === user.username ? <Button className="nav-button" variant="secondary" onClick={handleEditRecipe}>Edit Recipe <PencilSquare/></Button> : null }
                             
-                            <h1 id="recipe-title" className="title-label">{recipeData.recipe_name}</h1>
-                            <h4>{recipeData.description}</h4>
-                            <p id="recipe-author" className="title-label"><strong>Author:</strong> {recipeData.author}</p>
-
-                            <p>{recipeData.gluten_Free ? "| Gluten Free |" : null} {recipeData.lactose_free ? "| Lactose Free |" : null}{recipeData.peanut_free ? "| Peanut Free |" : null} </p>
+                            <h1 id="recipe-title" className="title-label-rp"><span>{recipeData.recipe_name}</span></h1>
+                            
+                            <p id="recipe-author" className="title-label-rp"><span>{recipeData.author}</span></p>
+                            <p className="title-label-rp"><span>{recipeData.gluten_Free ? "| Gluten Free |" : null} {recipeData.lactose_free ? "| Lactose Free |" : null}{recipeData.peanut_free ? "| Peanut Free |" : null}</span></p>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col className="sub-meta-rp">
+                            <div className="sub-meta"> 
+                                <h5> <strong>Cuisine:</strong></h5>
+                                <h4 className="meta-label">{recipeData.cuisine}</h4>
+                            </div>
+                        </Col>
+                        <Col className="sub-meta-rp">
+                            <div className="sub-meta"> 
+                                <h5><strong>Diet:</strong></h5>
+                                <h4 className="meta-label">{recipeData.diet}</h4>
+                            </div>
+                        </Col>
+                        <Col className="sub-meta-rp">
+                            <div className="sub-meta"> 
+                                <h5><strong>Cooking Time:</strong></h5>
+                                <h4 className="meta-label" >{recipeData.time_to_cook_min} min</h4>
+                            </div>
                         </Col>
                     </Row>
                     <Row>
                         <Col>
-                            <h5> <strong>Cuisine:</strong></h5>
-                            <h3 className="meta-label">{recipeData.cuisine}</h3>
-                        </Col>
-                        <Col>
-                            <h5><strong>Diet:</strong></h5>
-                            <h3 className="meta-label">{recipeData.diet}</h3>
-                        </Col>
-                        <Col>
-                            <h5><strong>Cooking Time:</strong></h5>
-                            <h3 className="meta-label" style={{fontSize: "30px", fontWeight: "bold"}}>{recipeData.time_to_cook_min} min</h3>
+                            <h4 id="recipe-description"><span>{recipeData.description}</span></h4>
                         </Col>
                     </Row>
                 </Container>
+                </div>
                 <Container>
                     <Row id="ingredients-container">
                         <h3 className="title-label">Ingredients:</h3>

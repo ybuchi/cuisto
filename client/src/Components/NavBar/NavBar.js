@@ -91,7 +91,7 @@ function NavBar(){
     const navLinks = isLoggedIn ? <Nav className="justify-content-end flex-grow-1 pe-3">
                                     <Nav.Link href="/dashboard">Dashboard</Nav.Link>
                                     <Nav.Link href="/browse-recipes">Browse Recipes</Nav.Link>
-                                    <Nav.Link href="/recipe-library">CookBooks</Nav.Link>
+                                    <Nav.Link href="/recipe-library">Library</Nav.Link>
                                     <SplitButton variant="outline-secondary" title="Pantries" onClick={()=> navigate("/pantries")}>
                                       <Dropdown.Header>Active</Dropdown.Header>
                                         {mappedActivePantries}
