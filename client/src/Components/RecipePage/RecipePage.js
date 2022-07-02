@@ -194,13 +194,13 @@ console.log("RecipeData", recipeData)
                 </div>
                 <Container>
                     <Row id="ingredients-container">
-                        <h3 className="title-label">Ingredients:</h3>
+                        <h3 className="title-label-rp">Ingredients:</h3>
                         {mappedRecipeIngredients()}
                     </Row>
                 </Container>
                 <hr/>
                 <Row id="recipe-steps-container">
-                    <h3 className="title-label" style={{textAlign: "left"}}>Instructions:</h3>
+                    <h3 className="title-label-rp" style={{textAlign: "left"}}>Instructions:</h3>
                     <ol id="recipe-steps-list">
                         {mappedRecipeSteps}
                     </ol>
