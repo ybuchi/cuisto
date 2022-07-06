@@ -46,10 +46,14 @@ function RecipeCard(props){
         if(recommendedRecipesArray){
             if(recommendedRecipesArray.length > 0){
                 const recRecipes = recommendedRecipesArray.map(recipeObject=>{
+                    console.log("RecipeObj", recipeObject);
                     return(
-                        <li key={recipeObject.id}>
-                            <p><strong>{`${recipeObject.recipe_name}: `}</strong>{recipeObject.included_pantry_ingredients.length} ingredients in the pantry, {recipeObject.number_of_missing_ingredients} missing ingredients </p>
-                        </li>
+                        <div className="rec-recipe" key={recipeObject.id}>
+                            <p>
+                                <img className="rec-recipe-img" src={recipeObject.image} alt={recipeObject.recipe_name}/>
+                                <strong>{`${recipeObject.recipe_name}: `}</strong>{recipeObject.included_pantry_ingredients.length} ingredients in the pantry, {recipeObject.number_of_missing_ingredients} missing ingredients
+                            </p>
+                        </div>
                     )
                 })
                 return recRecipes
@@ -70,10 +74,10 @@ function RecipeCard(props){
             return(
                 <>
                 <div id="rec-recipes-container">
-                    <p>Recommended Recipes Based on {props.pantryObject.pantry_name} pantry ingredients:</p>
-                    <ol>
+                    <p className="rec-recipe-sec-label">Recommended Recipes: </p>
+
                         {mapRecommendedRecipes()}
-                    </ol>
+
                 </div>
                 </>
             )

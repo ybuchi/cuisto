@@ -95,7 +95,6 @@ function UserPantryPage(){
                     <section>
                         <p>{pantryObject.pantry_description}</p>
                     </section>
-
             </RecipeCard>
         )
     })

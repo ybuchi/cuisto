@@ -62,7 +62,8 @@ function useRecommendRecipeInPantry(pantryObject){
                 ingredients: recipeObject.ingredients,
                 included_pantry_ingredients: ingredientsIncludedInPantry,
                 missing_ingredients: ingredientsNotIncludedInPantry,
-                number_of_missing_ingredients: (recipeObject.ingredients.length - ingredientsIncludedInPantry.length)
+                number_of_missing_ingredients: (recipeObject.ingredients.length - ingredientsIncludedInPantry.length),
+                image: recipeObject.image
             }
  
         })
