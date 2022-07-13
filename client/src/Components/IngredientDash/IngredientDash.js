@@ -2,6 +2,7 @@ import {React, useContext} from "react";
 import { UserContext } from "../Contexts/UserContext";
 import "./IngredientDash.css";
 import { Container, Col, Row} from "react-bootstrap";
+import {CaretRight} from "react-bootstrap-icons";
 
 function IngredientDash(){
 
@@ -17,9 +18,18 @@ function IngredientDash(){
                     </div>
                    
                     <ul>
-                        <li>Pantries</li>
-                        <li>Recipe Library</li>
-                        <li>Shopping List</li>
+                        <li>
+                            <span>Pantries</span>
+                            <CaretRight/> 
+                        </li>
+                        <li>
+                            <span>Recipe Library</span>
+                            <CaretRight/>
+                        </li>
+                        <li>
+                            <span>Shopping List</span> 
+                            <CaretRight/>
+                        </li>
                     </ul>
                 </Col>
             </Row>

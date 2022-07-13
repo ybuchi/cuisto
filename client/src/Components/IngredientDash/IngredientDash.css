@@ -5,12 +5,15 @@
     background-color: #DCD7C9;
     height: 100vh;
     padding-top: 15px;
+    /* position: fixed; */
 
 }
 #ing-sb li{
     list-style: none;
     text-align: right;
     margin-left: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 #ing-sb ul{
     padding: 0;
