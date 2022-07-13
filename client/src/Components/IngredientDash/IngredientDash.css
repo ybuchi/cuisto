@@ -1,0 +1,44 @@
+#ing{
+    margin: 0px;   
+}
+#ing-sb{
+    padding-top: 15px;
+    background-color: #DCD7C9;
+    height: 100%;
+    z-index: 1;
+    bottom: 0;
+    left:0;
+    overflow-x: hidden;
+
+}
+#ing-sb li{
+    list-style: none;
+    text-align: right;
+    margin-left: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#ing-sb ul{
+    padding: 0;
+}
+#sb-meta{
+    margin-bottom: 30px;
+}
+
+#profile-pic{
+    height: 35px;
+    width: 35px;
+    background-color: white;
+    border-radius: 50%;
+    background-position: center;
+    background-size: contain;
+    display: inline-block;
+    transform: translateY(20%)
+}
+
+#profile-pic + h4{
+    display: inline-block;
+    margin-bottom: 0;
+    margin-left: 10px;
+    font-size: 30px;
+}
