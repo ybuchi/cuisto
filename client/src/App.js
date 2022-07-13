@@ -20,6 +20,7 @@ import CookingSessionPage from './Components/CookingSessionPage/CookingSessionPa
 import PublicRecipesPage from './Components/PublicRecipesPage/PublicRecipesPage';
 import EditRecipePage from './Components/EditRecipePage/EditRecipePage';
 import Footer from './Components/Footer/Footer';
+import IngredientDash from './Components/IngredientDash/IngredientDash';
 
 function App() {
   useLoginState();
@@ -42,8 +43,12 @@ function App() {
           <Route path="/recipe-library/:recipe_id" element={<RecipePage />}/>
           <Route path="/recipe-library/:recipe_id/edit" element={<EditRecipePage/>}/>
           <Route path="/recipe-library/cooking-session/:recipe_id" element={<CookingSessionPage/>}/>
+
           <Route path="pantries" element={<UserPantryPage/>}/>
-          <Route path="/pantries/:pantry_id" element={<PantryPage/>}/>
+          <Route path="pantries/:pantry_id" element={<PantryPage/>}/>
+
+          <Route path="ingredients" element={<IngredientDash/>}/>
+
           <Route path="clubs" element={<ClubsPage/>}/>
           <Route path="profile" element={<ProfilePage />}/>
         </Routes>

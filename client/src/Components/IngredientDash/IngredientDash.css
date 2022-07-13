@@ -1,0 +1,38 @@
+#ing{
+    margin: 0;    
+}
+#ing-sb{
+    background-color: #DCD7C9;
+    height: 100vh;
+    padding-top: 15px;
+
+}
+#ing-sb li{
+    list-style: none;
+    text-align: right;
+    margin-left: 15px;
+}
+#ing-sb ul{
+    padding: 0;
+}
+#sb-meta{
+    margin-bottom: 30px;
+}
+
+#profile-pic{
+    height: 35px;
+    width: 35px;
+    background-color: white;
+    border-radius: 50%;
+    background-position: center;
+    background-size: contain;
+    display: inline-block;
+    transform: translateY(20%)
+}
+
+#profile-pic + h4{
+    display: inline-block;
+    margin-bottom: 0;
+    margin-left: 10px;
+    font-size: 30px;
+}

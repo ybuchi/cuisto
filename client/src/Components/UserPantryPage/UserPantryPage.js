@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import "./UserPantryPage.css"
+import PantrySideBar from "../PantrySideBar/PantrySideBar";
 import useFetchUserPantries from "../CustomHooks/useFetchUserPantries";
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button'
 import RecipeCard from "../RecipeCard/RecipeCard";
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row"
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 function UserPantryPage(){
     const [userPantries, setUserPantries]= useFetchUserPantries();
@@ -103,16 +105,18 @@ function UserPantryPage(){
     return(
 
         <div id="user-pantry-page">
-        <div className="title-header">
-            <h1 className="title-label">Pantries</h1>
-        </div>
 
-        <Container>
-        <Button id="add-pantry-button" variant="secondary" onClick={() => setShow(true)}><strong>+</strong> Add new Pantry</Button>
-
+        <Container style={{margin: "0"}}>
             <Row>
-                {mappedPantries}
+                <Col>
+                    <PantrySideBar usePantries = {userPantries}/>
+                </Col>
+                <Col>
+                    <Button id="add-pantry-button" variant="secondary" onClick={() => setShow(true)}><strong>+</strong> Add new Pantry</Button>
+                    {mappedPantries}
+                </Col>
             </Row>
+
 
         </Container>
 
