@@ -47,7 +47,10 @@ function App() {
           <Route path="pantries" element={<UserPantryPage/>}/>
           <Route path="pantries/:pantry_id" element={<PantryPage/>}/>
 
-          <Route path="ingredients" element={<IngredientDash/>}/>
+          <Route path="home" element={<IngredientDash/>}>
+            <Route index element={<UserPantryPage/>}/>
+            <Route path="pantries" element={<UserPantryPage/>}/>
+          </Route>
 
           <Route path="clubs" element={<ClubsPage/>}/>
           <Route path="profile" element={<ProfilePage />}/>

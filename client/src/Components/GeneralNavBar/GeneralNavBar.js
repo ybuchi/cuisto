@@ -22,7 +22,7 @@ function GeneralNavBar(){
 
     return(
         //Have a conditional statement to render a different NavBar based on whether a user is signed in. 
-        <Navbar  bg="light" expand={"sm"} className="mb-3">
+        <Navbar  id="gen-nav-bar" bg="light" expand={"sm"} className="mb-3">
       <Container fluid>
         <Navbar.Brand href="/"><img id="nav-logo" src={logo} alt="logo"/></Navbar.Brand>
         <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${"sm"}`} />

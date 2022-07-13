@@ -1,4 +1,5 @@
 import {React, useContext} from "react";
+import { Outlet } from "react-router-dom";
 import { UserContext } from "../Contexts/UserContext";
 import "./IngredientDash.css";
 import { Container, Col, Row} from "react-bootstrap";
@@ -31,6 +32,9 @@ function IngredientDash(){
                             <CaretRight/>
                         </li>
                     </ul>
+                </Col>
+                <Col>
+                    <Outlet/>
                 </Col>
             </Row>
         </Container>

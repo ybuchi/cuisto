@@ -109,9 +109,6 @@ function UserPantryPage(){
         <Container style={{margin: "0"}}>
             <Row>
                 <Col>
-                    <PantrySideBar usePantries = {userPantries}/>
-                </Col>
-                <Col>
                     <Button id="add-pantry-button" variant="secondary" onClick={() => setShow(true)}><strong>+</strong> Add new Pantry</Button>
                     {mappedPantries}
                 </Col>
