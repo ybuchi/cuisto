@@ -12,7 +12,6 @@ function useFetchUserPantries(){
         })
     },[setUserPantries])
 
-    console.log(userPantries);
     return [userPantries, setUserPantries]
 }
 export default useFetchUserPantries;

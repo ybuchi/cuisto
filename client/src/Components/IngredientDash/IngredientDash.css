@@ -1,3 +1,21 @@
+/* Handles the accordion arrows in the sidebar */
+.open {
+    transform: rotate(90deg);
+    transition: transform 0.3s ease;
+}
+.open:hover{
+    cursor: pointer;
+}
+.closed{
+    transition: transform 0.3s ease;
+}
+.closed:hover{
+    cursor: pointer;
+}
+.no-display{
+    display: none;
+}
+
 #ing{
     margin: 0px;   
 }
