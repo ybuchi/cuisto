@@ -1,3 +1,23 @@
+/* Handles the accordion arrows in the sidebar */
+.open {
+    transform: rotate(90deg);
+    transition: transform 0.3s ease;
+}
+.open:hover{
+    cursor: pointer;
+}
+.closed{
+    transition: transform 0.3s ease;
+}
+.closed:hover{
+    cursor: pointer;
+}
+.no-display{
+    display: none;
+}
+.side-icon{
+    margin-left: 10px;
+}
 #ing{
     margin: 0px;   
 }
@@ -11,12 +31,17 @@
     overflow-x: hidden;
 
 }
+
 #ing-sb li{
     list-style: none;
     text-align: right;
     margin-left: 15px;
     margin-top: 10px;
     margin-bottom: 10px;
+}
+#ing-sb a{
+    text-decoration: none;
+    color: black;
 }
 #ing-sb ul{
     padding: 0;
