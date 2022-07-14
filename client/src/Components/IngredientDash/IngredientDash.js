@@ -27,7 +27,7 @@ function IngredientDash(){
 
     const mappedPantryList = userPantries.map(pantryObject => {
         return(
-            <li><Link to={`/pantries/${pantryObject.id}`}>{pantryObject.pantry_name}</Link></li>
+            <li><Link to={`pantries/${pantryObject.id}`}>{pantryObject.pantry_name}</Link></li>
         )
     })
 
@@ -51,7 +51,7 @@ function IngredientDash(){
 
                         {/* Pantries Accordion */}
                         <li>
-                            <span><Link to="home">Pantries <strong>({userPantries.length})</strong></Link></span>
+                            <span><Link to="/home/pantries">Pantries <strong>({userPantries.length})</strong></Link></span>
                             <CaretRight id="pantries_acc"
                                         className={isOpen.pantries_acc ? "open" : "closed"}
                                         onClick={expandAccordion}/>

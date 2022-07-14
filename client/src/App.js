@@ -50,6 +50,7 @@ function App() {
           <Route path="home" element={<IngredientDash/>}>
             <Route index element={<UserPantryPage/>}/>
             <Route path="pantries" element={<UserPantryPage/>}/>
+            <Route path="pantries/:pantry_id" element={<PantryPage/>}/>
           </Route>
 
           <Route path="clubs" element={<ClubsPage/>}/>
