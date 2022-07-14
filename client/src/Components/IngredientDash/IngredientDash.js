@@ -14,7 +14,6 @@ function IngredientDash(){
 
     //Create a state for the accordions in the sidebar
     const [ isOpen, setIsOpen ] = useState({
-        home_acc : false,
         pantries_acc : false,
         recipe_library_acc : false,
         shopping_list_acc : false
@@ -28,7 +27,7 @@ function IngredientDash(){
 
     const mappedPantryList = userPantries.map(pantryObject => {
         return(
-            <li>{pantryObject.pantry_name}</li>
+            <li><Link to={`/pantries/${pantryObject.id}`}>{pantryObject.pantry_name}</Link></li>
         )
     })
 
@@ -46,9 +45,7 @@ function IngredientDash(){
                         {/* Home Accordion */}
                         <li>
                             <span><Link to="home">Home</Link></span>
-                            <CaretRight id="home_acc"
-                                        className={isOpen.home_acc ? "open" : "closed"} 
-                                        onClick={expandAccordion}/>
+                            <CaretRight style={{visibility:"hidden"}}/>
 
                         </li>
 
