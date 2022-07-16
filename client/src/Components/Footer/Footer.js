@@ -5,7 +5,7 @@ import "./Footer.css";
 function Footer(){
     return(
         <footer>
-           <p>Yannik Büchi</p>
+           <p>Created and Developed by <a href="https://github.com/ybuchi">Yannik Buchi</a></p>
         </footer>
     )
 }
