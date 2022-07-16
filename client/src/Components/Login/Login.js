@@ -34,7 +34,7 @@ function Login(){
     function revealLoginSnackBar(){
         setShowLoginSnackBar("showLoginSnackbar")
         setTimeout(()=>setShowLoginSnackBar(""), 3000)
-        setTimeout(()=>navigate("/dashboard"), 3000)
+        setTimeout(()=>navigate("/home"), 3000)
     }
 
     const[showNewAccountSuccessSb, setShowNewAccountSuccessSb] = useState("")

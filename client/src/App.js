@@ -34,7 +34,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing/>}/>
           <Route path="login" element={<Login/>}/>
-          <Route path="dashboard" element={<UserDashboard/>}/>
           <Route path="/browse-recipes" element={<PublicRecipesPage/>}/>
           <Route path="/browse-recipes/:recipe_id" element={<RecipePage />}/>
           <Route path="/browse-recipes/:recipe_id/edit" element={<EditRecipePage />}/>
@@ -44,11 +43,8 @@ function App() {
           <Route path="/recipe-library/:recipe_id/edit" element={<EditRecipePage/>}/>
           <Route path="/recipe-library/cooking-session/:recipe_id" element={<CookingSessionPage/>}/>
 
-          <Route path="pantries" element={<UserPantryPage/>}/>
-          <Route path="pantries/:pantry_id" element={<PantryPage/>}/>
-
           <Route path="home" element={<IngredientDash/>}>
-            <Route index element={<UserPantryPage/>}/>
+            <Route index element={<UserDashboard/>}/>
             <Route path="pantries" element={<UserPantryPage/>}/>
             <Route path="pantries/:pantry_id" element={<PantryPage/>}/>
           </Route>

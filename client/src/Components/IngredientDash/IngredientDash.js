@@ -29,14 +29,16 @@ function IngredientDash(){
     //Map out a user's pantries in the sidebar
     const mappedPantryList = userPantries.map(pantryObject => {
         return(
-            <li><Link to={`pantries/${pantryObject.id}`}>{pantryObject.pantry_name}</Link></li>
+            <li>
+                <Link to={`pantries/${pantryObject.id}`}>{pantryObject.pantry_name}</Link>
+            </li>
         )
     })
 
     return(
-        <Container id="ing">
-            <Row>
-                <Col id="ing-sb" lg={2}>
+        <div id="ing">
+            <Row id="ing-row">
+                <Col id="ing-sb" lg={4}>
                     <div id="sb-meta">
                         <div id="profile-pic" style={{backgroundImage: `url(${user.profile_picture})`}}/>
                         <h4>{user.first_name}</h4>
@@ -45,16 +47,18 @@ function IngredientDash(){
                     <ul>
                         {/* Home Accordion */}
                         <li>
-                            <span><Link to="home">Home</Link></span>
                             <HouseDoor className="side-icon"/>
+                            <span><strong><Link to="/home">Home</Link></strong></span>
+                            
                             <CaretRight style={{visibility:"hidden"}}/>
-
                         </li>
+                        <hr/>
 
                         {/* Pantries Accordion */}
                         <li>
-                            <span><Link to="/home/pantries">Pantries <strong>({userPantries.length})</strong></Link></span>
                             <Bookshelf className="side-icon"/>
+                            <span><strong><Link to="/home/pantries">Pantries </Link></strong></span><span style={{fontStyle: "italic"}}>{userPantries.length}</span>
+                            
                             <CaretRight id="pantries_acc"
                                         className={isOpen.pantries_acc ? "open" : "closed"}
                                         onClick={expandAccordion}/>
@@ -65,11 +69,12 @@ function IngredientDash(){
                                 <li>+ Add Pantry</li>
                             </ul> 
                         </li>
-
+                        <hr/>
                         {/* Recipe Library Accordion */}
                         <li>
-                            <span><Link to="home">Recipes</Link></span>
                             <JournalRichtext className="side-icon"/>
+                            <span><strong><Link to="home">Recipes</Link></strong></span>
+                            
                             <CaretRight id="recipe_library_acc"
                                         className={isOpen.recipe_library_acc ? "open" : "closed"}
                                         onClick={expandAccordion}/>
@@ -82,22 +87,24 @@ function IngredientDash(){
                             </ul> 
                                 
                         </li>
+                        <hr/>
 
                         {/* Shopping List Accordion */}
                         <li>
-                            <span><Link to="home">Shopping List</Link></span> 
                             <Basket className="side-icon" />
+                            <span><strong><Link to="home">Shopping List</Link></strong></span> 
+                            
                             <CaretRight id="shopping_list_acc"
                                         className={isOpen.shopping_list_acc ? "open" : "closed"}
                                         onClick={expandAccordion}/>
                         </li>
                     </ul>
                 </Col>
-                <Col>
+                <Col id="action-page">
                     <Outlet/>
                 </Col>
             </Row>
-        </Container>
+        </div>
         
     )
 }

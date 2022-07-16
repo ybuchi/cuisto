@@ -16,3 +16,19 @@
     background-repeat: no-repeat;
 
 }
+.pantry-card{
+    position: relative;
+}
+.recipe-card-menu{
+    font-size: 20px;
+    transition: all ease 0.3s;
+}
+.recipe-card-menu:hover{
+    color: gray;
+    transform: scale(1.2)
+}
+.recipe-dd{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}

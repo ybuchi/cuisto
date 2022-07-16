@@ -2,6 +2,7 @@
     border: 1px solid black;
     margin-top: 15px;
     margin-bottom: 15px;
+    padding: 15px;
     border-radius: 2px;
     position: relative;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px 0px, rgba(0, 0, 0, 0.3) 0px 1px 3px 0px;
@@ -51,15 +52,28 @@
   }
   .rec-recipe{
     text-align: left;
+    display: inline-block;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: 10px;
+    margin-rigth: 10px;
   }
   .rec-recipe-img{
     height: 50px;
     display: inline-block;
     margin-right: 20px;
   }
+  .rec-recipe-div{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-position: center;
+    background-size: contain;
+    display: inline-block;
+  }
   .rec-recipe-sec-label{
     text-align: left;
-    font-size: 30px;
+    font-size: 20px;
   }
   
   /* Animations to fade the snackbar in and out */

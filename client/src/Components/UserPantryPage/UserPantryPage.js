@@ -9,6 +9,8 @@ import RecipeCard from "../RecipeCard/RecipeCard";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { ButtonGroup, Dropdown } from "react-bootstrap";
+import { ThreeDotsVertical, Trash3, BoxArrowRight, Pencil } from "react-bootstrap-icons"
 
 function UserPantryPage(){
     const [userPantries, setUserPantries]= useFetchUserPantries();
@@ -77,10 +79,45 @@ function UserPantryPage(){
             }))
         })
     }
+    //Function to reveal the menu when a user clicks on a pantry
+    function revealMenu(e){
+        e.stopPropagation();
+        console.log("RevealMenu!")
+    }
+
+    function removePantry(pantry_id){
+
+        const configObj = {
+            method: "DELETE"
+        }
+
+        fetch(`/pantries/${pantry_id}`, configObj)
+        .then(res => res.json())
+        .then(() => setUserPantries(userPantries.map(pantryObject => {
+            return pantryObject.id === pantry_id ? false : true;
+        })))
+    }
+
+   
     console.log("Pantry Object", userPantries)
-    const mappedPantries = userPantries.map((pantryObject, index)=>{
-        return(
-            <RecipeCard key={pantryObject.id} pantryObject={pantryObject}>
+    const mappedPantries = userPantries ? userPantries.map((pantryObject, index)=>{
+            // console.log(pantryObject.pantry_users[0].active)
+            return(
+            <RecipeCard className="pantry-card" key={pantryObject.id} pantryObject={pantryObject}>
+                    <div className="recipe-dd">
+
+                   
+                    <Dropdown  as={ButtonGroup} onClick={e=>e.stopPropagation()}>
+                        <Dropdown.Toggle  className="recipe-card-menu" as={ThreeDotsVertical}  />
+                            
+                            {/* <ThreeDotsVertical className="recipe-card-menu" onClick={revealMenu}/> */}
+                        <Dropdown.Menu>
+                            <Dropdown.Item><BoxArrowRight/> Open</Dropdown.Item>
+                            <Dropdown.Item><Pencil/> Edit Description</Dropdown.Item>
+                            <Dropdown.Item style={{color: "red"}} onClick={()=>removePantry(pantryObject.id)}><Trash3  /> Delete Pantry</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                    </div>
  
                     <header className="pantry-header">
                         <h2>{pantryObject.pantry_name}</h2>
@@ -88,18 +125,18 @@ function UserPantryPage(){
                             <Form onClick={(e)=>e.stopPropagation()}>
                                 <Form.Check type="switch"
                                             name={`${pantryObject.id}-${index}`}
-                                            checked={pantryObject.user_pantries[0].active}
+                                            checked={pantryObject && pantryObject.length > 0 ? pantryObject.user_pantries[0].active : null}
                                             onChange={handleActivatePantry}/>
                             </Form>
-                            <p>{pantryObject.user_pantries[0].active ? "Active" : "Inactive"}</p>
+                            <p>{pantryObject && pantryObject.length > 0 ? pantryObject.user_pantries[0].active ? "Active" : "Inactive" : null }</p>
                         </h3>
                     </header>
                     <section>
                         <p>{pantryObject.pantry_description}</p>
                     </section>
-            </RecipeCard>
-        )
-    })
+            </RecipeCard>)
+        
+    }) : null;
 
 
     return(

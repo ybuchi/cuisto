@@ -30,11 +30,11 @@
 }
 #pantry-page-titles{
     padding: 20px;
-    background-image: url("../Images/Backgrounds/pantry-bg.jpg");
+    /* background-image: url("../Images/Backgrounds/pantry-bg.jpg"); */
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    color: white;
+    /* color: white; */
 }
 .form-label{
     font-weight: bold;

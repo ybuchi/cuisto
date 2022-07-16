@@ -1,10 +1,17 @@
 class PantriesController < ApplicationController
-    before_action :find_pantry, only: [:show, :show_pantry_ingredients, :create_new_pantry_ingredient]
+    before_action :find_pantry, only: [:show, :show_pantry_ingredients, :create_new_pantry_ingredient, :destroy]
     def show
         render json: @pantry
     end
     def show_pantry_ingredients
         render json: @pantry.ingredients
+    end
+
+    def destroy
+        
+        @pantry.destroy
+        render json: @pantry
+
     end
 
     def create_new_pantry_ingredient
