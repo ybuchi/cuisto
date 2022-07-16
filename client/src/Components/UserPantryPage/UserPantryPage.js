@@ -9,6 +9,7 @@ import RecipeCard from "../RecipeCard/RecipeCard";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { ThreeDotsVertical } from "react-bootstrap-icons"
 
 function UserPantryPage(){
     const [userPantries, setUserPantries]= useFetchUserPantries();
@@ -80,7 +81,8 @@ function UserPantryPage(){
     console.log("Pantry Object", userPantries)
     const mappedPantries = userPantries.map((pantryObject, index)=>{
         return(
-            <RecipeCard key={pantryObject.id} pantryObject={pantryObject}>
+            <RecipeCard className="pantry-card" key={pantryObject.id} pantryObject={pantryObject}>
+                    <ThreeDotsVertical className="recipe-card-menu"/>
  
                     <header className="pantry-header">
                         <h2>{pantryObject.pantry_name}</h2>
