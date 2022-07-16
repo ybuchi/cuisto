@@ -3,7 +3,7 @@ import { Outlet, Link } from "react-router-dom";
 import { UserContext } from "../Contexts/UserContext";
 import "./IngredientDash.css";
 import { Container, Col, Row} from "react-bootstrap";
-import {CaretRight, HouseDoor, Basket, JournalRichtext, BookShelf, Bookshelf} from "react-bootstrap-icons";
+import {CaretRight, HouseDoor, Basket, JournalRichtext, BookShelf, Bookshelf, Search} from "react-bootstrap-icons";
 
 import useFetchUserPantries from "../CustomHooks/useFetchUserPantries";
 
@@ -82,7 +82,7 @@ function IngredientDash(){
                             <ul className={isOpen.recipe_library_acc ? "" : "no-display"}>
                                 <li>My Library</li>
                                 <li>My Recipes</li>
-                                <li>Browse Recipes</li>
+                                <li><Search/> Browse Recipes</li>
                                 <li>+ Add Recipe</li>
                             </ul> 
                                 
