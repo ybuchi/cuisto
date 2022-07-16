@@ -89,9 +89,9 @@ function NavBar(){
     }) : null
 
     const navLinks = isLoggedIn ? <Nav className="justify-content-end flex-grow-1 pe-3">
-                                    <Nav.Link href="/dashboard">Dashboard</Nav.Link>
-                                    <Nav.Link href="/browse-recipes">Browse Recipes</Nav.Link>
-                                    <Nav.Link href="/recipe-library">Library</Nav.Link>
+                                    <Nav.Link href="/home">Home</Nav.Link>
+                                    <Nav.Link href="/home/recipes">Recipes</Nav.Link>
+                                    {/* <Nav.Link href="/recipe-library">Shopping List</Nav.Link> */}
                                     <SplitButton variant="outline-secondary" title="Pantries" onClick={()=> navigate("/pantries")}>
                                       <Dropdown.Header>Active</Dropdown.Header>
                                         {mappedActivePantries}
@@ -125,7 +125,7 @@ function NavBar(){
 
     return(
         //Have a conditional statement to render a different NavBar based on whether a user is signed in. 
-        <Navbar  id="user-nav" bg="light" expand={"sm"}>
+    <Navbar  id="user-nav" bg="light" expand={"sm"}>
       <Container fluid>
         <Navbar.Brand href="/"><img id="nav-logo" src={logo} alt="logo"/></Navbar.Brand>
         <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${"sm"}`} />

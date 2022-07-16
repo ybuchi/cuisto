@@ -48,7 +48,7 @@ function App() {
           <Route path="pantries/:pantry_id" element={<PantryPage/>}/>
 
           <Route path="home" element={<IngredientDash/>}>
-            <Route index element={<UserPantryPage/>}/>
+            <Route index element={<UserDashboard/>}/>
             <Route path="pantries" element={<UserPantryPage/>}/>
             <Route path="pantries/:pantry_id" element={<PantryPage/>}/>
           </Route>

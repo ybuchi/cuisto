@@ -20,16 +20,18 @@
     font-size: 18px;
 }
 #ing{
-    margin: 0px;   
+    margin-right: 0px;
+    margin-left: 0px;
 }
 #ing-sb{
     padding-top: 15px;
     background-color: #DCD7C9;
-    height: 100%;
-    z-index: 1;
+    width: 200px;
+    z-index: 0;
     bottom: 0;
     left:0;
     overflow-x: hidden;
+    border-right: solid black 1px;
 
 }
 
@@ -39,6 +41,9 @@
     margin-left: 15px;
     margin-top: 10px;
     margin-bottom: 10px;
+}
+#action-page{
+    padding: 0;
 }
 #ing-sb a{
     text-decoration: none;

@@ -36,9 +36,9 @@ function IngredientDash(){
     })
 
     return(
-        <Container id="ing">
+        <div id="ing">
             <Row>
-                <Col id="ing-sb" lg={2}>
+                <Col id="ing-sb" lg={3}>
                     <div id="sb-meta">
                         <div id="profile-pic" style={{backgroundImage: `url(${user.profile_picture})`}}/>
                         <h4>{user.first_name}</h4>
@@ -48,7 +48,7 @@ function IngredientDash(){
                         {/* Home Accordion */}
                         <li>
                             <HouseDoor className="side-icon"/>
-                            <span><Link to="home">Home</Link></span>
+                            <span><Link to="/home">Home</Link></span>
                             
                             <CaretRight style={{visibility:"hidden"}}/>
                         </li>
@@ -100,11 +100,11 @@ function IngredientDash(){
                         </li>
                     </ul>
                 </Col>
-                <Col>
+                <Col id="action-page">
                     <Outlet/>
                 </Col>
             </Row>
-        </Container>
+        </div>
         
     )
 }

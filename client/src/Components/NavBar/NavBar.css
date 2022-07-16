@@ -5,4 +5,5 @@
 #user-nav{
     margin-bottom: 0px;
     z-index: 2;
+    border-bottom: 2px solid black;
 }
