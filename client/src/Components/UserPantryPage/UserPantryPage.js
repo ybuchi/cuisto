@@ -9,7 +9,8 @@ import RecipeCard from "../RecipeCard/RecipeCard";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { ThreeDotsVertical } from "react-bootstrap-icons"
+import { ButtonGroup, Dropdown } from "react-bootstrap";
+import { ThreeDotsVertical, Trash3, BoxArrowRight, Pencil } from "react-bootstrap-icons"
 
 function UserPantryPage(){
     const [userPantries, setUserPantries]= useFetchUserPantries();
@@ -78,11 +79,31 @@ function UserPantryPage(){
             }))
         })
     }
+    //Function to reveal the menu when a user clicks on a pantry
+    function revealMenu(e){
+        e.stopPropagation();
+        console.log("RevealMenu!")
+    }
+
+   
     console.log("Pantry Object", userPantries)
     const mappedPantries = userPantries.map((pantryObject, index)=>{
         return(
             <RecipeCard className="pantry-card" key={pantryObject.id} pantryObject={pantryObject}>
-                    <ThreeDotsVertical className="recipe-card-menu"/>
+                    <div className="recipe-dd">
+
+                   
+                    <Dropdown  as={ButtonGroup} onClick={e=>e.stopPropagation()}>
+                        <Dropdown.Toggle  className="recipe-card-menu" as={ThreeDotsVertical}  />
+                            
+                            {/* <ThreeDotsVertical className="recipe-card-menu" onClick={revealMenu}/> */}
+                        <Dropdown.Menu>
+                            <Dropdown.Item><BoxArrowRight/> Open</Dropdown.Item>
+                            <Dropdown.Item><Pencil/> Edit Description</Dropdown.Item>
+                            <Dropdown.Item><Trash3/> Delete Pantry</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                    </div>
  
                     <header className="pantry-header">
                         <h2>{pantryObject.pantry_name}</h2>
