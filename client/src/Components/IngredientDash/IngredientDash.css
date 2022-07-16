@@ -16,7 +16,8 @@
     display: none;
 }
 .side-icon{
-    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 18px;
 }
 #ing{
     margin: 0px;   
@@ -34,7 +35,7 @@
 
 #ing-sb li{
     list-style: none;
-    text-align: right;
+    text-align: left;
     margin-left: 15px;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -42,6 +43,9 @@
 #ing-sb a{
     text-decoration: none;
     color: black;
+}
+#ing-sb span{
+    font-size: 18px;
 }
 #ing-sb ul{
     padding: 0;

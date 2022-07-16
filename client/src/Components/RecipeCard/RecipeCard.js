@@ -7,6 +7,7 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import { CheckCircleFill, XCircleFill } from "react-bootstrap-icons";
 import useComparePantryToRecipe from "../CustomHooks/useComparePantryToRecipe";
 import useRecommendRecipeInPantry from "../CustomHooks/useRecommendRecipeInPantry";
 
@@ -49,10 +50,10 @@ function RecipeCard(props){
                     console.log("RecipeObj", recipeObject);
                     return(
                         <div className="rec-recipe" key={recipeObject.id}>
-                            <p>
-                                <img className="rec-recipe-img" src={recipeObject.image} alt={recipeObject.recipe_name}/>
-                                <strong>{`${recipeObject.recipe_name}: `}</strong>{recipeObject.included_pantry_ingredients.length} ingredients in the pantry, {recipeObject.number_of_missing_ingredients} missing ingredients
-                            </p>
+                            <div>
+                                <div className="rec-recipe-div" style={{backgroundImage: `url(${recipeObject.image})`}}/>
+                                <strong>{`${recipeObject.recipe_name}: `}</strong>{recipeObject.included_pantry_ingredients.length > 0 ? <CheckCircleFill style={{color: "green"}}/> : null}{recipeObject.included_pantry_ingredients.length} ingredients | {recipeObject.number_of_missing_ingredients > 0 ? <XCircleFill style={{color: "red"}}/> : null}{recipeObject.number_of_missing_ingredients} ingredients
+                            </div>
                         </div>
                     )
                 })
@@ -75,6 +76,7 @@ function RecipeCard(props){
                 <>
                 <div id="rec-recipes-container">
                     <p className="rec-recipe-sec-label">Recommended Recipes: </p>
+                    <hr/>
 
                         {mapRecommendedRecipes()}
 

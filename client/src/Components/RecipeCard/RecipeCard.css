@@ -57,9 +57,17 @@
     display: inline-block;
     margin-right: 20px;
   }
+  .rec-recipe-div{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-position: center;
+    background-size: contain;
+    display: inline-block;
+  }
   .rec-recipe-sec-label{
     text-align: left;
-    font-size: 30px;
+    font-size: 20px;
   }
   
   /* Animations to fade the snackbar in and out */

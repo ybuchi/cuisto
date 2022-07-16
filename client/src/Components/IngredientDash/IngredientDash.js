@@ -29,7 +29,9 @@ function IngredientDash(){
     //Map out a user's pantries in the sidebar
     const mappedPantryList = userPantries.map(pantryObject => {
         return(
-            <li><Link to={`pantries/${pantryObject.id}`}>{pantryObject.pantry_name}</Link></li>
+            <li>
+                <Link to={`pantries/${pantryObject.id}`}>{pantryObject.pantry_name}</Link>
+            </li>
         )
     })
 
@@ -45,16 +47,18 @@ function IngredientDash(){
                     <ul>
                         {/* Home Accordion */}
                         <li>
-                            <span><Link to="home">Home</Link></span>
                             <HouseDoor className="side-icon"/>
+                            <span><Link to="home">Home</Link></span>
+                            
                             <CaretRight style={{visibility:"hidden"}}/>
-
                         </li>
+                        <hr/>
 
                         {/* Pantries Accordion */}
                         <li>
-                            <span><Link to="/home/pantries">Pantries <strong>({userPantries.length})</strong></Link></span>
                             <Bookshelf className="side-icon"/>
+                            <span><Link to="/home/pantries">Pantries <strong>({userPantries.length})</strong></Link></span>
+                            
                             <CaretRight id="pantries_acc"
                                         className={isOpen.pantries_acc ? "open" : "closed"}
                                         onClick={expandAccordion}/>
@@ -65,11 +69,12 @@ function IngredientDash(){
                                 <li>+ Add Pantry</li>
                             </ul> 
                         </li>
-
+                        <hr/>
                         {/* Recipe Library Accordion */}
                         <li>
-                            <span><Link to="home">Recipes</Link></span>
                             <JournalRichtext className="side-icon"/>
+                            <span><Link to="home">Recipes</Link></span>
+                            
                             <CaretRight id="recipe_library_acc"
                                         className={isOpen.recipe_library_acc ? "open" : "closed"}
                                         onClick={expandAccordion}/>
@@ -82,11 +87,13 @@ function IngredientDash(){
                             </ul> 
                                 
                         </li>
+                        <hr/>
 
                         {/* Shopping List Accordion */}
                         <li>
-                            <span><Link to="home">Shopping List</Link></span> 
                             <Basket className="side-icon" />
+                            <span><Link to="home">Shopping List</Link></span> 
+                            
                             <CaretRight id="shopping_list_acc"
                                         className={isOpen.shopping_list_acc ? "open" : "closed"}
                                         onClick={expandAccordion}/>
