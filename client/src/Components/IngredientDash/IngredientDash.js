@@ -80,8 +80,8 @@ function IngredientDash(){
                                         onClick={expandAccordion}/>
 
                             <ul className={isOpen.recipe_library_acc ? "" : "no-display"}>
-                                <li>My Library</li>
-                                <li>My Recipes</li>
+                                <li><Link to="library">My Library</Link> </li>
+                                {/* <li><Link to="recipes">My Recipes</Link></li> */}
                                 <li><Search/> Browse Recipes</li>
                                 <li>+ Add Recipe</li>
                             </ul> 
