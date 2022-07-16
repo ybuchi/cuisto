@@ -85,9 +85,23 @@ function UserPantryPage(){
         console.log("RevealMenu!")
     }
 
+    function removePantry(pantry_id){
+
+        const configObj = {
+            method: "DELETE"
+        }
+
+        fetch(`/pantries/${pantry_id}`, configObj)
+        .then(res => res.json())
+        .then(() => setUserPantries(userPantries.map(pantryObject => {
+            return pantryObject.id === pantry_id ? false : true;
+        })))
+    }
+
    
     console.log("Pantry Object", userPantries)
     const mappedPantries = userPantries.map((pantryObject, index)=>{
+        console.log("Pantry Object:", pantryObject)
         return(
             <RecipeCard className="pantry-card" key={pantryObject.id} pantryObject={pantryObject}>
                     <div className="recipe-dd">
@@ -100,7 +114,7 @@ function UserPantryPage(){
                         <Dropdown.Menu>
                             <Dropdown.Item><BoxArrowRight/> Open</Dropdown.Item>
                             <Dropdown.Item><Pencil/> Edit Description</Dropdown.Item>
-                            <Dropdown.Item><Trash3/> Delete Pantry</Dropdown.Item>
+                            <Dropdown.Item style={{color: "red"}} onClick={()=>removePantry(pantryObject.id)}><Trash3  /> Delete Pantry</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
                     </div>
@@ -111,10 +125,10 @@ function UserPantryPage(){
                             <Form onClick={(e)=>e.stopPropagation()}>
                                 <Form.Check type="switch"
                                             name={`${pantryObject.id}-${index}`}
-                                            checked={pantryObject.user_pantries[0].active}
+                                            checked={pantryObject && pantryObject.length > 0 ? pantryObject.user_pantries[0].active : null}
                                             onChange={handleActivatePantry}/>
                             </Form>
-                            <p>{pantryObject.user_pantries[0].active ? "Active" : "Inactive"}</p>
+                            <p>{pantryObject && pantryObject.length > 0 ? pantryObject.user_pantries[0].active ? "Active" : "Inactive" : null}</p>
                         </h3>
                     </header>
                     <section>

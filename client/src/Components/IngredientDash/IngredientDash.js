@@ -38,7 +38,7 @@ function IngredientDash(){
     return(
         <div id="ing">
             <Row id="ing-row">
-                <Col id="ing-sb" lg={3}>
+                <Col id="ing-sb" lg={4}>
                     <div id="sb-meta">
                         <div id="profile-pic" style={{backgroundImage: `url(${user.profile_picture})`}}/>
                         <h4>{user.first_name}</h4>
@@ -48,7 +48,7 @@ function IngredientDash(){
                         {/* Home Accordion */}
                         <li>
                             <HouseDoor className="side-icon"/>
-                            <span><Link to="/home">Home</Link></span>
+                            <span><strong><Link to="/home">Home</Link></strong></span>
                             
                             <CaretRight style={{visibility:"hidden"}}/>
                         </li>
@@ -57,7 +57,7 @@ function IngredientDash(){
                         {/* Pantries Accordion */}
                         <li>
                             <Bookshelf className="side-icon"/>
-                            <span><Link to="/home/pantries">Pantries <strong>({userPantries.length})</strong></Link></span>
+                            <span><strong><Link to="/home/pantries">Pantries </Link></strong></span><span style={{fontStyle: "italic"}}>{userPantries.length}</span>
                             
                             <CaretRight id="pantries_acc"
                                         className={isOpen.pantries_acc ? "open" : "closed"}
@@ -73,7 +73,7 @@ function IngredientDash(){
                         {/* Recipe Library Accordion */}
                         <li>
                             <JournalRichtext className="side-icon"/>
-                            <span><Link to="home">Recipes</Link></span>
+                            <span><strong><Link to="home">Recipes</Link></strong></span>
                             
                             <CaretRight id="recipe_library_acc"
                                         className={isOpen.recipe_library_acc ? "open" : "closed"}
@@ -92,7 +92,7 @@ function IngredientDash(){
                         {/* Shopping List Accordion */}
                         <li>
                             <Basket className="side-icon" />
-                            <span><Link to="home">Shopping List</Link></span> 
+                            <span><strong><Link to="home">Shopping List</Link></strong></span> 
                             
                             <CaretRight id="shopping_list_acc"
                                         className={isOpen.shopping_list_acc ? "open" : "closed"}

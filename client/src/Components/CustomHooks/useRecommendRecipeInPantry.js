@@ -6,7 +6,7 @@ function useRecommendRecipeInPantry(pantryObject){
     console.log("USER LIBRARY: ", userLibrary)
 
     //If a props.pantryObjet exists and was passed
-    if (pantryObject){
+    if (pantryObject && pantryObject.ingredients){
 
         //Ingredients located in the pantry
        const pantryIngredients = pantryObject.ingredients

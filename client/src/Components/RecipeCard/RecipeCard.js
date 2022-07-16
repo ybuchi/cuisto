@@ -49,11 +49,17 @@ function RecipeCard(props){
                 const recRecipes = recommendedRecipesArray.map(recipeObject=>{
                     console.log("RecipeObj", recipeObject);
                     return(
-                        <div className="rec-recipe" key={recipeObject.id}>
-                            <div>
-                                <div className="rec-recipe-div" style={{backgroundImage: `url(${recipeObject.image})`}}/>
-                                <strong>{`${recipeObject.recipe_name}: `}</strong>{recipeObject.included_pantry_ingredients.length > 0 ? <CheckCircleFill style={{color: "green"}}/> : null}{recipeObject.included_pantry_ingredients.length} ingredients | {recipeObject.number_of_missing_ingredients > 0 ? <XCircleFill style={{color: "red"}}/> : null}{recipeObject.number_of_missing_ingredients} ingredients
-                            </div>
+                        <div style={{textAlign: "center"}} className="rec-recipe" key={recipeObject.id}>
+                                <div  className="rec-recipe-div" style={{backgroundImage: `url(${recipeObject.image})`}}/>
+                                <div>
+                                    <p style={{textAlign: "center", marginBottom: "0"}}><strong >{`${recipeObject.recipe_name}`}</strong></p>
+                                    <p style={{textAlign: "center", marginBottom: "0"}}>
+                                        {recipeObject.included_pantry_ingredients.length > 0 ? <CheckCircleFill style={{color: "green"}}/> : null}{' '}{recipeObject.included_pantry_ingredients.length} ingredients
+                                    </p>
+                                    <p style={{textAlign: "center", marginBottom: "0"}}>
+                                        {recipeObject.number_of_missing_ingredients > 0 ? <XCircleFill style={{color: "red"}}/> : null}{' '}{recipeObject.number_of_missing_ingredients} ingredients
+                                     </p>
+                                </div>
                         </div>
                     )
                 })

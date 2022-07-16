@@ -51,6 +51,11 @@
   }
   .rec-recipe{
     text-align: left;
+    display: inline-block;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: 10px;
+    margin-rigth: 10px;
   }
   .rec-recipe-img{
     height: 50px;

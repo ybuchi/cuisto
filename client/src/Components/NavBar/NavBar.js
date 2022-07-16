@@ -72,7 +72,7 @@ function NavBar(){
         })
     }
 
-    const mappedActivePantries = userPantries || userPantries.length > 0 ? userPantries.filter(pantryObject => pantryObject.user_pantries[0].active).map(activePantryObj => {
+    const mappedActivePantries = userPantries && userPantries.length > 0 ? userPantries.filter(pantryObject => pantryObject && pantryObject.user_pantries ? pantryObject.user_pantries[0].active : null).map(activePantryObj => {
       return(
         <Dropdown.Item key={activePantryObj.id} name={`${activePantryObj.id}`} onClick={handleInactivatePantry}>
           {activePantryObj.pantry_name}
@@ -80,7 +80,7 @@ function NavBar(){
       )
     }) : null
 
-    const mappedInactivePantries = userPantries || userPantries.length > 0 ? userPantries.filter(pantryObj => !pantryObj.user_pantries[0].active).map(inactivePantryObj=>{
+    const mappedInactivePantries = userPantries && userPantries.length > 0 ? userPantries.filter(pantryObj => pantryObj && pantryObj.user_pantries ? !pantryObj.user_pantries[0].active : null).map(inactivePantryObj=>{
       return(
         <Dropdown.Item key={inactivePantryObj.id} name={`${inactivePantryObj.id}`} onClick={handleActivatePantry}>
           {inactivePantryObj.pantry_name}
