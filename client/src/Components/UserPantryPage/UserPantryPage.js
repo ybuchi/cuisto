@@ -100,9 +100,9 @@ function UserPantryPage(){
 
    
     console.log("Pantry Object", userPantries)
-    const mappedPantries = userPantries.map((pantryObject, index)=>{
-        console.log("Pantry Object:", pantryObject)
-        return(
+    const mappedPantries = userPantries ? userPantries.map((pantryObject, index)=>{
+            // console.log(pantryObject.pantry_users[0].active)
+            return(
             <RecipeCard className="pantry-card" key={pantryObject.id} pantryObject={pantryObject}>
                     <div className="recipe-dd">
 
@@ -128,15 +128,15 @@ function UserPantryPage(){
                                             checked={pantryObject && pantryObject.length > 0 ? pantryObject.user_pantries[0].active : null}
                                             onChange={handleActivatePantry}/>
                             </Form>
-                            <p>{pantryObject && pantryObject.length > 0 ? pantryObject.user_pantries[0].active ? "Active" : "Inactive" : null}</p>
+                            <p>{pantryObject && pantryObject.length > 0 ? pantryObject.user_pantries[0].active ? "Active" : "Inactive" : null }</p>
                         </h3>
                     </header>
                     <section>
                         <p>{pantryObject.pantry_description}</p>
                     </section>
-            </RecipeCard>
-        )
-    })
+            </RecipeCard>)
+        
+    }) : null;
 
 
     return(
