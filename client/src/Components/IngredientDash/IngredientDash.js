@@ -37,7 +37,7 @@ function IngredientDash(){
 
     return(
         <div id="ing">
-            <Row>
+            <Row id="ing-row">
                 <Col id="ing-sb" lg={3}>
                     <div id="sb-meta">
                         <div id="profile-pic" style={{backgroundImage: `url(${user.profile_picture})`}}/>

@@ -22,6 +22,11 @@
 #ing{
     margin-right: 0px;
     margin-left: 0px;
+    padding:0; 
+}
+#ing-row{
+    width: 100%;
+    margin: 0;
 }
 #ing-sb{
     padding-top: 15px;
