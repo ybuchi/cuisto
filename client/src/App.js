@@ -49,6 +49,7 @@ function App() {
             <Route path="pantries/:pantry_id" element={<PantryPage/>}/>
             <Route path="library" element={<RecipeLibraryPage/>}/>
             <Route path="library/:recipe_id" element={<RecipePage />}/>
+            <Route path="browse-recipes" element={<PublicRecipesPage/>}/>
           </Route>
 
           <Route path="clubs" element={<ClubsPage/>}/>

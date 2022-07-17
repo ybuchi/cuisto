@@ -47,9 +47,9 @@ function RecipeLibraryPage(){
     return(
         <>
         <article id="recipe-library">
-            <header className="title-header-rec-lib">
-                <h1>Library</h1>
-            </header>
+            
+            <h1 style={{color: "black", margin: "30px 15px 30px 15px", fontSize: "90px", fontFamily: "'Vibur', cursive"}}>Library</h1>
+            <hr/>
 
             <article>
                 <p>Feeling Inspired? <span><Link to="/new-recipe">Create a New Recipe</Link></span> and share it with the world!</p>
@@ -60,7 +60,7 @@ function RecipeLibraryPage(){
             <section>
                 <Container>
                 <p>You have <strong style={{fontSize: "30px"}}>{mappedRecipeCards.length}</strong> recipes.</p>
-                    <hr/>
+
                     <Row>
                         {mappedRecipeCards}
                     </Row>

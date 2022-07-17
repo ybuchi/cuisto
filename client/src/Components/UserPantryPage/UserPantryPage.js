@@ -146,7 +146,7 @@ function UserPantryPage(){
         <Container style={{margin: "0"}}>
             <Row>
                 <Col>
-                    <h1 style={{color: "gray", margin: "30px 15px 30px 15px", fontSize: "90px", fontFamily: "'Vibur', cursive"}}>Pantries</h1>
+                    <h1 style={{color: "black", margin: "30px 15px 30px 15px", fontSize: "90px", fontFamily: "'Vibur', cursive"}}>Pantries</h1>
                     <hr/>
                     <Button id="add-pantry-button" variant="secondary" onClick={() => setShow(true)}><strong>+</strong> Add new Pantry</Button>
                     {mappedPantries}

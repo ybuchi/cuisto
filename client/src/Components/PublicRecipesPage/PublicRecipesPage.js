@@ -89,9 +89,9 @@ function PublicRecipesPage(){
     return(
         <>
         <article id="public-recipe-page">
-            <div className="article-header">
-                <h1>Browse Recipes</h1>
-            </div>
+
+                <h1 style={{color: "black", margin: "30px 15px 30px 15px", fontSize: "90px", fontFamily: "'Vibur', cursive"}}>Browse Recipes</h1>
+
 
             <Container>
                 {mappedRecipes}
