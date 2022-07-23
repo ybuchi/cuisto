@@ -8,6 +8,8 @@ import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import { UserContext } from "../Contexts/UserContext";
 import useFetchUserLibrary from "../CustomHooks/useFetchUserRecipes";
+import quill from "../Images/Logos/quill.png";
+import { StopwatchFill, Globe } from "react-bootstrap-icons";
 
 function PublicRecipesPage(){
     const { user } = useContext(UserContext)
@@ -53,36 +55,33 @@ function PublicRecipesPage(){
         }
 
         return(
+        <Col md={4}>
         <RecipeCard key={recipeObject.id} recipeObject={recipeObject}>
             <div className="recipe-card-content">
             {recipeIsInLibrary() ? <p style={{fontStyle : "italic"}}>Recipe Is In Library</p> : <Button onClick={(e)=>handleAddToLibrary(e, recipeObject)}><strong>+</strong> Add To Library</Button>}
             <hr/>
             <Row>
-                <Col md={3}>
-                    <header>
-                        <h3>{recipeObject.recipe_name}</h3>
-                    </header>
+                <Col md={12}>
+                    <div className="recipe-img" style={{backgroundImage: `url(${recipeObject.image})`, margin: "auto"}}/>      
                 </Col>
-                <Col md={3}>
-                    <p>Cuisine:</p>
-                    <p>{recipeObject.cuisine}</p>
+                <Col md={6}>
+
+                    <p><Globe/> {recipeObject.cuisine}</p>
                 </Col>
-                <Col md={2}>
-                    <p>Diet:</p>
+                <Col md={6}>
                     <p>{recipeObject.diet}</p>
                 </Col>
-                <Col md={2}>
-                    <p>Cooking Time (min):</p>
-                    <p>{recipeObject.time_to_cook_min}</p>
+                <Col md={6}>
+                    <p><StopwatchFill className="pr-icon"/> {recipeObject.time_to_cook_min}</p>
                 </Col>
-                <Col md={2}>
-                    <p>Author:</p>
-                    <p>{recipeObject.author}</p>
+                <Col md={6}>
+                    <p> <img src={quill} alt="author" className='pr-icon'/> {recipeObject.author}</p>
                 </Col>
             </Row>
             </div>
             <hr/>
-        </RecipeCard>)
+        </RecipeCard>
+        </Col>)
         
     })
 
@@ -90,11 +89,14 @@ function PublicRecipesPage(){
         <>
         <article id="public-recipe-page">
 
-                <h1 style={{color: "black", margin: "30px 15px 30px 15px", fontSize: "90px", fontFamily: "'Vibur', cursive"}}>Browse Recipes</h1>
+                <h1 style={{color: "black", margin: "30px 15px 30px 15px", fontSize: "90px", fontFamily: "'Vibur', cursive"}}>Explore Recipes</h1>
 
 
             <Container>
+                <Row>
                 {mappedRecipes}
+                </Row>
+                
             </Container>
         </article>
         </>

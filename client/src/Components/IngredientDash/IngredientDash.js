@@ -73,7 +73,7 @@ function IngredientDash(){
                         {/* Recipe Library Accordion */}
                         <li>
                             <JournalRichtext className="side-icon"/>
-                            <span><strong><Link to="library">Recipes</Link></strong></span>
+                            <span><strong><Link to="library">Library</Link></strong></span>
                             
                             <CaretRight id="recipe_library_acc"
                                         className={isOpen.recipe_library_acc ? "open" : "closed"}
@@ -83,7 +83,7 @@ function IngredientDash(){
                                 <li><Link to="library">My Library</Link> </li>
                                 {/* <li><Link to="recipes">My Recipes</Link></li> */}
                                 <li><Link to="browse-recipes"> <Search/> Browse Recipes</Link></li>
-                                <li>+ Add Recipe</li>
+                                <li>+ Create Recipe</li>
                             </ul> 
                                 
                         </li>

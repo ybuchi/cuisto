@@ -16,14 +16,19 @@
 
 .missing-ingredients{
   text-align: left;
-  padding: 5px;
+  font-size: 10px;
+  text-decoration: underline;
 }
 
 #rec-recipes-container{
   padding: 20px;
 }
 #missing-pantry-ing{
-  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #D7E9F7;
 }
 
 

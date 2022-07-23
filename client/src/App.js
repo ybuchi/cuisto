@@ -50,6 +50,7 @@ function App() {
             <Route path="library" element={<RecipeLibraryPage/>}/>
             <Route path="library/:recipe_id" element={<RecipePage />}/>
             <Route path="browse-recipes" element={<PublicRecipesPage/>}/>
+            <Route path="browse-recipes/:recipe_id" element={<RecipePage/>}/>
           </Route>
 
           <Route path="clubs" element={<ClubsPage/>}/>
