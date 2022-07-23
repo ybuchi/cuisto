@@ -47,6 +47,10 @@ function App() {
             <Route index element={<UserDashboard/>}/>
             <Route path="pantries" element={<UserPantryPage/>}/>
             <Route path="pantries/:pantry_id" element={<PantryPage/>}/>
+            <Route path="library" element={<RecipeLibraryPage/>}/>
+            <Route path="library/:recipe_id" element={<RecipePage />}/>
+            <Route path="browse-recipes" element={<PublicRecipesPage/>}/>
+            <Route path="browse-recipes/:recipe_id" element={<RecipePage/>}/>
           </Route>
 
           <Route path="clubs" element={<ClubsPage/>}/>

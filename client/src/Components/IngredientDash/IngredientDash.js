@@ -3,7 +3,7 @@ import { Outlet, Link } from "react-router-dom";
 import { UserContext } from "../Contexts/UserContext";
 import "./IngredientDash.css";
 import { Container, Col, Row} from "react-bootstrap";
-import {CaretRight, HouseDoor, Basket, JournalRichtext, BookShelf, Bookshelf} from "react-bootstrap-icons";
+import {CaretRight, HouseDoor, Basket, JournalRichtext, BookShelf, Bookshelf, Search} from "react-bootstrap-icons";
 
 import useFetchUserPantries from "../CustomHooks/useFetchUserPantries";
 
@@ -73,17 +73,17 @@ function IngredientDash(){
                         {/* Recipe Library Accordion */}
                         <li>
                             <JournalRichtext className="side-icon"/>
-                            <span><strong><Link to="home">Recipes</Link></strong></span>
+                            <span><strong><Link to="library">Library</Link></strong></span>
                             
                             <CaretRight id="recipe_library_acc"
                                         className={isOpen.recipe_library_acc ? "open" : "closed"}
                                         onClick={expandAccordion}/>
 
                             <ul className={isOpen.recipe_library_acc ? "" : "no-display"}>
-                                <li>My Library</li>
-                                <li>My Recipes</li>
-                                <li>Browse Recipes</li>
-                                <li>+ Add Recipe</li>
+                                <li><Link to="library">My Library</Link> </li>
+                                {/* <li><Link to="recipes">My Recipes</Link></li> */}
+                                <li><Link to="browse-recipes"> <Search/> Browse Recipes</Link></li>
+                                <li>+ Create Recipe</li>
                             </ul> 
                                 
                         </li>

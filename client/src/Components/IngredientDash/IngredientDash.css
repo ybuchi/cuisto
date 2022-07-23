@@ -23,6 +23,7 @@
     margin-right: 0px;
     margin-left: 0px;
     padding:0; 
+    font-family: "Libre Baskerville", serif;
 }
 #ing-row{
     width: 100%;
@@ -31,7 +32,7 @@
 #ing-sb{
     padding-top: 15px;
     background-color: #DCD7C9;
-    width: 210px;
+    width: 220px;
     z-index: 0;
     bottom: 0;
     left:0;

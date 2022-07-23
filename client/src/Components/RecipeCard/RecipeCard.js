@@ -29,11 +29,28 @@ function RecipeCard(props){
 
     // For RecipeCards showing recipe information (as opposed to Pantry information)
     const missingIngredientsArray = useComparePantryToRecipe(props.recipeObject);
+
     const mapPantriesWithMissingIngredients = missingIngredientsArray ? missingIngredientsArray.map(pantry => {
-        const mappedMissingIngr = pantry.missing_ingredients.map((ingredient, index) => {return index === pantry.missing_ingredients.length - 1 ? <strong key={index}>{ ingredient } </strong> : <strong key={index}>{ ingredient }, </strong> })
+        const mappedMissingIngr = pantry.missing_ingredients.map((ingredient, index) => {return index === pantry.missing_ingredients.length - 1 ? <li key={index}><XCircleFill style={{color: "red"}}/> <strong>{ ingredient }</strong> </li> : <li key={index}><XCircleFill style={{color: "red"}}/> <strong>{ ingredient }, </strong></li> })
         return(
             <div id="missing-pantry-ing">
-                {mappedMissingIngr.length > 0 ? <p className="missing-ingredients" key={pantry.pantry_id}><strong>{pantry.pantry_name}</strong> pantry : <strong>{mappedMissingIngr.length}</strong> ingredients missing ({mappedMissingIngr})</p> : <p className="missing-ingredients" key={pantry.pantry_id}><strong>{pantry.pantry_name}</strong> has all the ingredients!</p>}
+                {mappedMissingIngr.length > 0 ?
+                <>
+                    <ul style={{listStyle : "none", textAlign: "left", fontSize: "10px"}}>
+                        <p className="missing-ingredients" key={pantry.pantry_id}>
+                            <strong>{pantry.pantry_name}</strong> Pantry (<strong>{mappedMissingIngr.length}</strong> missing) :
+                        </p>
+                        {mappedMissingIngr}
+                    </ul>
+                     <p >
+                        
+                        
+                    </p>
+                    <p className="missing-ingredients">
+                        
+                    </p>
+                </>
+                    : <p className="missing-ingredients" key={pantry.pantry_id}><CheckCircleFill/><strong>{pantry.pantry_name}</strong> has all the ingredients!</p>}
             </div>
         )
     }) : null
@@ -123,7 +140,7 @@ function RecipeCard(props){
 
     function goToRecipePage(){
         if (props.recipeObject){
-            navigate(`${props.recipeObject.id}`)
+            navigate(`/home/browse-recipes/${props.recipeObject.id}`)
         }else if(props.pantryObject){
             navigate(`${props.pantryObject.id}`)
         }else if(props.ingredientObject){

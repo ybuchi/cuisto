@@ -156,7 +156,7 @@ console.log("RecipeData", recipeData)
                 <Container className="recipe-meta">
                     <Row>
                         <Col>
-                            <Button variant="secondary" href="/recipe-library"><ArrowLeftCircle/> Back to Recipe Library</Button>
+                            <Button variant="secondary" href="/home/library"><ArrowLeftCircle/> Back to Recipe Library</Button>
                             {recipeData.author === user.username ? <Button className="nav-button" variant="secondary" onClick={handleEditRecipe}>Edit Recipe <PencilSquare/></Button> : null }
                             
                             <h1 id="recipe-title" className="title-label-rp"><span>{recipeData.recipe_name}</span></h1>

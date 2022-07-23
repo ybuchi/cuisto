@@ -107,7 +107,7 @@ console.log("PantryIngredients", pantryIngredients);
         <section id="pantry-page">
         <article>
             <header id="pantry-page-titles">
-                <h1>{pantryData ? pantryData.pantry_name :  "Loading..."}</h1>
+                <h1 style={{color: "black", margin: "30px 15px 30px 15px", fontSize: "90px", fontFamily: "'Vibur', cursive"}}>{pantryData ? pantryData.pantry_name :  "Loading..."}</h1>
                 <h3>{pantryData ? pantryData.pantry_description : "Loading..." }</h3>
             </header>
             <section>
