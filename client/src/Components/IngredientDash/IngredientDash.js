@@ -1,5 +1,5 @@
 import { React, useContext, useState } from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useLocation} from "react-router-dom";
 import { UserContext } from "../Contexts/UserContext";
 import "./IngredientDash.css";
 import { Container, Col, Row} from "react-bootstrap";
@@ -12,6 +12,11 @@ function IngredientDash(){
     const {user} = useContext(UserContext);
     const [userPantries, setUserPantires] = useFetchUserPantries();
     console.log("userPantries", userPantries)
+
+    //This is used to grab the dynamic parts of the URL so we can conditionally style the sidebar based on the current path
+    let location = useLocation();
+    let pathname = location.pathname 
+    console.log(location);
 
     //Create a state for the accordions in the sidebar
     const [ isOpen, setIsOpen ] = useState({
@@ -57,7 +62,7 @@ function IngredientDash(){
                         {/* Pantries Accordion */}
                         <li>
                             <Bookshelf className="side-icon"/>
-                            <span><strong><Link to="/home/pantries">Pantries </Link></strong></span><span style={{fontStyle: "italic"}}>{userPantries.length}</span>
+                            <span><strong><Link to="/home/pantries">Pantries </Link></strong></span><span style={{fontStyle: "italic" }}>{userPantries.length}</span>
                             
                             <CaretRight id="pantries_acc"
                                         className={isOpen.pantries_acc ? "open" : "closed"}
