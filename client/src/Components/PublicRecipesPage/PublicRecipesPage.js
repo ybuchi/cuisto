@@ -58,23 +58,26 @@ function PublicRecipesPage(){
         <Col md={4}>
         <RecipeCard key={recipeObject.id} recipeObject={recipeObject}>
             <div className="recipe-card-content">
-            {recipeIsInLibrary() ? <p style={{fontStyle : "italic"}}>Recipe Is In Library</p> : <Button onClick={(e)=>handleAddToLibrary(e, recipeObject)}><strong>+</strong> Add To Library</Button>}
+            {recipeIsInLibrary() ? <p id="library-lbl" style={{fontStyle : "italic"}}>Recipe Is In Library</p> : <Button onClick={(e)=>handleAddToLibrary(e, recipeObject)}><strong>+</strong> Add To Library</Button>}
             <hr/>
-            <Row>
-                <Col md={12}>
-                    <div className="recipe-img" style={{backgroundImage: `url(${recipeObject.image})`, margin: "auto"}}/>      
-                </Col>
-                <Col md={6}>
+            <Row style={{backgroundImage: `url(${recipeObject.image})`, margin: "auto", backgroundPosition : "center", backgroundSize: "cover", height: "250px", width : "300px", padding: "10px", position:"relative"}}>
 
+                <div className="name-label">{recipeObject.recipe_name}</div>
+
+                
+            </Row>
+            <Row style={{textAlign: "left", margin: "10px"}}>
+                <Col sm={12} md={6}>
                     <p><Globe/> {recipeObject.cuisine}</p>
                 </Col>
-                <Col md={6}>
+                <Col sm={12} md={6}>
+                    <p><StopwatchFill className="pr-icon"/> {recipeObject.time_to_cook_min}</p>
+                    
+                </Col>
+                <Col sm={12} md={6}>
                     <p>{recipeObject.diet}</p>
                 </Col>
-                <Col md={6}>
-                    <p><StopwatchFill className="pr-icon"/> {recipeObject.time_to_cook_min}</p>
-                </Col>
-                <Col md={6}>
+                <Col sm={12} md={6}>
                     <p> <img src={quill} alt="author" className='pr-icon'/> {recipeObject.author}</p>
                 </Col>
             </Row>
